@@ -5,109 +5,104 @@ using namespace std;
 
 int main()
 {
-    string Rname, Rproductname, RreasonText, Rconfirmation, ROther;
-    int Rphone, RreasonChoice;
-    double Rproductprice;
+    string Refundname, Refundproduct, Refundreason, Refundconfirm, Refundother;
+    int Refundphonenum, Refundreasonchoice;
+    double Refundproductprice;
 
     cout << "Enter name :";
-    getline(cin, Rname);
+    getline(cin, Refundname);
 
     cout << "Enter phone number : ";
-    cin >> Rphone;
+    cin >> Refundphonenum;
 
     cout << "Enter name of the product you want to refund :";
     cin.ignore();
-    getline(cin, Rproductname);
+    getline(cin, Refundproduct);
 
     cout << "Enter price of product :";
-    cin >> Rproductprice;
+    cin >> Refundproductprice;
     cout << "\n";
 
     cout << "Please select a reason for the refund:" << endl;
-    cout << "1. Product is not working" << endl;
-    cout << "2. Received the wrong model or color" << endl;
-    cout << "3. Physical damage found upon opening" << endl;
-    cout << "4. Battery issue" << endl;
-    cout << "5. Item is not compatible with my device" << endl;
-    cout << "6. Other" << endl;
+    cout << "1. Product is not working." << endl;
+    cout << "2. Received the wrong model or color." << endl;
+    cout << "3. Physical damage found upon opening." << endl;
+    cout << "4. Battery issue." << endl;
+    cout << "5. Item is not compatible with my device." << endl;
+    cout << "6. Other." << endl;
     cout << "Enter the number of your reason (1-6): ";
-    cin >> RreasonChoice;
+    cin >> Refundreasonchoice;
 
     cin.ignore();
 
-    if (RreasonChoice >= 1 && RreasonChoice <= 5)
+    if (Refundreasonchoice >= 1 && Refundreasonchoice <= 5)
     {
-        switch (RreasonChoice) {
+        switch (Refundreasonchoice)
+        {
         case 1:
-            RreasonText = "Product is not working / defective";
+            Refundreason = "Product is not working.";
             break;
         case 2:
-            RreasonText = "Received the wrong model or color";
+            Refundreason = "Received the wrong model or color.";
             break;
         case 3:
-            RreasonText = "Physical damage found upon opening";
+            Refundreason = "Physical damage found upon opening.";
             break;
         case 4:
-            RreasonText = "Missing accessories (e.g. charger, cable)";
+            Refundreason = "Battery issue.";
             break;
         case 5:
-            RreasonText = "Item is not compatible with my device";
+            Refundreason = "Item is not compatible with my device.";
             break;
         }
 
-        cout << "You selected: " << RreasonText << endl;
+        cout << "You selected: " << Refundreason << endl;
         cout << "Proceeding to the next step..." << endl;
 
     }
-    else if (RreasonChoice == 6)
+    else if (Refundreasonchoice == 6)
     {
         cout << "Please describe your reason: ";
-        getline(cin, RreasonText);
+        getline(cin, Refundreason);
 
-        cout << "You entered: " << RreasonText << endl;
+        cout << "You entered: " << Refundreason << endl;
         cout << "Proceeding to the next step..." << endl;
-
     }
     else
     {
         cout << "Invalid choice. Refund process cancel." << endl;
     }
-
     cout << "\n";
     cout << "Please check your information details" << endl;
-    cout << "NAME         :" << Rname << endl;
-    cout << "PHONE NUMBER :" << Rphone << endl;
-    cout << "PRODUCT      :" << Rproductname << endl;
-    cout << "PRICE        :" << Rproductprice << endl;
-    cout << "REASON       :" << RreasonText << endl;
-    cout << "\n";
+    cout << "NAME         :" << Refundname << endl;
+    cout << "PHONE NUMBER :" << Refundphonenum << endl;
+    cout << "PRODUCT      :" << Refundproduct << endl;
+    cout << "PRICE        :RM" << fixed << setprecision(2) << Refundproductprice << endl;
+    cout << "REASON       :" << Refundreason << endl;
+    cout << "\n"; 
 
     cout << "Confirm submit request? (Y/N): ";
-    cin >> Rconfirmation;
+    cin >> Refundconfirm;
 
-    if (Rconfirmation == "Y" || Rconfirmation == "y")
+    if (Refundconfirm == "Y" || Refundconfirm == "y")
     {
         cout << "\nSubmit successful." << endl;
-
-        // Ask if they want to refund another product
         cout << "Would you like to refund another product? (Y/N): ";
-        cin >> ROther;
+        cin >> Refundother;
 
-        if (ROther == "Y" || ROther == "y")
+        if (Refundother == "Y" || Refundother == "y")
         {
-            string newProductName, newReasonText;
-            double newProductPrice;
+            string RefundNEWproduct, RefundNEWreason;
+            double RefundNEWproductprice;
 
-            // Re-enter product details
             cout << "\nEnter name of the product you want to refund: ";
             cin.ignore();
-            getline(cin, newProductName);
+            getline(cin, RefundNEWproduct);
 
             cout << "Enter price of product: ";
-            cin >> newProductPrice;
+            cin >> RefundNEWproductprice;
             cout << "\n";
 
-            // Re-enter reason for refund
             cout << "Please select a reason for the refund:" << endl;
             cout << "1. Product is not working" << endl;
             cout << "2. Received the wrong model or color" << endl;
@@ -116,35 +111,35 @@ int main()
             cout << "5. Item is not compatible with my device" << endl;
             cout << "6. Other" << endl;
             cout << "Enter the number of your reason (1-6): ";
-            cin >> RreasonChoice;
+            cin >> Refundreasonchoice;
 
             cin.ignore();
 
-            // Handle reason for refund
-            if (RreasonChoice >= 1 && RreasonChoice <= 5)
+            if (Refundreasonchoice >= 1 && Refundreasonchoice <= 5)
             {
-                switch (RreasonChoice) {
+                switch (Refundreasonchoice)
+                {
                 case 1:
-                    newReasonText = "Product is not working / defective";
+                    RefundNEWreason = "Product is not working.";
                     break;
                 case 2:
-                    newReasonText = "Received the wrong model or color";
+                    RefundNEWreason = "Received the wrong model or color.";
                     break;
                 case 3:
-                    newReasonText = "Physical damage found upon opening";
+                    RefundNEWreason = "Physical damage found upon opening.";
                     break;
                 case 4:
-                    newReasonText = "Missing accessories (e.g. charger, cable)";
+                    RefundNEWreason = "Battery issue.";
                     break;
                 case 5:
-                    newReasonText = "Item is not compatible with my device";
+                    RefundNEWreason = "Item is not compatible with my device.";
                     break;
                 }
             }
-            else if (RreasonChoice == 6)
+            else if (Refundreasonchoice == 6)
             {
                 cout << "Please describe your reason: ";
-                getline(cin, newReasonText);
+                getline(cin, RefundNEWreason);
             }
             else
             {
@@ -153,24 +148,22 @@ int main()
                 return 0;
             }
 
-            // Show new refund details
             cout << "\nPlease check your information details for the new product" << endl;
-            cout << "NAME         : " << Rname << endl;
-            cout << "PHONE NUMBER : " << Rphone << endl;
-            cout << "PRODUCT      : " << newProductName << endl;
-            cout << "PRICE        : " << newProductPrice << endl;
-            cout << "REASON       : " << newReasonText << endl;
+            cout << "NAME         : " << Refundname << endl;
+            cout << "PHONE NUMBER : " << Refundphonenum << endl;
+            cout << "PRODUCT      : " << RefundNEWproduct << endl;
+            cout << "PRICE        :RM " << fixed << setprecision(2) << RefundNEWproductprice << endl;
+            cout << "REASON       : " << RefundNEWreason << endl;
 
-            // Confirm new refund request
             cout << "\nConfirm submit new refund request? (Y/N): ";
-            cin >> Rconfirmation;
+            cin >> Refundconfirm;
 
-            if (Rconfirmation == "Y" || Rconfirmation == "y")
+            if (Refundconfirm == "Y" || Refundconfirm == "y")
             {
                 cout << "Submit successful." << endl;
                 cout << "Thank you! Have a nice day !!!" << endl;
             }
-            else if (Rconfirmation == "N" || Rconfirmation == "n")
+            else if (Refundconfirm == "N" || Refundconfirm == "n")
             {
                 cout << "Refund request cancel." << endl;
                 cout << "Back to front page." << endl;
@@ -179,24 +172,23 @@ int main()
                 cout << "Invalid input. Refund request cancel." << endl;
             }
         }
-        else if (ROther == "N" || ROther == "n")
+        else if (Refundother == "N" || Refundother == "n")
         {
-            cout << "Thank you! Have a nice day!!!" << endl;  // New message after canceling another refund
+            cout << "Thank you! Have a nice day!!!" << endl;
         }
         else {
             cout << "Invalid input. Refund request cancel." << endl;
         }
     }
-    else if (Rconfirmation == "N" || Rconfirmation == "n")
+    else if (Refundconfirm == "N" || Refundconfirm == "n")
     {
         cout << "Refund request cancel." << endl;
-        cout << "Back to front page." << endl;  // New message added
+        cout << "Back to front page." << endl;
     }
     else {
         cout << "Invalid input. Refund request cancel." << endl;
-        cout << "Back to front page." << endl;  // New message added
+        cout << "Back to front page." << endl;
     }
 
     return 0;
 }
-
