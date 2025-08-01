@@ -1,0 +1,508 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+    cout << setw(29) << "CSG Gadget Shop" << endl;
+    cout << setw(33) << "LOT 1851-A, Jalan KPB 6," << endl;
+    cout << setw(36) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
+    cout << setw(36) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
+    cout << setw(33) << "(MID VALLEY SHOPPING MALL)" << endl;
+    cout << setw(25) << "-INCOICE-" << endl;
+    cout << "+ +\n";
+    cout << setfill('*') << setw(30) << "" << endl;
+    cout << "---------Welcome to CSG Gadget Shop--------\n";
+    cout << setfill('*') << setw(30) << endl;
+    cout << setw(8) << "-Welcome to CSG Menu-" << setw(8) << endl;
+
+    cout << left << "A ORDER ENTRY" << endl << left << "B REPORTING" << endl << left << "C EXIT" << endl;
+    cout << "Enter your selection :";
+    char firstOption;
+    cin >> firstOption;
+    switch (firstOption)
+    {
+    case 'A':case 'a':
+    {
+        char subOption;
+        cout << "\nPhone accessory press\t\ta" << "\nComputer accessory press\tb" << "\nEnter your option >";
+        cin >> subOption;
+        switch (subOption) {
+        case 'A': case 'a': {
+            cout << "\nCategory of sales :" << "\nPower & Charging press\t\t'P'"
+                << "\nCables & Connectivity press\t'T'" << "\nAudio press\t\t\t'U'"
+                << "\nProtection & Holders press\t'H'" << "\nEnter your option :";
+            char secondOption;
+            cin >> secondOption;
+            switch (secondOption) {
+            case 'P': case 'p': {
+                double x = 30.99, y = 40.99, s = 31.99, t = 62.99, qty, total = 0;
+                cout << "\nPhone charger press\ta" << "\nPower abnk press\tb"
+                    << "\nEnter your option : ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nHuafei phone charger press\ta\nIFone phone charger press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nHuafei\tx1\tRM " << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nIFone\tx1\tRM " << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\n10000mAh press\ta\n20000mAh press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\n10000mAh\tx1\tRM " << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\n20000mAh\tx1\tRM " << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'T': case 't': {
+                double x = 12.99, y = 45.99, qty, total = 0;
+                cout << "\nType-C USB Cable press\t\ta" << "\nLightning Cable (iPhone) press\tb"
+                    << "\nEnter your option : ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nType-C USB Cable\tx1\tRM " << x << "\nQuantity\t> ";
+                    cin >> qty;
+                    total = qty * x;
+                    cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nLightning Cable (for iPhone)\tx1\tRM " << y << "\nQuantity\t> ";
+                    cin >> qty;
+                    total = qty * y;
+                    cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'U': case 'u': {
+                double x = 65.99, y = 88.99, z = 112.99, qty, total = 0;
+                cout << "\nTWS Earbuds press\ta" << "\nBluetooth Speaker press\tb"
+                    << "\nEnter your option : ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nTWS Earbuds\tx1\tRM " << x << "\nQuantity\t> ";
+                    cin >> qty;
+                    total = qty * x;
+                    cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nSomy SRS-XB13 press\ta\nSomy SRS-XB23 press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nSomy SRS-XB13\tx1\tRM " << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nSomy SRS-XB23 \tx1\tRM " << z << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * z;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'H': case 'h': {
+                double x = 14.99, y = 25.99, z = 27.99, qty, total = 0;
+                cout << "\nPhone case press\ta" << "\nScreen Protector press\tb"
+                    << "\nEnter your option : ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nPhone case\tx1\tRM " << x << "\nQuantity\t> ";
+                    cin >> qty;
+                    total = qty * x;
+                    cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nMatte Tempered Glass press\ta\nPrivacy Tempered Glass press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nMatte Tempered Glass\tx1\tRM " << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nPrivacy Tempered Glass \tx1\tRM " << z << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * z;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            default:
+                cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                break;
+            }
+            break;
+        }
+        case 'B': case 'b': {
+            cout << "\nCategory of sales :" << "\nInput & Audio press\t\t\t'I'"
+                << "\nStorage press\t\t\t\t'S'" << "\nConnectivity & Power press\t'N'"
+                << "\nVisual & Display press\t\t'D'" << "\nOffice & Productivity press\t'O'"
+                << "\nEnter your option :";
+            char secondOption;
+            cin >> secondOption;
+            switch (secondOption) {
+            case 'I': case 'i': {
+                double x = 49.99, y = 89.99, s = 112.99, t = 102.99, qty, total = 0;
+                cout << "\nWireless Mouse press\ta" << "\nHeadset with Mic press\tb"
+                    << "\nEnter your option : ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nLogitech Wireless Mouse press\ta\nRazer Wireless Mouse press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nLogitech Wireless Mouse\tx1\tRM " << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nRazer Wireless Mouse\tx1\tRM " << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nHyperX press\ta\nLogitech press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nHyperX\tx1\tRM " << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nLogitech\tx1\tRM " << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'S': case 's': {
+                double x = 25.99, y = 29.99, s = 169.99, t = 154.99, qty, total = 0;
+                cout << "\nUSB Flash Drive press\t\t\t\t\ta" << "\nExternal Hard Drive (Hard Disc) press\tb" << "\nEnter your option > ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nSanDisk press\ta\nKingston press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nSanDisk\tx1\t" << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nKingston\tx1\t" << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nWD 1TB press\t\ta\nSeagate 1TB press\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nWD 1TB\tx1\t" << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nSeagate 1TB\tx1\t" << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'N': case 'n': {
+                double x = 139.99, y = 125.99, s = 39.99, t = 79.99, qty, total = 0;
+                cout << "\nLaptop Charger press\ta" << "\nUSB Hub press\t\t\tb" << "\nEnter your option > ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nDell 65W Mouse press\ta\nHP 65W press\t\t\tb\nEnter your option : ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nDell 65W\tx1\t" << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nHP 65W\tx1\t" << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nUGREEN 4-port  press\ta\nAnker 4-port press\t\tb\nEnter your option > ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nUGREEN 4-port \tx1\t" << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nAnker 4-port\tx1\t" << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'D': case 'd': {
+                double x = 489.99, y = 519.99, s = 25.99, t = 19.99, qty, total = 0;
+                cout << "\nMonitor screen press\ta" << "\nHDMI Cable press\t\tb" << "\nEnter your option > ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nLG 22 inch Full HD press\ta\nDell 22inch Full HD press\tb\nEnter your option > ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nLG 22 inch Full HD\tx1\t" << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nDell 22inch Full HD\tx1\t" << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nBelkin 1.5m press\t\ta\nAmazonBasics 1.8m press\tb\nEnter your option > ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nBelkin 1.5m \tx1\t" << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nAmazonBasics 1.8m\tx1\t" << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            case 'O': case 'o': {
+                double x = 289.99, y = 299.99, s = 189.99, t = 219.99, qty, total = 0;
+                cout << "\nPrinter press\t\ta" << "\nStylus Pen press\tb" << "\nEnter your option > ";
+                char thirdOption;
+                cin >> thirdOption;
+                if (thirdOption == 'a' || thirdOption == 'A') {
+                    cout << "\nCanon Pixma press\ta\nHP DeskJet press\tb\nEnter your option > ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nCanon Pixma\tx1\t" << x << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * x;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nHP DeskJet\tx1\t" << y << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * y;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else if (thirdOption == 'b' || thirdOption == 'B') {
+                    cout << "\nApple Stylus Pen press\t\ta\nMicrosoft Stylus Pen press\tb\nEnter your option > ";
+                    char fourthOption;
+                    cin >> fourthOption;
+                    switch (fourthOption) {
+                    case 'a': case 'A':
+                        cout << "\nApple Stylus Pen\tx1\t" << s << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * s;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    case 'b': case 'B':
+                        cout << "\nMicrosoft Stylus Pen\tx1\t" << t << "\nQuantity\t> ";
+                        cin >> qty;
+                        total = qty * t;
+                        cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
+                        break;
+                    default:
+                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                        break;
+                    }
+                }
+                else {
+                    cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                }
+                break;
+            }
+            default:
+                cout << "\nInvalid code!!!\nPlease return homepage!!!";
+                break;
+            }
+            break;
+        }
+        default:
+            cout << "\nInvalid main category code!!!\nPlease return homepage!!!";
+            break;
+        }
+        break;
+    }
+    case 'b':case 'B':
+    {
+        cout << "\nPart of CHY which is reporting" << endl;
+        break;
+    }
+    case 'c':case 'C':
+    {
+        cout << "\n\nThanks for using this system!!!";
+        break;
+    }
+    default:
+    {
+        cout << "\n\nInvalid code!!!\nPlease return homepage!!!";
+        break;
+    }
+    }
+    return 0;
+}
+
