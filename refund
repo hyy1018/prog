@@ -12,7 +12,7 @@ int main()
     cout << "Enter name :";
     getline(cin, Refundname);
 
-    cout << "Enter phone number : ";
+    cout << "Enter phone number without - : ";
     cin >> Refundphonenum;
 
     cout << "Enter name of the product you want to refund :";
