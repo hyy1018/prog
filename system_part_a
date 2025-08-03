@@ -36,7 +36,7 @@ int main()
             switch (secondOption) {
             case 'P': case 'p': {
                 double x = 30.99, y = 40.99, s = 31.99, t = 62.99, qty, total = 0;
-                cout << "\nPhone charger press\ta" << "\nPower abnk press\tb"
+                cout << "\nPhone charger press\ta" << "\nPower bank press\tb"
                     << "\nEnter your option : ";
                 char thirdOption;
                 cin >> thirdOption;
