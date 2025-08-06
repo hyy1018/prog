@@ -108,7 +108,6 @@ int main()
                         cout << "Invalid choice. Returning to main menu..." << endl;
                         break;
                     }
-
                     cout << "\nPlease check your information details" << endl;
                     cout << "NAME         :" << Warrantyname << endl;
                     cout << "PHONE NUMBER :" << Warrantyphonenum << endl;
@@ -130,9 +129,10 @@ int main()
                         cout << "Returning to main menu..." << endl;
                         break;
                     }
-
                     cout << "Enter warranty expire date (date) :";
                     cin >> Warrantydate;
+
+                    cout << "-----------------------------------------------------" << endl;
 
                     switch (Warrantymonth)
                     {
@@ -180,10 +180,8 @@ int main()
                         cout << "Returning to main menu..." << endl;
                         break;
                     }
-
                     if (Warrantyyear < Currentyear || (Warrantyyear == Currentyear && Warrantymonth < Currentmonth) || (Warrantyyear == Currentyear && Warrantymonth == Currentmonth && Warrantydate < Currentdate))
                     {
-                        cout << "-----------------------------------------------------" << endl;
                         cout << "Warranty date has expired, warranty request rejected." << endl;
                         cout << "Returning to main menu..." << endl;
                         break;
@@ -198,32 +196,31 @@ int main()
                     {
                         cout << "\n" << endl;
                         cout << "Submit successful." << endl;
-                        break;
+
+                        char continueWarranty;
+                        cout << "Would you like to request another warranty? (Y/N): ";
+                        cin >> continueWarranty;
+
+                        if (continueWarranty == 'N' || continueWarranty == 'n')
+                        {
+                            cout << "Thank you! Have a nice day!!!" << endl;
+                            break; 
+                        }
                     }
                     else if (Warrantyconfirm == "N" || Warrantyconfirm == "n")
                     {
                         cout << "\n" << endl;
-                        cout << "Warranty request cancel." << endl;
+                        cout << "Warranty request canceled." << endl;
                         cout << "Returning to main menu..." << endl;
                         break;
                     }
                     else
                     {
                         cout << "\n" << endl;
-                        cout << "Invalid input. Warranty request cancel." << endl;
+                        cout << "Invalid input. Warranty request canceled." << endl;
                         cout << "Returning to main menu..." << endl;
                         break;
                     }
-                    char continueWarranty;
-                    cout << "Would you like to request another warranty? (Y/N): ";
-                    cin >> continueWarranty;
-
-                    if (continueWarranty == 'N' || continueWarranty == 'n')
-                    {
-                        cout << "Thank you! Have a nice day!!!" << endl;
-                        break;
-                    }
-
                 }
             }
             else if (report_choice == 'R' || report_choice == 'r')
@@ -255,11 +252,12 @@ int main()
                     cin >> Refundprice;
 
                     cout << "Please select a reason for refund request:" << endl;
-                    cout << "1. Dissatisfied with product." << endl;
-                    cout << "2. Wrong item delivered." << endl;
-                    cout << "3. Product not needed." << endl;
-                    cout << "4. Product damaged." << endl;
-                    cout << "5. Other." << endl;
+                    cout << "1. Product is not working." << endl;
+                    cout << "2. Received the wrong model or color." << endl;
+                    cout << "3. Physical damage found upon opening." << endl;
+                    cout << "4. Battery issue." << endl;
+                    cout << "5. Item is not compatible with my device." << endl;
+                    cout << "6. Other." << endl;
                     cout << "Enter the number of your reason (1-5): ";
                     cin >> Refundchoice;
 
@@ -270,20 +268,22 @@ int main()
                         switch (Refundchoice)
                         {
                         case 1:
-                            Refundreason = "Dissatisfied with product.";
+                            Refundreason = "Product is not working.";
                             break;
                         case 2:
-                            Refundreason = "Wrong item delivered.";
+                            Refundreason = "Received the wrong model or color.";
                             break;
                         case 3:
-                            Refundreason = "Product not needed.";
+                            Refundreason = "Physical damage found upon opening.";
                             break;
                         case 4:
-                            Refundreason = "Product damaged.";
+                            Refundreason = "Battery issue.";
                             break;
+                        case 5:
+                            Refundreason = "Item is not compatible with my device.";
                         }
                     }
-                    else if (Refundchoice == 5)
+                    else if (Refundchoice == 6)
                     {
                         cout << "Please describe your reason: ";
                         getline(cin, Refundreason);
@@ -294,6 +294,7 @@ int main()
                         break;
                     }
 
+                    cout << "-----------------------------------------------------" << endl;
                     cout << "\nPlease check your refund information details" << endl;
                     cout << "NAME         :" << Refundname << endl;
                     cout << "PHONE NUMBER :" << Refundphonenum << endl;
@@ -310,7 +311,16 @@ int main()
                     {
                         cout << "\n" << endl;
                         cout << "Refund request submitted successfully." << endl;
-                        break;
+
+                        char continueRefund;
+                        cout << "Would you like to request another refund? (Y/N): ";
+                        cin >> continueRefund;
+
+                        if (continueRefund == 'N' || continueRefund == 'n')
+                        {
+                            cout << "Bye" << endl;
+                            break; 
+                        }
                     }
                     else if (Refundconfirm == "N" || Refundconfirm == "n")
                     {
@@ -324,17 +334,6 @@ int main()
                         cout << "Invalid input. Refund request canceled." << endl;
                         break;
                     }
-
-                    char continueRefund;
-                    cout << "Would you like to request another refund? (Y/N): ";
-                    cin >> continueRefund;
-
-                    if (continueRefund == 'N' || continueRefund == 'n')
-                    {
-                        cout << "Bye" << endl;
-                        break;
-                    }
-
                 }
             }
         }
