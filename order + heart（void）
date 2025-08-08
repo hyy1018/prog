@@ -463,9 +463,12 @@ void order() {
         break;
     }
     default:
-        cout << "\nInvalid main category code!!!\nPlease return homepage!!!";
+        cout << "\nInvalid code!!!\nPlease return homepage!!!";
         break;
     }
+
+}
+
 void heart() {
     cout << "\n\nThanks for using this system!!!";
     cout << setfill(' ');
@@ -477,6 +480,7 @@ void heart() {
     cout << "\n" << setw(9) << " " << "**" << setw(6) << " " << "**";
     cout << "\n" << setw(12) << " " << "****";
     cout << "\n" << setw(13) << " " << "**";
+}
 int main()
 {
     cout << setw(29) << "CSG Gadget Shop" << endl;
@@ -485,13 +489,12 @@ int main()
     cout << setw(36) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
     cout << setw(33) << "(MID VALLEY SHOPPING MALL)" << endl;
     cout << setw(25) << "-INCOICE-" << endl;
-    cout << "+ +\n";
-    cout << setfill('*') << setw(30) << "" << endl;
-    cout << "---------Welcome to CSG Gadget Shop--------\n";
-    cout << setfill('*') << setw(30) << endl;
-    cout << setw(8) << "-Welcome to CSG Menu-" << setw(8) << endl;
+    cout << "+"<< setw(43) <<"+\n";
+    cout << setfill('*') << setw(43) << "" << endl;
+    cout << setfill('-') << setw(8) << "" <<"Welcome to CSG Gadget Shop"<< setfill('-') << setw(9) << "\n";
+    cout << setw(8) << "\n[-Welcome to CSG Menu-]" << setw(8) ;
 
-    cout << left << "A ORDER ENTRY" << endl << left << "B REPORTING" << endl << left << "C EXIT" << endl;
+    cout << "\nA ORDER ENTRY" << "\nB REPORTING" << "\nC EXIT" << endl;
     cout << "Enter your selection :";
     char firstOption;
     cin >> firstOption;
@@ -500,34 +503,23 @@ int main()
     case 'A':case 'a':
     {
         char agreement;
-        {for (order(); ; ) {
+        order();
+        while (agreement != 0) {
             cout << "\n\nDo you want to take another order? (Y/N) > ";
             cin >> agreement;
+
             if (agreement == 'Y' || agreement == 'y') {
-                order();
-                } 
-                else if (agreement == 'N' || agreement == 'n'){
-                    heart();{
-    cout << "\n\nThanks for using this system!!!";
-    cout << setfill(' ');
-    cout << "\n" << setw(6) << " " << "****" << setw(8) << " " << "****" << setw(6) << " ";
-    cout << "\n" << setw(4) << " " << "**" << setw(5) << " " << "**" << setw(2) << " " << "**" << setw(5) << " " << "**";
-    cout << "\n" << setw(3) << " " << "**" << setw(8) << " " << "**" << setw(8) << " " << "**";
-    cout << "\n" << setw(4) << " " << "**" << setw(16) << " " << "**";
-    cout << "\n" << setw(6) << " " << "**" << setw(12) << " " << "**";
-    cout << "\n" << setw(9) << " " << "**" << setw(6) << " " << "**";
-    cout << "\n" << setw(12) << " " << "****";
-    cout << "\n" << setw(13) << " " << "**";
-};
-                    break;
-                }
-                else {
-                    cout << "Invalid code!!!";
-                    }
+                   order();
             }
-        }
-        break;
-    }
+            else if (agreement == 'N' || agreement == 'n') {
+                heart();
+                break;
+            }
+            else {
+                cout << "Invalid code!!!";
+            }
+}
+        break;}
     case 'b':case 'B':
     {
         refund();
