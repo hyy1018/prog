@@ -1,0 +1,71 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+double calculateTotal(double subtotal, double discount, double serviceChargeRate, double tax) {
+    double serviceCharge = subtotal * serviceChargeRate;
+    return subtotal - discount + serviceCharge + tax;
+}
+
+int main() {
+    double x = 30.99, y = 2.99, s = 31.99, t = 62.99;
+    double price = 0, subtotal = 0, discount = 9.99, serviceChargeRate = 0.04, tax = 9.99, totalPayable = 0;
+    int qty;
+    char fourthOption;
+    string itemName;
+
+    cout << "Select item (A) Huafei | (B) IFone: ";
+    cin >> fourthOption;
+
+    switch (fourthOption) {
+    case 'a': case 'A':
+        itemName = "Huafei";
+        price = x;
+        break;
+    case 'b': case 'B':
+        itemName = "IFone";
+        price = y;
+        break;
+    default:
+        cout << "\nInvalid code!!!\nPlease return homepage!!!\n";
+        return 0;
+    }
+
+    cout << "\n" << itemName << " x1 RM " << fixed << setprecision(2) << price << "\nQuantity > ";
+    cin >> qty;
+
+    subtotal = price * qty;
+    double serviceCharge = subtotal * serviceChargeRate;
+    totalPayable = subtotal - discount + serviceCharge + tax;
+
+	//Invoice Output
+	cout << "Invoice:\n";
+	cout << "+-------------------------------------------+\n";
+	cout << "|              CSG Gadget Shop              |\n";
+	cout << "|          =======================          |\n";
+	cout << "|              Tel: 06-12345678             |\n";
+    cout << "|                                           |\n";
+    cout << "|" << left << setw(35) << "Invoice No: 1" << "2/8/2025|\n" 
+         << "|1." << itemName << " x" << qty;
+    
+    //spacing fix
+    if (itemName.length() < 20)
+        cout << right << "\t\t\tRM" << fixed << setprecision(2) << subtotal << "\t|\n";
+    else
+    {
+        cout << right << "\t\t|";
+        cout << left << "\n\t\tRM" << fixed << setprecision(2) << subtotal << "\t|\n";
+    }
+    cout << "|                                           |\n";
+	cout << "| ---------------------------------------   |\n";
+    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Subtotal" << "RM " << subtotal << "|\n";
+    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Discount" << "RM " << discount << "|\n";
+    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Service Charge (4%)" << "RM " << subtotal << "|\n";
+    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Tax" << "RM " << tax << "|\n";
+    cout << "| ---------------------------------------   |\n";
+    cout << "|Total items: " << qty << "                             |\n";
+	cout <<left<<setw(37) << "|Total Payable:" << fixed << setprecision(2) << "RM " << totalPayable << "|\n";
+	cout << "+-------------------------------------------+";
+
+    return 0;
+}
