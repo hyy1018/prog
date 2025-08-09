@@ -40,32 +40,66 @@ int main() {
 
 	//Invoice Output
 	cout << "Invoice:\n";
-	cout << "+-------------------------------------------+\n";
-	cout << "|              CSG Gadget Shop              |\n";
-	cout << "|          =======================          |\n";
-	cout << "|              Tel: 06-12345678             |\n";
-    cout << "|                                           |\n";
-    cout << "|" << left << setw(35) << "Invoice No: 1" << "2/8/2025|\n" 
-         << "|1." << itemName << " x" << qty;
+	cout << "+---------------------------------------------+\n";
+	cout << "               CSG Gadget Shop                 \n";
+	cout << "           =======================             \n";
+	cout << "               Tel: 06-12345678                \n";
+    cout << "                                               \n";
+    cout << right << setw(46) << "2/8/2025\n" 
+         << "1." << itemName << " x" << qty;
     
     //spacing fix
     if (itemName.length() < 20)
-        cout << right << "\t\t\tRM" << fixed << setprecision(2) << subtotal << "\t|\n";
+        cout << right << "\t\t\tRM" << fixed << setprecision(2) << subtotal << "\n";
     else
     {
-        cout << right << "\t\t|";
-        cout << left << "\n\t\tRM" << fixed << setprecision(2) << subtotal << "\t|\n";
+        cout << right << "\t\t";
+        cout << left << "\n\t\tRM" << fixed << setprecision(2) << subtotal << "\n";
     }
-    cout << "|                                           |\n";
-	cout << "| ---------------------------------------   |\n";
-    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Subtotal" << "RM " << subtotal << "|\n";
-    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Discount" << "RM " << discount << "|\n";
-    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Service Charge (4%)" << "RM " << subtotal << "|\n";
-    cout << "|" << left << setw(36) << fixed << setprecision(2) << "Tax" << "RM " << tax << "|\n";
-    cout << "| ---------------------------------------   |\n";
-    cout << "|Total items: " << qty << "                             |\n";
-	cout <<left<<setw(37) << "|Total Payable:" << fixed << setprecision(2) << "RM " << totalPayable << "|\n";
-	cout << "+-------------------------------------------+";
+    cout << "                                             \n";
+	cout << " ------------------------------------------   \n";
+    cout << left << setw(36) << fixed << setprecision(2) << "Subtotal" << "RM " << subtotal << "\n";
+    cout << left << setw(36) << fixed << setprecision(2) << "Discount" << "RM " << discount << "\n";
+    cout << left << setw(36) << fixed << setprecision(2) << "Service Charge (4%)" << "RM " << subtotal << "\n";
+    cout << left << setw(36) << fixed << setprecision(2) << "Tax" << "RM " << tax << "|\n";
+    cout << " ------------------------------------------   \n";
+    cout << "Total items: " << qty << "                             \n";
+	cout <<left<<setw(36) << "Total Payable:" << fixed << setprecision(2) << "RM " << totalPayable << "\n";
+	cout << "+---------------------------------------------+";
+
+    
+    char paymentMethod;
+    cout << "\n\nSelect payment method(W = e-Wallet, R = Credit card, D = Debit card, C = Cash):\n";
+    cin >> paymentMethod;
+
+    switch (paymentMethod) {
+        case 'W':
+        case 'w':
+            cout << "Payment method: e-Wallet\n";
+			break;
+        case 'R':
+        case 'r':
+            cout << "Payment method: Credit card\n";
+            break;
+		case 'D':
+		case 'd':
+			cout << "Payment method: Debit card\n";
+            break;
+        case'C':
+        case'c':
+            cout << "Payment method: Cash\n";
+            break;
+        default:
+            cout << "Invalid payment method!!!\n";
+            break;
+    }
+    cout << "Payment amount: RM " << totalPayable << "\n\n";
+    cout << "Thank you for your purchase!\n";
+	cout << "-------------------------------------------\n";
+
+    //Receipt Output
+
+
 
     return 0;
 }
