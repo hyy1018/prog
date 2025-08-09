@@ -1,3 +1,5 @@
+//正式order + report + heart part
+
 #include<iostream>
 #include<iomanip>
 #include<string>
@@ -5,24 +7,30 @@ using namespace std;
 
 void order() {
     char subOption;
-    cout << "\nPhone accessory press\t\ta" << "\nComputer accessory press\tb" << "\nEnter your option >";
+    cout << "\nPhone accessory    press\ta" 
+         << "\nComputer accessory press\tb" << "\nEnter your option :";
     cin >> subOption;
     switch (subOption) {
     case 'A': case 'a': {
-        cout << "\nCategory of sales :" << "\nPower & Charging press\t\t'P'"
-            << "\nCables & Connectivity press\t'T'" << "\nAudio press\t\t\t'U'"
-            << "\nProtection & Holders press\t'H'" << "\nEnter your option :";
+        cout << "\nCategory of sales :" 
+             << "\nPower & Charging      press\t'P'"
+             << "\nCables & Connectivity press\t'T'" 
+             << "\nAudio                 press\t'U'"
+             << "\nProtection & Holders  press\t'H'" << "\nEnter your option :";
         char secondOption;
         cin >> secondOption;
         switch (secondOption) {
         case 'P': case 'p': {
             double x = 30.99, y = 40.99, s = 31.99, t = 62.99, qty, total = 0;
-            cout << "\nPhone charger press\ta" << "\nPower abnk press\tb"
+            cout << "\nPhone charger press\ta" 
+                 << "\nPower bank press\tb"
                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
-                cout << "\nHuafei phone charger press\ta\nIFone phone charger press\tb\nEnter your option : ";
+                cout << "\nHuafei phone charger press\ta"
+                     << "\nIFone phone charger  press\tb"
+                     << "Enter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -44,7 +52,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\n10000mAh press\ta\n20000mAh press\tb\nEnter your option : ";
+                cout << "\n10000mAh press\ta"
+                     << "\n20000mAh press\tb"
+                     << "Enter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -72,8 +82,9 @@ void order() {
         }
         case 'T': case 't': {
             double x = 12.99, y = 45.99, qty, total = 0;
-            cout << "\nType-C USB Cable press\t\ta" << "\nLightning Cable (iPhone) press\tb"
-                << "\nEnter your option : ";
+            cout << "\nType-C USB Cable press\ta"
+                 << "\nLightning  Cable press\tb"
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
@@ -83,7 +94,7 @@ void order() {
                 cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nLightning Cable (for iPhone)\tx1\tRM " << y << "\nQuantity\t> ";
+                cout << "\nLightning Cable\tx1\tRM " << y << "\nQuantity\t> ";
                 cin >> qty;
                 total = qty * y;
                 cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
@@ -95,8 +106,9 @@ void order() {
         }
         case 'U': case 'u': {
             double x = 65.99, y = 88.99, z = 112.99, qty, total = 0;
-            cout << "\nTWS Earbuds press\ta" << "\nBluetooth Speaker press\tb"
-                << "\nEnter your option : ";
+            cout << "\nTWS Earbuds       press a" 
+                 << "\nBluetooth Speaker press b"
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
@@ -106,7 +118,9 @@ void order() {
                 cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nSomy SRS-XB13 press\ta\nSomy SRS-XB23 press\tb\nEnter your option : ";
+                cout << "\nSomy SRS-XB13 press\ta"
+                     << "\nSomy SRS-XB23 press\tb"
+                     << "Enter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -134,8 +148,9 @@ void order() {
         }
         case 'H': case 'h': {
             double x = 14.99, y = 25.99, z = 27.99, qty, total = 0;
-            cout << "\nPhone case press\ta" << "\nScreen Protector press\tb"
-                << "\nEnter your option : ";
+            cout << "\nPhone case       press\ta" 
+                 << "\nScreen Protector press\tb"
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
@@ -145,7 +160,9 @@ void order() {
                 cout << "\nQty(s)\t:\t\t" << qty << "\nTotal\t:\tRM " << total << "\nCash\t:\tRM " << total;
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nMatte Tempered Glass press\ta\nPrivacy Tempered Glass press\tb\nEnter your option : ";
+                cout << "\nMatte Tempered Glass   press\ta"
+                     << "\nPrivacy Tempered Glass press\tb"
+                     << "Enter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -178,21 +195,27 @@ void order() {
         break;
     }
     case 'B': case 'b': {
-        cout << "\nCategory of sales :" << "\nInput & Audio press\t\t\t'I'"
-            << "\nStorage press\t\t\t\t'S'" << "\nConnectivity & Power press\t'N'"
-            << "\nVisual & Display press\t\t'D'" << "\nOffice & Productivity press\t'O'"
-            << "\nEnter your option :";
+        cout << "\nCategory of sales :" 
+             << "\nInput & Audio         press\t'I'"
+             << "\nStorage               press\t'S'" 
+             << "\nConnectivity & Power  press\t'N'"
+             << "\nVisual & Display      press\t'D'" 
+             << "\nOffice & Productivity press\t'O'"
+             << "\nEnter your option :";
         char secondOption;
         cin >> secondOption;
         switch (secondOption) {
         case 'I': case 'i': {
             double x = 49.99, y = 89.99, s = 112.99, t = 102.99, qty, total = 0;
-            cout << "\nWireless Mouse press\ta" << "\nHeadset with Mic press\tb"
-                << "\nEnter your option : ";
+            cout << "\nWireless Mouse   press\ta" 
+                 << "\nHeadset with Mic press\tb"
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
-                cout << "\nLogitech Wireless Mouse press\ta\nRazer Wireless Mouse press\tb\nEnter your option : ";
+                cout << "\nLogitech Wireless Mouse press\ta" 
+                     << "\nRazer Wireless Mouse    press\tb"
+                     << "\nEnter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -214,7 +237,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nHyperX press\ta\nLogitech press\tb\nEnter your option : ";
+                cout << "\nHyperX   press\ta"
+                     << "\nLogitech press\tb"
+                     << "\nEnter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -242,11 +267,15 @@ void order() {
         }
         case 'S': case 's': {
             double x = 25.99, y = 29.99, s = 169.99, t = 154.99, qty, total = 0;
-            cout << "\nUSB Flash Drive press\t\t\t\t\ta" << "\nExternal Hard Drive (Hard Disc) press\tb" << "\nEnter your option > ";
+            cout << "\nUSB Flash Drive                 press\ta" 
+                 << "\nExternal Hard Drive (Hard Disc) press\tb" 
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
-                cout << "\nSanDisk press\ta\nKingston press\tb\nEnter your option : ";
+                cout << "\nSanDisk  press\ta"
+                     << "\nKingston press\tb"
+                     << "\nEnter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -268,7 +297,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nWD 1TB press\t\ta\nSeagate 1TB press\tb\nEnter your option : ";
+                cout << "\nWD 1TB      press\ta"
+                     << "\nSeagate 1TB press\tb" 
+                     << "\nEnter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -322,7 +353,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nUGREEN 4-port  press\ta\nAnker 4-port press\t\tb\nEnter your option > ";
+                cout << "\nUGREEN 4-port  press\ta"
+                     << "\nAnker 4-port press\t\tb"
+                     << "\nEnter your option > ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -350,11 +383,15 @@ void order() {
         }
         case 'D': case 'd': {
             double x = 489.99, y = 519.99, s = 25.99, t = 19.99, qty, total = 0;
-            cout << "\nMonitor screen press\ta" << "\nHDMI Cable press\t\tb" << "\nEnter your option > ";
+            cout << "\nMonitor screen press\ta" 
+                 << "\nHDMI Cable     press\tb" 
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
-                cout << "\nLG 22 inch Full HD press\ta\nDell 22inch Full HD press\tb\nEnter your option > ";
+                cout << "\nLG 22 inch Full HD  press\ta"
+                     << "\nDell 22inch Full HD press\tb"
+                     << "\nEnter your option > ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -376,7 +413,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nBelkin 1.5m press\t\ta\nAmazonBasics 1.8m press\tb\nEnter your option > ";
+                cout << "\nBelkin 1.5m       press\ta"
+                     << "\nAmazonBasics 1.8m press\tb"
+                     << "\nEnter your option : ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -404,11 +443,15 @@ void order() {
         }
         case 'O': case 'o': {
             double x = 289.99, y = 299.99, s = 189.99, t = 219.99, qty, total = 0;
-            cout << "\nPrinter press\t\ta" << "\nStylus Pen press\tb" << "\nEnter your option > ";
+            cout << "\nPrinter    press\ta" 
+                 << "\nStylus Pen press\tb" 
+                 << "\nEnter your option : ";
             char thirdOption;
             cin >> thirdOption;
             if (thirdOption == 'a' || thirdOption == 'A') {
-                cout << "\nCanon Pixma press\ta\nHP DeskJet press\tb\nEnter your option > ";
+                cout << "\nCanon Pixma press\ta"
+                     << "\nHP DeskJet  press\tb"
+                     << "\nEnter your option > ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -430,7 +473,9 @@ void order() {
                 }
             }
             else if (thirdOption == 'b' || thirdOption == 'B') {
-                cout << "\nApple Stylus Pen press\t\ta\nMicrosoft Stylus Pen press\tb\nEnter your option > ";
+                cout << "\nApple Stylus Pen     press\ta"
+                     << "\nMicrosoft Stylus Pen press\tb"
+                     << "\nEnter your option > ";
                 char fourthOption;
                 cin >> fourthOption;
                 switch (fourthOption) {
@@ -468,7 +513,194 @@ void order() {
     }
 
 }
+void refund() {
+    {
+        string Refundname, Refundproduct, Refundreason, Refundconfirm, Refundother;
+        int Refundphonenum, Refundreasonchoice;
+        double Refundproductprice;
 
+        cout << "Enter name: ";
+        cin.ignore();
+        getline(cin, Refundname);
+
+        cout << "Enter phone number : ";
+        cin >> Refundphonenum;
+
+        cout << "Enter name of the product you want to refund :";
+        cin.ignore();
+        getline(cin, Refundproduct);
+
+        cout << "Enter price of product :";
+        cin >> Refundproductprice;
+        cout << "\n";
+
+        cout << "Please select a reason for the refund:" << endl;
+        cout << "1. Product is not working." << endl;
+        cout << "2. Received the wrong model or color." << endl;
+        cout << "3. Physical damage found upon opening." << endl;
+        cout << "4. Battery issue." << endl;
+        cout << "5. Item is not compatible with my device." << endl;
+        cout << "6. Other." << endl;
+        cout << "Enter the number of your reason (1-6): ";
+        cin >> Refundreasonchoice;
+
+        cin.ignore();
+
+        if (Refundreasonchoice >= 1 && Refundreasonchoice <= 5)
+        {
+            switch (Refundreasonchoice)
+            {
+            case 1:
+                Refundreason = "Product is not working.";
+                break;
+            case 2:
+                Refundreason = "Received the wrong model or color.";
+                break;
+            case 3:
+                Refundreason = "Physical damage found upon opening.";
+                break;
+            case 4:
+                Refundreason = "Battery issue.";
+                break;
+            case 5:
+                Refundreason = "Item is not compatible with my device.";
+                break;
+            }
+
+            cout << "You selected: " << Refundreason << endl;
+            cout << "Proceeding to the next step..." << endl;
+
+        }
+        else if (Refundreasonchoice == 6)
+        {
+            cout << "Please describe your reason: ";
+            getline(cin, Refundreason);
+
+            cout << "You entered: " << Refundreason << endl;
+            cout << "Proceeding to the next step..." << endl;
+        }
+        else
+        {
+            cout << "Invalid choice. Refund process cancel." << endl;
+        }
+        cout << "\n";
+        cout << "Please check your information details" << endl;
+        cout << "NAME         :" << Refundname << endl;
+        cout << "PHONE NUMBER :" << Refundphonenum << endl;
+        cout << "PRODUCT      :" << Refundproduct << endl;
+        cout << "PRICE        :RM" << fixed << setprecision(2) << Refundproductprice << endl;
+        cout << "REASON       :" << Refundreason << endl;
+        cout << "\n";
+
+        cout << "Confirm submit request? (Y/N): ";
+        cin >> Refundconfirm;
+
+        if (Refundconfirm == "Y" || Refundconfirm == "y")
+        {
+            cout << "\nSubmit successful." << endl;
+            cout << "Would you like to refund another product? (Y/N): ";
+            cin >> Refundother;
+
+            if (Refundother == "Y" || Refundother == "y")
+            {
+                string RefundNEWproduct, RefundNEWreason;
+                double RefundNEWproductprice;
+
+                cout << "\nEnter name of the product you want to refund: ";
+                cin.ignore();
+                getline(cin, RefundNEWproduct);
+
+                cout << "Enter price of product: ";
+                cin >> RefundNEWproductprice;
+                cout << "\n";
+
+                cout << "Please select a reason for the refund:" << endl;
+                cout << "1. Product is not working" << endl;
+                cout << "2. Received the wrong model or color" << endl;
+                cout << "3. Physical damage found upon opening" << endl;
+                cout << "4. Battery issue" << endl;
+                cout << "5. Item is not compatible with my device" << endl;
+                cout << "6. Other" << endl;
+                cout << "Enter the number of your reason (1-6): ";
+                cin >> Refundreasonchoice;
+
+                cin.ignore();
+
+                if (Refundreasonchoice >= 1 && Refundreasonchoice <= 5)
+                {
+                    switch (Refundreasonchoice)
+                    {
+                    case 1:
+                        RefundNEWreason = "Product is not working.";
+                        break;
+                    case 2:
+                        RefundNEWreason = "Received the wrong model or color.";
+                        break;
+                    case 3:
+                        RefundNEWreason = "Physical damage found upon opening.";
+                        break;
+                    case 4:
+                        RefundNEWreason = "Battery issue.";
+                        break;
+                    case 5:
+                        RefundNEWreason = "Item is not compatible with my device.";
+                        break;
+                    }
+                }
+                else if (Refundreasonchoice == 6)
+                {
+                    cout << "Please describe your reason: ";
+                    getline(cin, RefundNEWreason);
+                }
+                else
+                {
+                    cout << "Invalid choice. Refund process cancel." << endl;
+                    cout << "Back to front page." << endl;
+                }
+
+                cout << "\nPlease check your information details for the new product" << endl;
+                cout << "NAME         : " << Refundname << endl;
+                cout << "PHONE NUMBER : " << Refundphonenum << endl;
+                cout << "PRODUCT      : " << RefundNEWproduct << endl;
+                cout << "PRICE        :RM " << fixed << setprecision(2) << RefundNEWproductprice << endl;
+                cout << "REASON       : " << RefundNEWreason << endl;
+
+                cout << "\nConfirm submit new refund request? (Y/N): ";
+                cin >> Refundconfirm;
+
+                if (Refundconfirm == "Y" || Refundconfirm == "y")
+                {
+                    cout << "Submit successful." << endl;
+                    cout << "Thank you! Have a nice day !!!" << endl;
+                }
+                else if (Refundconfirm == "N" || Refundconfirm == "n")
+                {
+                    cout << "Refund request cancel." << endl;
+                    cout << "Back to front page." << endl;
+                }
+                else {
+                    cout << "Invalid input. Refund request cancel." << endl;
+                }
+            }
+            else if (Refundother == "N" || Refundother == "n")
+            {
+                cout << "Thank you! Have a nice day!!!" << endl;
+            }
+            else {
+                cout << "Invalid input. Refund request cancel." << endl;
+            }
+        }
+        else if (Refundconfirm == "N" || Refundconfirm == "n")
+        {
+            cout << "Refund request cancel." << endl;
+            cout << "Back to front page." << endl;
+        }
+        else {
+            cout << "Invalid input. Refund request cancel." << endl;
+            cout << "Back to front page." << endl;
+        }
+    }
+}
 void heart() {
     cout << "\n\nThanks for using this system!!!";
     cout << setfill(' ');
@@ -481,21 +713,8 @@ void heart() {
     cout << "\n" << setw(12) << " " << "****";
     cout << "\n" << setw(13) << " " << "**";
 }
-int main()
+void firstOption()
 {
-    cout << setw(29) << "CSG Gadget Shop" << endl;
-    cout << setw(33) << "LOT 1851-A, Jalan KPB 6," << endl;
-    cout << setw(36) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
-    cout << setw(36) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
-    cout << setw(33) << "(MID VALLEY SHOPPING MALL)" << endl;
-    cout << setw(25) << "-INCOICE-" << endl;
-    cout << "+"<< setw(43) <<"+\n";
-    cout << setfill('*') << setw(43) << "" << endl;
-    cout << setfill('-') << setw(8) << "" <<"Welcome to CSG Gadget Shop"<< setfill('-') << setw(9) << "\n";
-    cout << setw(8) << "\n[-Welcome to CSG Menu-]" << setw(8) ;
-
-    cout << "\nA ORDER ENTRY" << "\nB REPORTING" << "\nC EXIT" << endl;
-    cout << "Enter your selection :";
     char firstOption;
     cin >> firstOption;
     switch (firstOption)
@@ -509,7 +728,7 @@ int main()
             cin >> agreement;
 
             if (agreement == 'Y' || agreement == 'y') {
-                   order();
+                order();
             }
             else if (agreement == 'N' || agreement == 'n') {
                 heart();
@@ -518,8 +737,9 @@ int main()
             else {
                 cout << "Invalid code!!!";
             }
-}
-        break;}
+        }
+        break;
+    }
     case 'b':case 'B':
     {
         refund();
@@ -536,6 +756,26 @@ int main()
         break;
     }
     }
+}
+int main()
+{
+    cout << setw(29) << "CSG Gadget Shop" << endl;
+    cout << setw(33) << "LOT 1851-A, Jalan KPB 6," << endl;
+    cout << setw(36) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
+    cout << setw(36) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
+    cout << setw(33) << "(MID VALLEY SHOPPING MALL)" << endl;
+    cout << setw(25) << "-INCOICE-" << endl;
+    cout << "+" << setw(43) << "+\n";
+    cout << setfill('*') << setw(43) << "" << endl;
+    cout << setfill('-') << setw(8) << "" 
+        << "Welcome to CSG Gadget Shop" 
+        << setfill('-') << setw(9) << "\n";
+    cout << setw(8) << "\n[-Welcome to CSG Menu-]" << setw(8);
+
+    cout << "\nA ORDER ENTRY" << "\nB REPORTING" << "\nC EXIT" << endl;
+    cout << "Enter your selection :";
+    firstOption();
+
     return 0;
 }
 
