@@ -1,730 +1,877 @@
-这个coding很乱 里面的东西我会排过 看重点就可以了
-//#include<iostream>
-//#include<iomanip>
-//#include<string>
-//using namespace std;
-//
-//void menu()
-//{
-//    char accessory, addon;
-//    cout << "Welcome to CSG Gadget Shop menu!!!" << endl;
-//    do
-//    {
-//        cout << "Please choose an accessory that you prefered." << endl;
-//        cout << "\n" << endl;
-//        cout << "Phone accessory      press   'a'" << endl;
-//        cout << "Computer accessory   press   'b'" << endl;
-//        cout << "\n" << endl;
-//        cout << "Enter your option :";
-//
-//        cin >> accessory;
-//
-//        switch (accessory)  // PHONE / COMPUTER
-//        {
-//        case 'A': case 'a':
-//        {
-//            cout << "Category of sales :" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Power & Charging       press 'a'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Cables & Connectivity  press 'b'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Audio                  press 'c'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Enter your option :";
-//
-//            char category1;
-//            cin >> category1;
-//
-//            switch (category1)
-//            {
-//            case 'a': case 'A':   // POWER & CHARGING
-//            {
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "Adapter press a" << endl;
-//                cout << "Power bank press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//
-//                char itemchoice;
-//                cin >> itemchoice;
-//
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEtraveladapter = 65.99, PRICEplugadapter = 25.99;
-//                    cout << "----------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Universal Travel Adapter RM" << PRICEtraveladapter << endl;
-//                    cout << "Pros: Device work on 100+ countires." << endl;
-//                    cout << "      Multiple USB ports - caherge multiple device at once." << endl;
-//                    cout << "Cons: Heavier than single plug adapter." << endl;
-//                    cout << "      Higher price point." << endl;
-//                    cout << "-----------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI Plug Adapter  RM" << PRICEplugadapter << endl;
-//                    cout << "Pros: Lightweight and fits easily in your pocket." << endl;
-//                    cout << "      Get one for each destination with lower price." << endl;
-//                    cout << "Cons: Works only in one plug type." << endl;
-//                    cout << "      No USB ports - you have to seperate charge your device." << endl;
-//                    cout << "------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOMI Universal Travel Adapter RM " << PRICEtraveladapter << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEtraveladapter;
-//                        cout << "XIAOMI Universal Travel Adapter x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOMI Plug Adapter RM " << PRICEplugadapter << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEplugadapter;
-//                        cout << "XIAOMI Plug Adapter x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICEhighpowerbank = 150.99, PRICEportablepowerbank = 70.99;
-//                    cout << "------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI High Capacity Powerbank RM" << PRICEhighpowerbank << endl;
-//                    cout << "Pros: Large capacity suitable for long trips." << endl;
-//                    cout << "      Multiple devices charging at once." << endl;
-//                    cout << "Cons: Large size and weight, less portable." << endl;
-//                    cout << "      Longer charging time, takes more time to recharge." << endl;
-//                    cout << "-------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI Portable Powerbank RM" << PRICEportablepowerbank << endl;
-//                    cout << "Pros: Light and compact, easy to handleas and carry out." << endl;
-//                    cout << "      Fast charging with quicker recharge times." << endl;
-//                    cout << "Cons: Smaller capacity, provides limited cahrges." << endl;
-//                    cout << "      Required frequent recharging when long trips." << endl;
-//                    cout << "--------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOMI High Capacity Powerbank RM " << PRICEhighpowerbank << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEhighpowerbank;
-//                        cout << "XIAOMI High Capacity Powerbank x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOMI Portable Powerbank RM " << PRICEportablepowerbank << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEportablepowerbank;
-//                        cout << "XIAOMI Portable Powerbank x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//            case 'B': case 'b': // CABLE & CONNECTIVITY
-//            {
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "USB-C cable      press a" << endl;
-//                cout << "Lightning cable  press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//                char itemchoice;
-//                cin >> itemchoice;
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEfastchargeusbc = 50.99, PRICEnormalusbc = 25.99, total = 0;
-//                    int qty;
-//
-//                    cout << "------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Fast Charge USB-C Cable RM" << PRICEfastchargeusbc << endl;
-//                    cout << "Pros: Reversible plug, easy to use." << endl;
-//                    cout << "      Fast date transfer and charging." << endl;
-//                    cout << "Cons: Requires compatible devices to support fast charging." << endl;
-//                    cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
-//                    cout << "-------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI Normal USB-C Cable RM" << PRICEnormalusbc << endl;
-//                    cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
-//                    cout << "      More affordable, offering great value for basic charging." << endl;
-//                    cout << "Cons: Limited to standard cahrging." << endl;
-//                    cout << "      May not support higher power output for power-hungry devices." << endl;
-//                    cout << "--------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOMI Fast Charge USB-C Cable RM " << PRICEfastchargeusbc << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEfastchargeusbc;
-//                        cout << "XIAOMI Fast Charge USB-C Cable x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "APPLE Lightning Cable RM " << PRICEnormalusbc << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEnormalusbc;
-//                        cout << "APPLE Lightning Cable x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICEfastlightning = 60.99, PRICEnormallightning = 30.99;
-//                    cout << "------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Fast Charge Lightning Cable RM" << PRICEfastlightning << endl;
-//                    cout << "Pros: Support fast charging with USB PD." << endl;
-//                    cout << "      Efficient charging, can charge up 50% in about 30 minutes." << endl;
-//                    cout << "Cons: May cause battery damage." << endl;
-//                    cout << "      More expensive than normal Lightning cable." << endl;
-//                    cout << "-------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI Normal Lightning Cable RM" << PRICEnormallightning << endl;
-//                    cout << "Pros: Protect battery well, won't be damage to battery." << endl;
-//                    cout << "      Affordable, offering great value for basic charging and syncing needs." << endl;
-//                    cout << "Cons: Slower charging speed compared to fast charge cables." << endl;
-//                    cout << "      Do not support fast charging for iPhone." << endl;
-//                    cout << "--------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//                    //
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOMI Fast Charge Lightning Cable RM " << PRICEfastlightning << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEfastlightning;
-//                        cout << "XIAOMI Fast Charge Lightning x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOMI Normal Lightning Cable RM " << PRICEnormallightning << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEnormallightning;
-//                        cout << "XIAOMI Normal Lightning Cable x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//            case 'C': case 'c':// AUDIO
-//            {
-//
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "Bluetooth Earbud     press a" << endl;
-//                cout << "Wired Earbud         press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//
-//                char itemchoice;
-//                cin >> itemchoice;
-//
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEtws = 30.99, PRICEneckband = 50.99, total = 0;
-//                    int qty;
-//                    cout << "----------------------------------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI TWS (True Wireless Stereo) Bluetooth Earbuds RM" << PRICEtws << endl;
-//                    cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-//                    cout << "      Small and lightweight, easy handle and carry out." << endl;
-//                    cout << "Cons: Due to small size, esaily misplaced." << endl;
-//                    cout << "      Limited battery life, needs to be charged regularly." << endl;
-//                    cout << "----------------------------------------------------------------------------------" << endl;
-//                    cout << "B. XIAOAMI Neckband Bluetooth Earphonesyi RM" << PRICEneckband << endl;
-//                    cout << "Pros: Stable fit, suitable for sports and active use." << endl;
-//                    cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
-//                    cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
-//                    cout << "      More heavier, user might feel cumbersome during extended use." << endl;
-//                    cout << "Enter your option:";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOAMI TWS (True Wireless Stereo) Bluetooth Earbuds RM " << PRICEtws << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEtws;
-//                        cout << "XIAOMI Fast Charge USB-C Cable x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "APPLE Lightning Cable RM " << PRICEneckband << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEneckband;
-//                        cout << "APPLE Lightning Cable x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICEoverear = 80.99, PRICEinear = 30.99;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Over-Ear Headphones RM" << PRICEoverear << endl;
-//                    cout << "Pros: Better sound quality especially in terms of bass and immersive audio experience." << endl;
-//                    cout << "      Excellent noise isolation, ideal for focused listening." << endl;
-//                    cout << "Cons: Heavy and not suitable for active movements." << endl;
-//                    cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI In-Ear Headphones RM" << PRICEinear << endl;
-//                    cout << "Pros: Small size and easy carry around." << endl;
-//                    cout << "      Perfect for exercise such as running and cycling." << endl;
-//                    cout << "Cons: Sound quality is not as rich." << endl;
-//                    cout << "      Less noise isolation ." << endl;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOAMI Over-Ear Headphones RM " << PRICEoverear << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEoverear;
-//                        cout << "XIAOAMI Over-Ear Headphones x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOAMI In-Ear Headphones RM " << PRICEinear << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEinear;
-//                        cout << "XIAOAMI In-Ear Headphones x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//
-//
-//            }
-//            break;
-//        }
-//        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//        case 'B': case 'b':
-//        {
-//            cout << "Category of sales :" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Audio & Microphone       press 'a'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Storage                  press 'b'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Connectivity & Power     press 'c'" << endl;
-//            cout << "-----------------------------------" << endl;
-//            cout << "Enter your option :";
-//
-//            char category2;
-//            cin >> category2;
-//
-//            switch (category2)
-//            {
-//            case 'a': case 'A':   // CONNECTIVITY & POWER
-//            {
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "Laptop Chaarger press a" << endl;
-//                cout << "USB Hub         press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//
-//                char itemchoice;
-//                cin >> itemchoice;
-//
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEdell = 189.99, PRICEhp = 159.99;
-//                    cout << "------------------------------------------------------------------------" << endl;
-//                    cout << "A. Dell 65W Laptop Charger RM" << PRICEdell << endl;
-//                    cout << "Pros: Reliable Brand, many users have high trust quality of DELL." << endl;
-//                    cout << "      Stable charging, less risk of overheating and extend battery life." << endl;
-//                    cout << "Cons: Higher price compared to third-party alternatives." << endl;
-//                    cout << "      Not compatible with other brands." << endl;
-//                    cout << "-------------------------------------------------------------------------" << endl;
-//                    cout << "B. HP 65W Laptop Charger  RM" << PRICEhp << endl;
-//                    cout << "Pros: Higher compatibility with many HP laptop models." << endl;
-//                    cout << "      Portable, lightweight and easy carry to somewhere." << endl;
-//                    cout << "Cons: Slower charging speed while 65W is sufficient for most regular task." << endl;
-//                    cout << "      Brand-Specific compatibility, charger is limited to HP laptops." << endl;
-//                    cout << "--------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "Dell 65W Laptop Charger RM " << PRICEdell << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEdell;
-//                        cout << "DELL 65W Laptop Charger x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "HP 65W Laptop Charger RM " << PRICEhp << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEhp;
-//                        cout << "HP 65W Laptop Charger x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICEugreen = 70.99, PRICEanker = 140.99;
-//                    cout << "--------------------------------------------------------------------------------------------------------" << endl;
-//                    cout << "A. Ugreen 4-Port USB Hub RM" << PRICEugreen << endl;
-//                    cout << "Pros: High Speed transfer, offers data transfer speed up to 5Gbps." << endl;
-//                    cout << "      No external power required, powered by computer's USB port only." << endl;
-//                    cout << "Cons: Limited Ports, 4 ports may not sufficient for who need connect many devices" << endl;
-//                    cout << "      Basic use, may have limitation if user need connect high-power devices." << endl;
-//                    cout << "--------------------------------------------------------------------------------------------------------" << endl;
-//                    cout << "B. Anker 7-Port USB Hub RM" << PRICEanker << endl;
-//                    cout << "Pros: 7-Port design, perfect for connecting multiple devices at once." << endl;
-//                    cout << "      External power support, can get external power to provide additional power ofr high-demand devices." << endl;
-//                    cout << "Cons: Requires External Power, high-power devices will need an external power source." << endl;
-//                    cout << "      7-port version is larger and takes up more space." << endl;
-//                    cout << "---------------------------------------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//                    //
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "Ugreen 4-Port USB Hub RM " << PRICEugreen << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEugreen;
-//                        cout << "Ugreen 4-Port USB Hub x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "Anker 7-Port USB Hub RM " << PRICEanker << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEanker;
-//                        cout << "Anker 7-Port USB Hub x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//            case 'B': case 'b': // STORAGE
-//            {
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "USB Flash Drive                  press a" << endl;
-//                cout << "External Hard Drive (Hard Disc)  press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//                char itemchoice;
-//                cin >> itemchoice;
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEsandisk = 25.99, PRICEkingston = 30.99, total = 0;
-//                    int qty;
-//
-//                    cout << "-----------------------------------------------------------------------------------------" << endl;
-//                    cout << "A. SanDisk USB Flash Drive 16GB RM" << PRICEsandisk << endl;
-//                    cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
-//                    cout << "      Compact and portable, small size easy to carry aroung." << endl;
-//                    cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
-//                    cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
-//                    cout << "----------------------------------------------------------------------------------------" << endl;
-//                    cout << "B. Kingston USB Flash Drive 64GB RM" << PRICEkingston << endl;
-//                    cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
-//                    cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
-//                    cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
-//                    cout << "      Low speed especially for very large file transfer and store." << endl;
-//                    cout << "-----------------------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "SanDisk USB Flash Drive 16GB RM " << PRICEsandisk << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEsandisk;
-//                        cout << "SanDisk USB Flash Drive 16GB x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "Kingston USB Flash Drive 64GB RM " << PRICEkingston << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEkingston;
-//                        cout << "Kingston USB Flash Drive 64GB x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICE1tb = 250.99, PRICE512gb = 180.00;
-//                    cout << "----------------------------------------------------------------------------------------" << endl;
-//                    cout << "A. WD 1TB External Hard Drive RM" << PRICE1tb << endl;
-//                    cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
-//                    cout << "      Reliable brand, WD is know for producing durable and high quality product." << endl;
-//                    cout << "Cons: Higher price, generally more expensive then 512GB hard drive." << endl;
-//                    cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
-//                    cout << "----------------------------------------------------------------------------------------" << endl;
-//                    cout << "B. Seagate 512GB External Hard Drive RM" << PRICE512gb << endl;
-//                    cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
-//                    cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
-//                    cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
-//                    cout << "      May require addtional storage, might need external drive again for extra space." << endl;
-//                    cout << "----------------------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "WD 1TB External Hard Drive RM " << PRICE1tb << "x";
-//                        cin >> qty;
-//                        total = qty * PRICE1tb;
-//                        cout << "WD 1TB External Hard Drive x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "Seagate 512GB External Hard Drive RM " << PRICE512gb << "x";
-//                        cin >> qty;
-//                        total = qty * PRICE512gb;
-//                        cout << "Seagate 512GB External Hard Drive x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//            case 'C': case 'c':// AUDIO & INPUT
-//            {
-//
-//                double total = 0;
-//                int qty;
-//                cout << "\n" << endl;
-//                cout << "Mouse         press a" << endl;
-//                cout << "Microphone    press b" << endl;
-//                cout << "\n" << endl;
-//                cout << "Enter your option : ";
-//
-//                char itemchoice;
-//                cin >> itemchoice;
-//
-//                if (itemchoice == 'A' || itemchoice == 'a')
-//                {
-//                    double PRICEwired = 20.99, PRICEwireless = 30.99, total = 0;
-//                    int qty;
-//                    cout << "----------------------------------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Wireless Mouse RM" << PRICEwireless << endl;
-//                    cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-//                    cout << "      Small and lightweight, easy handle and carry out." << endl;
-//                    cout << "Cons: Battery dependency, requires battery replacement." << endl;
-//                    cout << "      May experience lag or disconeects due to wireless interference." << endl;
-//                    cout << "----------------------------------------------------------------------------------" << endl;
-//                    cout << "B. XIAOAMI Wired Mouse RM" << PRICEwired << endl;
-//                    cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
-//                    cout << "      No battery needed, always powered through cable." << endl;
-//                    cout << "Cons: Limited Mobility ,cable may restricts movement and can get tangled." << endl;
-//                    cout << "      Less portable, cable may inconvenient for travel or carry out." << endl;
-//                    cout << "Enter your option:";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOAMI Wireless Mouse RM " << PRICEwireless << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEwireless;
-//                        cout << "XIAOAMI Wireless Mouse x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOAMI Wired Mouse RM " << PRICEwired << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEwired;
-//                        cout << "XIAOAMI Wired Mouse x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "Invalid code!!!" << endl;
-//                        cout << "Please return homepage!!!" << endl;
-//                        break;
-//                    }
-//                    }
-//                }
-//                else if (itemchoice == 'b' || itemchoice == 'B')
-//                {
-//                    double PRICEheadset = 200.99, PRICEspeaker = 150.99;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "A. XIAOAMI Headset With Microphone RM" << PRICEheadset << endl;
-//                    cout << "Pros: Better audio privacy, sound is directed to your ears only and great for calls." << endl;
-//                    cout << "      In-mic is close to your mouth, offers better voice input and noise isolation." << endl;
-//                    cout << "Cons: Less comfortable for long use, may cause discomfortable after few hours used." << endl;
-//                    cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "B. XIAOMI Speaker With Microphone RM" << PRICEspeaker << endl;
-//                    cout << "Pros: Ideal for group use, good for presentation or casual music listening." << endl;
-//                    cout << "      More comfortable, no need wear anything for long periods." << endl;
-//                    cout << "Cons: Mic may pick up backgrond noise, since the mic is not close to your mouth." << endl;
-//                    cout << "      Less noise isolation ." << endl;
-//                    cout << "--------------------------------------------------------------------------------------" << endl;
-//                    cout << "Enter your option : ";
-//
-//                    char itembuy;
-//                    cin >> itembuy;
-//
-//                    switch (itembuy)
-//                    {
-//                    case 'A': case 'a':
-//                    {
-//                        cout << "XIAOAMI Headset With Microphone RM " << PRICEheadset << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEheadset;
-//                        cout << "XIAOAMI Headset With Microphone x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    case 'B': case 'b':
-//                    {
-//                        cout << "XIAOMI Speaker With Microphone RM " << PRICEspeaker << "x";
-//                        cin >> qty;
-//                        total = qty * PRICEspeaker;
-//                        cout << "XIAOMI Speaker With Microphone x " << qty << "RM" << total << endl;
-//                        break;
-//                    }
-//                    default:
-//                    {
-//                        cout << "\nInvalid code!!!\nPlease return homepage!!!";
-//                        break;
-//                    }
-//                    }
-//                }
-//                break;
-//            }
-//            }
-//        }
-//
-//        cout << "Do you want add on? (Y/N)" << endl;
-//        cin >> addon;
-//        }
-//    } while (addon == 'Y' || addon == 'y');
-//}
-//
-//
-//int main()
-//{
-//    menu();
-//
-//    return 0;
-//}
+#include<iostream>  ////////DONEEEEEEEEEEEEEEE
+#include<iomanip>
+#include<ctime>
+#include<string>
+#define discount 0.20
+#define charge 0.06
+#define tax 0.06
+using namespace std;
+// use for menu
+char menuchoice;
+// use for report
+int day, month, year;
+// use for order
+char accessory, itembuy, addon_order;
+double priceitem = 0;
+string itemname;
+int qty = 0, A_qty = 0;
+int custnum = 0, ordernum = 0;
+// use for addon order
+char A_accessory, A_itembuy;
+double A_priceitem = 0;
+string A_itemname;
+// use for invoice
+double total = 0, discountrate = 0, afterdiscount = 0, chargerate = 0, taxrate, final = 0;
+double A_total = 0, AA_total, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate, A_final = 0;
+char payment;
+string payment_method;
+double amount, change = 0;
+
+void identity_price_name();
+void order_menu();
+void addon_order_menu();
+void time();
+void invoice();
+void receipt();
+void time()
+{
+	time_t now = time(0);
+	tm ltm; // Declare a tm object instead of a pointer
+
+	// Use localtime_s to safely populate the tm object
+	localtime_s(&ltm, &now);
+
+	day = ltm.tm_mday;
+	month = ltm.tm_mon + 1;  // tm_mon starts from 0 (Jan = 0)
+	year = 1900 + ltm.tm_year;
+}
+
+void identity_payment()
+{
+	switch (payment)
+	{
+	case 'A' : case 'a':
+		payment_method = "E - Wallet";
+		break;
+	case 'B' : case 'b':
+		payment_method = "Credit Card";
+		break;
+	case 'C' : case 'c':
+		payment_method = "Debit Card";
+		break;
+	case 'D' : case 'd':
+		payment_method = "Cash";
+		break;
+	}
+}
+void identity_price_name()  // identify item price and name 
+{
+	switch (accessory)
+	{
+	case 'A': case 'a':
+
+		switch (itembuy)
+		{
+		case 'A': case'a':
+			itemname = "XIAOMI Universal Travel Adapter";
+			priceitem = 65.99;
+			break;
+		case 'B': case'b':
+			itemname = "XIAOMI Plug Travel Adapter";
+			priceitem = 25.99;
+			break;
+		case 'C': case'c':
+			itemname = "XIAOMI High Capacity Powerbank";
+			priceitem = 150.99;
+			break;
+		case 'D': case'd':
+			itemname = "XIAOMI Portable Powerbank";
+			priceitem = 70.99;
+			break;
+		case 'E': case'e':
+			itemname = "XIAOMI Fast Charge USB-C Cable";
+			priceitem = 50.99;
+			break;
+		case 'F': case'f':
+			itemname = "XIAOMI Normal USB-C Cable";
+			priceitem = 25.99;
+			break;
+		case 'G': case'g':
+			itemname = "XIAOMI Fast Charge Lightning Cable";
+			priceitem = 60.99;
+			break;
+		case 'H': case'h':
+			itemname = "XIAOMI Normal Lightning Cable";
+			priceitem = 30.99;
+			break;
+		case 'I': case'i':
+			itemname = "XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds";
+			priceitem = 30.99;
+			break;
+		case 'J': case'j':
+			itemname = "XIAOMI Neckband Bluetooth Earphone";
+			priceitem = 50.99;
+			break;
+		case 'K': case'k':
+			itemname = "XIAOMI Over-Ear Headphones";
+			priceitem = 80.99;
+			break;
+		case 'L': case'l':
+			itemname = "XIAOMI In-Ear Headphones";
+			priceitem = 30.99;
+			break;
+		}
+		break;
+	case 'B':case'b':
+		switch (itembuy)
+		{
+		case 'A': case'a':
+			itemname = "Dell 65W Laptop Charger RM 189.99";
+			priceitem = 189.99;
+			break;
+		case 'B': case'b':
+			itemname = "Hp 65W Laptop Charger RM 189.99";
+			priceitem = 159.99;
+			break;
+		case 'C': case'c':
+			itemname = "Ugreen 4-Port USB Hub";
+			priceitem = 70.99;
+			break;
+		case 'D': case'd':
+			itemname = "Anker 7-Port USB Hub";
+			priceitem = 140.99;
+			break;
+		case 'E': case'e':
+			itemname = "SanDisk USB Flash Drive 16GB";
+			priceitem = 25.99;
+			break;
+		case 'F': case'f':
+			itemname = "Kingston USB Flash Drive 64GB";
+			priceitem = 30.99;
+			break;
+		case 'G': case'g':
+			itemname = "WD 1TB External Hard Drive";
+			priceitem = 250.99;
+			break;
+		case 'H': case'h':
+			itemname = "Seagate 512GB External Hard Drive";
+			priceitem = 180.99;
+			break;
+		case 'I': case'i':
+			itemname = "XIAOMI Wireless Mouse";
+			priceitem = 20.99;
+			break;
+		case 'J': case'j':
+			itemname = "XIAOMI Wired Mouse";
+			priceitem = 30.99;
+			break;
+		case 'K': case'k':
+			itemname = "XIAOMI Headset With Microphone";
+			priceitem = 100.99;
+			break;
+		case 'L': case'l':
+			itemname = "XIAOMI Speaker With Microphone";
+			priceitem = 150.99;
+			break;
+		}
+	}
+}
+
+void identity_addon_price_name()  // identify item price and name ADDONNNNNNNNNNN ONLY ONCE:(
+{
+	switch (A_accessory)
+	{
+	case 'A': case 'a':
+
+		switch (A_itembuy)
+		{
+		case 'A': case'a':
+			A_itemname = "XIOAMI Universal Travel Adapter";
+			A_priceitem = 65.99;
+			break;
+		case 'B': case'b':
+			A_itemname = "XIAOMI Plug Travel Adapter";
+			A_priceitem = 25.99;
+			break;
+		case 'C': case'c':
+			A_itemname = "XIAOMI High Capacity Powerbank";
+			A_priceitem = 150.99;
+			break;
+		case 'D': case'd':
+			A_itemname = "XIAOMI Portable Powerbank";
+			A_priceitem = 70.99;
+			break;
+		case 'E': case'e':
+			A_itemname = "XIAOMI Fast Charge USB-C Cable";
+			A_priceitem = 50.99;
+			break;
+		case 'F': case'f':
+			A_itemname = "XIAOMI Normal USB-C Cable";
+			A_priceitem = 25.99;
+			break;
+		case 'G': case'g':
+			A_itemname = "XIAOMI Fast Charge Lightning Cable";
+			A_priceitem = 60.99;
+			break;
+		case 'H': case'h':
+			A_itemname = "XIAOMI Normal Lightning Cable";
+			A_priceitem = 30.99;
+			break;
+		case 'I': case'i':
+			A_itemname = "XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds";
+			A_priceitem = 30.99;
+			break;
+		case 'J': case'j':
+			A_itemname = "XIAOMI Neckband Bluetooth Earphone";
+			A_priceitem = 50.99;
+			break;
+		case 'K': case'k':
+			A_itemname = "XIAOMI Over-Ear Headphones";
+			A_priceitem = 80.99;
+			break;
+		case 'L': case'l':
+			A_itemname = "XIAOMI In-Ear Headphones";
+			A_priceitem = 30.99;
+			break;
+		}
+		break;
+	case 'B':case'b':
+		switch (A_itembuy)
+		{
+		case 'A': case'a':
+			A_itemname = "Dell 65W Laptop Charger RM 189.99";
+			A_priceitem = 189.99;
+			break;
+		case 'B': case'b':
+			A_itemname = "Hp 65W Laptop Charger RM 189.99";
+			A_priceitem = 159.99;
+			break;
+		case 'C': case'c':
+			A_itemname = "Ugreen 4-Port USB Hub";
+			A_priceitem = 70.99;
+			break;
+		case 'D': case'd':
+			A_itemname = "Anker 7-Port USB Hub";
+			A_priceitem = 140.99;
+			break;
+		case 'E': case'e':
+			A_itemname = "SanDisk USB Flash Drive 16GB";
+			A_priceitem = 25.99;
+			break;
+		case 'F': case'f':
+			A_itemname = "Kingston USB Flash Drive 64GB";
+			A_priceitem = 30.99;
+			break;
+		case 'G': case'g':
+			A_itemname = "WD 1TB External Hard Drive";
+			A_priceitem = 250.99;
+			break;
+		case 'H': case'h':
+			A_itemname = "Seagate 512GB External Hard Drive";
+			A_priceitem = 180.99;
+			break;
+		case 'I': case'i':
+			A_itemname = "XIAOMI Wireless Mouse";
+			A_priceitem = 20.99;
+			break;
+		case 'J': case'j':
+			A_itemname = "XIAOMI Wired Mouse";
+			A_priceitem = 30.99;
+			break;
+		case 'K': case'k':
+			A_itemname = "XIAOMI Headset With Microphone";
+			A_priceitem = 100.99;
+			break;
+		case 'L': case'l':
+			A_itemname = "XIAOMI Speaker With Microphone";
+			A_priceitem = 150.99;
+			break;
+		}
+	}
+}
+
+void addon_order_menu()
+{
+	identity_addon_price_name();
+	cout << "Welcome CSG Gadget Shop!!!" << endl;
+	cout << "Please choose an accessory. (A-PHONE / B-COMPUTER) :";
+	cin >> A_accessory;
+
+	while (A_accessory != 'A' && A_accessory != 'a' && A_accessory != 'B' && A_accessory != 'b')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again..." << endl;
+		cin >> A_accessory;
+	}
+	if (A_accessory == 'A' || A_accessory == 'a')
+	{
+		cout << "Adapter :" << endl;
+		cout << "---------" << endl;
+		cout << "A. XIAOMI Universal Travel Adapter RM 65.99" << endl;
+		cout << "Pros: Device work on 100+ countires." << endl;
+		cout << "      Multiple USB ports - caherge multiple device at once." << endl;
+		cout << "Cons: Heavier than single plug adapter." << endl;
+		cout << "      Higher price point." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "B. XIAOMI Plug Adapter  RM 25.99" << endl;
+		cout << "Pros: Lightweight and fits easily in your pocket." << endl;
+		cout << "      Get one for each destination with lower price." << endl;
+		cout << "Cons: Works only in one plug type." << endl;
+		cout << "      No USB ports - you have to seperate charge your device." << endl;
+		cout << endl;
+		cout << "Powerbank :" << endl;
+		cout << "-----------" << endl;
+		cout << "C. XIAOMI High Capacity Powerbank RM 150.99" << endl;
+		cout << "Pros: Large capacity suitable for long trips." << endl;
+		cout << "      Multiple devices charging at once." << endl;
+		cout << "Cons: Large size and weight, less portable." << endl;
+		cout << "      Longer charging time, takes more time to recharge." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "D. XIAOMI Portable Powerbank RM 70.99" << endl;
+		cout << "Pros: Light and compact, easy to handleas and carry out." << endl;
+		cout << "      Fast charging with quicker recharge times." << endl;
+		cout << "Cons: Smaller capacity, provides limited cahrges." << endl;
+		cout << "      Required frequent recharging when long trips." << endl;
+		cout << endl;
+		cout << "USB Cable :" << endl;
+		cout << "-----------" << endl;
+		cout << "E. XIAOMI Fast Charge USB-C Cable RM 50.99" << endl;
+		cout << "Pros: Reversible plug, easy to use." << endl;
+		cout << "      Fast date transfer and charging." << endl;
+		cout << "Cons: Requires compatible devices to support fast charging." << endl;
+		cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "F. XIAOMI Normal USB-C Cable RM 25.99" << endl;
+		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
+		cout << "      More affordable, offering great value for basic charging." << endl;
+		cout << "Cons: Limited to standard cahrging." << endl;
+		cout << "      May not support higher power output for power-hungry devices." << endl;
+		cout << endl;
+		cout << "Lightning Cable :" << endl;
+		cout << "-----------------" << endl;
+		cout << "G. XIAOMI Fast Charge Lightning Cable RM 60.99" << endl;
+		cout << "Pros: Support fast charging with USB PD." << endl;
+		cout << "      Efficient charging, can charge up 50% in about 30 minutes." << endl;
+		cout << "Cons: May cause battery damage." << endl;
+		cout << "      More expensive than normal Lightning cable." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "H. XIAOMI Normal Lightning Cable RM 30.99" << endl;
+		cout << "Pros: Protect battery well, won't be damage to battery." << endl;
+		cout << "      Affordable, offering great value for basic charging and syncing needs." << endl;
+		cout << "Cons: Slower charging speed compared to fast charge cables." << endl;
+		cout << "      Do not support fast charging for iPhone." << endl;
+		cout << endl;
+		cout << "Bluetooth Earbuds :" << endl;
+		cout << "-------------------" << endl;
+		cout << "I. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
+		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "Cons: Due to small size, esaily misplaced." << endl;
+		cout << "      Limited battery life, needs to be charged regularly." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "J. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
+		cout << "Pros: Stable fit, suitable for sports and active use." << endl;
+		cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
+		cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
+		cout << "      More heavier, user might feel cumbersome during extended use." << endl;
+		cout << "Wired Earbuds :" << endl;
+		cout << "---------------" << endl;
+		cout << "K. XIAOMI Over-Ear Headphones RM 80.99" << endl;
+		cout << "Pros: Better sound quality especially in terms of bass and immersive audio experience." << endl;
+		cout << "      Excellent noise isolation, ideal for focused listening." << endl;
+		cout << "Cons: Heavy and not suitable for active movements." << endl;
+		cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "L. XIAOMI In-Ear Headphones RM 30.99" << endl;
+		cout << "Pros: Small size and easy carry around." << endl;
+		cout << "      Perfect for exercise such as running and cycling." << endl;
+		cout << "Cons: Sound quality is not as rich." << endl;
+		cout << "      Less noise isolation ." << endl;
+		cout << endl;
+		cout << "Enter your choice :";
+		cin >> A_itembuy;
+	}
+	else if (A_accessory == 'B' || A_accessory == 'b')
+	{
+		cout << "Laptop Charger :" << endl;
+		cout << "----------------" << endl;
+		cout << "A. Dell 65W Laptop Charger RM 189.99" << endl;
+		cout << "Pros: Reliable Brand, many users have high trust quality of DELL." << endl;
+		cout << "      Stable charging, less risk of overheating and extend battery life." << endl;
+		cout << "Cons: Higher price compared to third-party alternatives." << endl;
+		cout << "      Not compatible with other brands." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "B. HP 65W Laptop Charger  RM 159.99" << endl;
+		cout << "Pros: Higher compatibility with many HP laptop models." << endl;
+		cout << "      Portable, lightweight and easy carry to somewhere." << endl;
+		cout << "Cons: Slower charging speed while 65W is sufficient for most regular task." << endl;
+		cout << "      Brand-Specific compatibility, charger is limited to HP laptops." << endl;
+		cout << endl;
+		cout << "USB Hub :" << endl;
+		cout << "---------" << endl;
+		cout << "C. Ugreen 4-Port USB Hub RM 70.99" << endl;
+		cout << "Pros: High Speed transfer, offers data transfer speed up to 5Gbps." << endl;
+		cout << "      No external power required, powered by computer's USB port only." << endl;
+		cout << "Cons: Limited Ports, 4 ports may not sufficient for who need connect many devices" << endl;
+		cout << "      Basic use, may have limitation if user need connect high-power devices." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "D. Anker 7-Port USB Hub RM 140.99" << endl;
+		cout << "Pros: 7-Port design, perfect for connecting multiple devices at once." << endl;
+		cout << "      External power support, can get external power to provide additional power ofr high-demand devices." << endl;
+		cout << "Cons: Requires External Power, high-power devices will need an external power source." << endl;
+		cout << "      7-port version is larger and takes up more space." << endl;
+		cout << endl;
+		cout << "USB Flash Drive :" << endl;
+		cout << "-----------------" << endl;
+		cout << "E. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
+		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
+		cout << "      Compact and portable, small size easy to carry aroung." << endl;
+		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
+		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "F. Kingston USB Flash Drive 64GB RM 30.99" << endl;
+		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
+		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
+		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
+		cout << "      Low speed especially for very large file transfer and store." << endl;
+		cout << endl;
+		cout << "External Hard Drive :" << endl;
+		cout << "---------------------" << endl;
+		cout << "G. WD 1TB External Hard Drive RM 250.99" << endl;
+		cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
+		cout << "      Reliable brand, WD is know for producing durable and high quality product." << endl;
+		cout << "Cons: Higher price, generally more expensive then 512GB hard drive." << endl;
+		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "H. Seagate 512GB External Hard Drive RM 180.99" << endl;
+		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
+		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
+		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
+		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
+		cout << endl;
+		cout << "Mouse :" << endl;
+		cout << "-------" << endl;
+		cout << "I. XIAOAMI Wireless Mouse RM 20.99" << endl;
+		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "Cons: Battery dependency, requires battery replacement." << endl;
+		cout << "      May experience lag or disconeects due to wireless interference." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "J. XIAOAMI Wired Mouse RM 30.99" << endl;
+		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
+		cout << "      No battery needed, always powered through cable." << endl;
+		cout << "Cons: Limited Mobility ,cable may restricts movement and can get tangled." << endl;
+		cout << "      Less portable, cable may inconvenient for travel or carry out." << endl;
+		cout << endl;
+		cout << "Microphone :" << endl;
+		cout << "------------" << endl;
+		cout << "K. XIAOAMI Headset With Microphone RM 250.99" << endl;
+		cout << "Pros: Better audio privacy, sound is directed to your ears only and great for calls." << endl;
+		cout << "      In-mic is close to your mouth, offers better voice input and noise isolation." << endl;
+		cout << "Cons: Less comfortable for long use, may cause discomfortable after few hours used." << endl;
+		cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "L. XIAOMI Speaker With Microphone RM 150.99" << endl;
+		cout << "Pros: Ideal for group use, good for presentation or casual music listening." << endl;
+		cout << "      More comfortable, no need wear anything for long periods." << endl;
+		cout << "Cons: Mic may pick up backgrond noise, since the mic is not close to your mouth." << endl;
+		cout << "      Less noise isolation ." << endl;
+		cout << endl;
+		cout << "Enter your choice :";
+		cin >> A_itembuy;
+	}
+	A_total = A_priceitem * A_qty;
+	cout << "Your choice is " << A_itembuy << "and the price per pax is RM " << fixed << setprecision(2) << A_priceitem << endl;
+	cout << "The total of " << A_itembuy << "." << A_itemname << " is RM " << fixed << setprecision(2) << A_priceitem << "x" << A_qty << " : RM" << fixed << setprecision(2) << A_total << endl;
+	ordernum++;
+	custnum++;
+
+	identity_payment();
+	cout << "Thank you !!!" << endl;
+	cout << "Proceeding to invoice..." << endl;
+	cout << "Select payment method (A:E-Wallet / B:Credit Card / C:Debit Card / D:Cash) :";
+	cin >> payment;
+	while (payment != 'A' && payment != 'a' && payment != 'B' && payment != 'b' && payment != 'C' && payment != 'c' && payment != 'D' && payment != 'd')
+	{
+		cout << "Invalid payment..." << endl;
+		cout << "Please choose again payment method..." << endl;
+		cin >> payment;
+	}
+	cout << "Payment Amount: RM" << fixed << setprecision(2) << final << endl;
+	cout << endl;
+	receipt();
+
+}
+
+void order_menu()
+{
+	time();
+	cout << "Welcome CSG Gadget Shop!!!" << endl;
+	cout << "Please choose an accessory. (A-PHONE / B-COMPUTER) :";
+	cin >> accessory;
+
+	while (accessory != 'A' && accessory != 'a' && accessory != 'B' && accessory != 'b')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again..." << endl;
+		cin >> accessory;
+	}
+	if (accessory == 'A' || accessory == 'a')
+	{
+		cout << "Adapter :" << endl;
+		cout << "---------" << endl;
+		cout << "A. XIAOMI Universal Travel Adapter RM 65.99" << endl;
+		cout << "Pros: Device work on 100+ countires." << endl;
+		cout << "      Multiple USB ports - caherge multiple device at once." << endl;
+		cout << "Cons: Heavier than single plug adapter." << endl;
+		cout << "      Higher price point." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "B. XIAOMI Plug Adapter  RM 25.99" << endl;
+		cout << "Pros: Lightweight and fits easily in your pocket." << endl;
+		cout << "      Get one for each destination with lower price." << endl;
+		cout << "Cons: Works only in one plug type." << endl;
+		cout << "      No USB ports - you have to seperate charge your device." << endl;
+		cout << endl;
+		cout << "Powerbank :" << endl;
+		cout << "-----------" << endl;
+		cout << "C. XIAOMI High Capacity Powerbank RM 150.99" << endl;
+		cout << "Pros: Large capacity suitable for long trips." << endl;
+		cout << "      Multiple devices charging at once." << endl;
+		cout << "Cons: Large size and weight, less portable." << endl;
+		cout << "      Longer charging time, takes more time to recharge." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "D. XIAOMI Portable Powerbank RM 70.99" << endl;
+		cout << "Pros: Light and compact, easy to handleas and carry out." << endl;
+		cout << "      Fast charging with quicker recharge times." << endl;
+		cout << "Cons: Smaller capacity, provides limited cahrges." << endl;
+		cout << "      Required frequent recharging when long trips." << endl;
+		cout << endl;
+		cout << "USB Cable :" << endl;
+		cout << "-----------" << endl;
+		cout << "E. XIAOMI Fast Charge USB-C Cable RM 50.99" << endl;
+		cout << "Pros: Reversible plug, easy to use." << endl;
+		cout << "      Fast date transfer and charging." << endl;
+		cout << "Cons: Requires compatible devices to support fast charging." << endl;
+		cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "F. XIAOMI Normal USB-C Cable RM 25.99" << endl;
+		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
+		cout << "      More affordable, offering great value for basic charging." << endl;
+		cout << "Cons: Limited to standard cahrging." << endl;
+		cout << "      May not support higher power output for power-hungry devices." << endl;
+		cout << endl;
+		cout << "Lightning Cable :" << endl;
+		cout << "-----------------" << endl;
+		cout << "G. XIAOMI Fast Charge Lightning Cable RM 60.99" << endl;
+		cout << "Pros: Support fast charging with USB PD." << endl;
+		cout << "      Efficient charging, can charge up 50% in about 30 minutes." << endl;
+		cout << "Cons: May cause battery damage." << endl;
+		cout << "      More expensive than normal Lightning cable." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "H. XIAOMI Normal Lightning Cable RM 30.99" << endl;
+		cout << "Pros: Protect battery well, won't be damage to battery." << endl;
+		cout << "      Affordable, offering great value for basic charging and syncing needs." << endl;
+		cout << "Cons: Slower charging speed compared to fast charge cables." << endl;
+		cout << "      Do not support fast charging for iPhone." << endl;
+		cout << endl;
+		cout << "Bluetooth Earbuds :" << endl;
+		cout << "-------------------" << endl;
+		cout << "I. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
+		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "Cons: Due to small size, esaily misplaced." << endl;
+		cout << "      Limited battery life, needs to be charged regularly." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "J. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
+		cout << "Pros: Stable fit, suitable for sports and active use." << endl;
+		cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
+		cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
+		cout << "      More heavier, user might feel cumbersome during extended use." << endl;
+		cout << "Wired Earbuds :" << endl;
+		cout << "---------------" << endl;
+		cout << "K. XIAOMI Over-Ear Headphones RM 80.99" << endl;
+		cout << "Pros: Better sound quality especially in terms of bass and immersive audio experience." << endl;
+		cout << "      Excellent noise isolation, ideal for focused listening." << endl;
+		cout << "Cons: Heavy and not suitable for active movements." << endl;
+		cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "L. XIAOMI In-Ear Headphones RM 30.99" << endl;
+		cout << "Pros: Small size and easy carry around." << endl;
+		cout << "      Perfect for exercise such as running and cycling." << endl;
+		cout << "Cons: Sound quality is not as rich." << endl;
+		cout << "      Less noise isolation ." << endl;
+		cout << endl;
+		cout << "Enter your choice :";
+		cin >> itembuy;
+		cout << "Quantity x";
+		cin >> qty;
+	}
+	else if (accessory == 'B' || accessory == 'b')
+	{
+		cout << "Laptop Charger :" << endl;
+		cout << "----------------" << endl;
+		cout << "A. Dell 65W Laptop Charger RM 189.99" << endl;
+		cout << "Pros: Reliable Brand, many users have high trust quality of DELL." << endl;
+		cout << "      Stable charging, less risk of overheating and extend battery life." << endl;
+		cout << "Cons: Higher price compared to third-party alternatives." << endl;
+		cout << "      Not compatible with other brands." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "B. HP 65W Laptop Charger  RM 159.99" << endl;
+		cout << "Pros: Higher compatibility with many HP laptop models." << endl;
+		cout << "      Portable, lightweight and easy carry to somewhere." << endl;
+		cout << "Cons: Slower charging speed while 65W is sufficient for most regular task." << endl;
+		cout << "      Brand-Specific compatibility, charger is limited to HP laptops." << endl;
+		cout << endl;
+		cout << "USB Hub :" << endl;
+		cout << "---------" << endl;
+		cout << "C. Ugreen 4-Port USB Hub RM 70.99" << endl;
+		cout << "Pros: High Speed transfer, offers data transfer speed up to 5Gbps." << endl;
+		cout << "      No external power required, powered by computer's USB port only." << endl;
+		cout << "Cons: Limited Ports, 4 ports may not sufficient for who need connect many devices" << endl;
+		cout << "      Basic use, may have limitation if user need connect high-power devices." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "D. Anker 7-Port USB Hub RM 140.99" << endl;
+		cout << "Pros: 7-Port design, perfect for connecting multiple devices at once." << endl;
+		cout << "      External power support, can get external power to provide additional power ofr high-demand devices." << endl;
+		cout << "Cons: Requires External Power, high-power devices will need an external power source." << endl;
+		cout << "      7-port version is larger and takes up more space." << endl;
+		cout << endl;
+		cout << "USB Flash Drive :" << endl;
+		cout << "-----------------" << endl;
+		cout << "E. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
+		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
+		cout << "      Compact and portable, small size easy to carry aroung." << endl;
+		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
+		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "F. Kingston USB Flash Drive 64GB RM 30.99" << endl;
+		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
+		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
+		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
+		cout << "      Low speed especially for very large file transfer and store." << endl;
+		cout << endl;
+		cout << "External Hard Drive :" << endl;
+		cout << "---------------------" << endl;
+		cout << "G. WD 1TB External Hard Drive RM 250.99" << endl;
+		cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
+		cout << "      Reliable brand, WD is know for producing durable and high quality product." << endl;
+		cout << "Cons: Higher price, generally more expensive then 512GB hard drive." << endl;
+		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "H. Seagate 512GB External Hard Drive RM 180.99" << endl;
+		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
+		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
+		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
+		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
+		cout << endl;
+		cout << "Mouse :" << endl;
+		cout << "-------" << endl;
+		cout << "I. XIAOAMI Wireless Mouse RM 20.99" << endl;
+		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "Cons: Battery dependency, requires battery replacement." << endl;
+		cout << "      May experience lag or disconeects due to wireless interference." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "J. XIAOAMI Wired Mouse RM 30.99" << endl;
+		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
+		cout << "      No battery needed, always powered through cable." << endl;
+		cout << "Cons: Limited Mobility ,cable may restricts movement and can get tangled." << endl;
+		cout << "      Less portable, cable may inconvenient for travel or carry out." << endl;
+		cout << endl;
+		cout << "Microphone :" << endl;
+		cout << "------------" << endl;
+		cout << "K. XIAOAMI Headset With Microphone RM 250.99" << endl;
+		cout << "Pros: Better audio privacy, sound is directed to your ears only and great for calls." << endl;
+		cout << "      In-mic is close to your mouth, offers better voice input and noise isolation." << endl;
+		cout << "Cons: Less comfortable for long use, may cause discomfortable after few hours used." << endl;
+		cout << "      Hard to hear others, noise isolation make it difficult to hear other." << endl;
+		cout << setfill('-') << setw(100) << "" << endl;
+		cout << "L. XIAOMI Speaker With Microphone RM 150.99" << endl;
+		cout << "Pros: Ideal for group use, good for presentation or casual music listening." << endl;
+		cout << "      More comfortable, no need wear anything for long periods." << endl;
+		cout << "Cons: Mic may pick up backgrond noise, since the mic is not close to your mouth." << endl;
+		cout << "      Less noise isolation ." << endl;
+		cout << endl;
+		cout << "Enter your choice :";
+		cin >> itembuy;
+		cout << "Quantity x";
+		cin >> qty;
+	}
+	identity_addon_price_name();
+	total = priceitem * qty;
+	cout << "Your choice is " << itembuy << "." << itemname << " and the price per pax is RM " << fixed << setprecision(2) << priceitem << endl;
+	cout << "The total of " << itembuy << "." << itemname << " is RM " << fixed << setprecision(2) << priceitem << "x" << qty << " : RM" << fixed << setprecision(2) << total << endl;
+	ordernum++;
+	custnum++;
+	cout << "Would you like to add on something ? You only can add on once!!! (Y/N) :";
+	cin >> addon_order;
+
+	while (addon_order != 'Y' && addon_order != 'y' && addon_order != 'N' && addon_order != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again...";
+		cin >> addon_order;
+	}
+	if (addon_order == 'Y' || addon_order == 'y')
+	{
+		addon_order_menu();
+	}
+	else if (addon_order == 'N' || addon_order == 'n')
+	{
+		identity_payment();
+		cout << "Thank you !!!" << endl;
+		cout << "Proceeding to invoice..." << endl;
+		invoice();
+		cout << "Select payment method (A:E-Wallet / B:Credit Card / C:Debit Card / D:Cash) :";
+		cin >> payment;
+		while (payment != 'A' && payment != 'a' && payment != 'B' && payment != 'b' && payment != 'C' && payment != 'c' && payment != 'D' && payment != 'd')
+		{
+			cout << "Invalid payment..." << endl;
+			cout << "Please choose again payment method..." << endl;
+			cin >> payment;
+		}
+		cout << "Payment Amount: RM" << fixed << setprecision(2) << final << endl;
+		cout << endl;
+		receipt();
+
+	}
+
+}
+
+void invoice()
+{
+	time();
+	identity_price_name();
+	total = priceitem * qty;
+
+	cout << "        CSG Gadget Shop" << endl;
+	cout << "=========================================" << endl;
+	cout << "        Tel: 012-3456789" << endl;
+
+	cout << endl;
+	cout << "Invoice No: " << ordernum << "                            " << day << "/" << month << "/" << year << endl;
+	cout << "1." << itemname << "(" << qty << "x" << priceitem << ")" << "                     " << "RM " << fixed << setprecision(2) << total << endl;
+
+	if (addon_order == 'N' || addon_order == 'n')
+	{
+		if (total >= 100.00)
+		{
+			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
+			discountrate = total * discount;
+			afterdiscount = total - discountrate;
+			chargerate = total * charge;
+			taxrate = total * tax;
+			final = afterdiscount + chargerate + taxrate;
+		}
+		else
+		{
+			chargerate = total * charge;
+			taxrate = total * tax;
+			final = total + chargerate + taxrate;
+		}
+		cout << "Subtotal" << "                              " << "RM " << fixed << setprecision(2) << total << endl;
+		cout << "Discount" << "                              " << "RM " << fixed << setprecision(2) << discountrate << endl;
+		cout << "Service Charge (6%)" << "                   " << "RM " << fixed << setprecision(2) << chargerate << endl;
+		cout << "Tax (6%)" << "                              " << "RM " << fixed << setprecision(2) << taxrate << endl;
+		cout << endl;
+		cout << "Total items:" << qty << endl;
+		cout << "Total payable:" << "                        " << "RM " << fixed << setprecision(2) << final << endl;
+	}
+	else if (addon_order == 'Y' || addon_order == 'y')
+	{
+		A_total = A_priceitem * A_qty;
+		AA_total = total + A_total;
+
+		cout << "2. " << A_itembuy << "(" << A_qty << "x" << A_priceitem << ")" << setw(30) << "RM " << fixed << setprecision(2) << A_total << endl;
+
+		if (AA_total >= 100.00)
+		{
+			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
+			discountrate = AA_total * discount;
+			afterdiscount = AA_total - discountrate;
+			chargerate = AA_total * charge;
+			taxrate = AA_total * tax;
+			final = afterdiscount + chargerate + taxrate;
+		}
+		else
+		{
+			chargerate = AA_total * charge;
+			taxrate = AA_total * tax;
+			final = AA_total + chargerate + taxrate;
+		}
+		cout << "Subtotal" << setw(30) << "RM " << fixed << setprecision(2) << AA_total << endl;
+		cout << "Discount" << setw(30) << "RM " << fixed << setprecision(2) << discountrate << endl;
+		cout << "Service Charge (6%)" << setw(30) << "RM " << fixed << setprecision(2) << chargerate << endl;
+		cout << "Tax (6%)" << setw(30) << "RM " << fixed << setprecision(2) << taxrate << endl;
+		cout << endl;
+		cout << "Total items:" << qty << endl;
+		cout << "Total payable:" << setw(30) << "RM " << fixed << setprecision(2) << final << endl;
+	}
+}
+
+void receipt()
+{
+	identity_payment();
+	time();
+	identity_price_name();
+	invoice();
+	cout << endl;
+	cout << endl;
+	cout << "Enter total payable: RM";
+	cin >> fixed >> setprecision(2) >> amount;
+	cout << "Payment Method     :" << payment_method << endl;
+	cout << "Payment Amount     : RM " << fixed << setprecision(2) << amount << endl;
+	change = amount - final;
+	cout << "Change             :RM " << fixed << setprecision(2) << change << endl;
+}
+
+void menu()
+{
+	cout << setw(29) << "CSG Gadget Shop" << endl;
+	cout << setw(33) << "LOT 1851-A, Jalan KPB 6," << endl;
+	cout << setw(36) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
+	cout << setw(36) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
+	cout << setw(33) << "(MID VALLEY SHOPPING MALL)" << endl;
+	cout << setw(33) << "Hotline support : 0123456789" << endl;
+	cout << setfill('*') << setw(43) << "" << endl;
+	cout << setw(8) << "\n[-Welcome to CSG Gadget Shop-]" << setw(8) << endl;
+	cout << "Please choose an option:" << endl;
+	do {
+		cout << "\n[-Welcome to CSG Gadget Shop-]" << endl;
+		cout << "Please choose an option:" << endl;
+		cout << "A. Menu" << endl;
+		cout << "B. Customer service" << endl;
+		cout << "C. Report." << endl;
+		cout << "D. Exit." << endl;
+		cout << "Enter your choice: ";
+		cin >> menuchoice;
+
+		switch (menuchoice)
+		{
+		case 'A': case 'a':
+			order_menu();
+			break;
+		case 'b':
+			cout << "Customer service is not yet implemented." << endl;
+			break;
+		case 'c':
+			cout << "Report feature is not yet implemented." << endl;
+			break;
+		case 'd':
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			break;
+		default:
+			cout << "Invalid choice. Please try again." << endl;
+		}
+
+	} while (menuchoice != 'D' && menuchoice != 'd'); // loop until user chooses to exit
+}
+
+
+int main() 
+{
+	time();
+	menu();
+	return 0;
+}
