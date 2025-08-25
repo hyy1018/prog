@@ -66,159 +66,18 @@ void receipt_refund();
 
 void report();
 
-void receipt_refund()
-{
-	time ();
-	cout << "Invoice No :" << refund_num << "                " << day << "/" << month << "/" << year << endl;
-	cout << "Product    :" << refund_product << endl;
-	cout << "Reason :" << refund_reason << endl;
-	cout << "Your refund request result will be notified within 3 days." << endl;
-	cout << "Don't forget to check WhatsApp for the update!" << endl;
-
-}
-
-void identity_refund_reason()
-{
-	switch (choice_reason)
-	{
-	case 1:
-		refund_reason = "Product is not working.";
-		break;
-	case 2:
-		refund_reason = "Received the wrong model or color.";
-		break;
-	case 3:
-		refund_reason = "Physical damage found upon opening.";
-		break;
-	case 4:
-		refund_reason = "Battery issue.";
-		break;
-	case 5:
-		refund_reason = "Item is not compatible with my device.";
-		break;
-	case 6:
-		refund_reason = "Wrong quantity received.";
-		break;
-	case 7:
-		cin.ignore();
-		cout << "Please describe your reason :";
-		getline(cin, refund_reason);
-		break;
-	}
-}
-
-void receipt_warranty()
-{
-	cout << "Invoice No :" << warranty_num << "                " << day << "/" << month << "/" << year << endl;
-	cout << "Item   :" << warranty_product << endl;
-	cout << "Reason :" << warranty_reason << endl;
-	cout << "Your warranty request result will be notified within 3 days." << endl;
-	cout << "Don't forget to check WhatsApp for the update!" << endl;
-}
-
-void compare_warranty_date()
-{
-	time();
-	identity_warranty_date();
-	if (W_year < year ||
-		(W_year == year && W_month < month) ||
-		(W_year == year && W_month == month && W_date < day))
-	{
-		cout << endl;
-		cout << "Warranty has expired..." << endl;
-		cout << "Back to main page..." << endl;
-		cout << endl;
-		menu();
-	}
-}
-
-void identity_warranty_date()
-{
-	while (W_month < 1 || W_month >12)
-	{
-		cout << "Invalid month..." << endl;
-		cout << "Please enter again :";
-		cin >> W_month;
-	}
-	switch (W_month)
-	{
-	case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-		while (W_date < 1 || W_date >31)
-		{
-			cout << "Invalid date..." << endl;
-			cout << "Please enter again :";
-			cin >> W_date;
-		}
-		break;
-	case 4: case 6: case 9: case 11:
-		while (W_date < 1 || W_date >30)
-		{
-			cout << "Invalid date..." << endl;
-			cout << "Please enter again :";
-			cin >> W_date;
-		}
-		break;
-	case 2:
-		if ((W_year % 4 == 0 && W_year % 100 != 0) || W_year % 400 == 0)
-		{
-			while (W_date < 1 || W_date >29)
-			{
-				cout << "Invalid date..." << endl;
-				cout << "Please enter again :";
-				cin >> W_date;
-			}
-		}
-
-		else
-		{
-			while (W_date < 1 || W_date >28)
-			{
-				cout << "Invalid date..." << endl;
-				cout << "Please enter again :";
-				cin >> W_date;
-			}
-		}
-
-	}
-}
-void report()
-{
-	cout << day << "/" << month << "/" << year << endl;
-	cout << "Today total customer : " << custnum << endl;
-	cout << "Today total warranty : " << warranty_num << endl;
-	cout << "Today total refund   : " << refund_num << endl;
-}
 void time()
 {
 	time_t now = time(0);
-	tm ltm; // Declare a tm object instead of a pointer
+	tm ltm; 
 
-	// Use localtime_s to safely populate the tm object
 	localtime_s(&ltm, &now);
 
 	day = ltm.tm_mday;
-	month = ltm.tm_mon + 1;  // tm_mon starts from 0 (Jan = 0)
+	month = ltm.tm_mon + 1; 
 	year = 1900 + ltm.tm_year;
 }
 
-void identity_payment()
-{
-	switch (payment)
-	{
-	case 'A' : case 'a':
-		payment_method = "E - Wallet";
-		break;
-	case 'B' : case 'b':
-		payment_method = "Credit Card";
-		break;
-	case 'C' : case 'c':
-		payment_method = "Debit Card";
-		break;
-	case 'D' : case 'd':
-		payment_method = "Cash";
-		break;
-	}
-}
 void identity_price_name()  // identify item price and name 
 {
 	switch (accessory)
@@ -445,24 +304,43 @@ void identity_addon_price_name()  // identify item price and name ADDONNNNNNNNNN
 	}
 }
 
-void identity_warranty_reason() 
+void identity_payment()
 {
-	switch (choice_reason) 
+	switch (payment)
 	{
-	case 1 :
-		warranty_reason = "Manufacturing defect." ;
+	case 'A': case 'a':
+		payment_method = "E - Wallet";
+		break;
+	case 'B': case 'b':
+		payment_method = "Credit Card";
+		break;
+	case 'C': case 'c':
+		payment_method = "Debit Card";
+		break;
+	case 'D': case 'd':
+		payment_method = "Cash";
+		break;
+	}
+}
+
+void identity_warranty_reason()
+{
+	switch (choice_reason)
+	{
+	case 1:
+		warranty_reason = "Manufacturing defect.";
 		break;
 	case 2:
 		warranty_reason = "Hardware failure.";
 		break;
 	case 3:
-		warranty_reason =  "Software issue." ;
+		warranty_reason = "Software issue.";
 		break;
 	case 4:
-		warranty_reason =  "Improper usage." ;
+		warranty_reason = "Improper usage.";
 		break;
 	case 5:
-		warranty_reason =  "Normal wear and tear.";
+		warranty_reason = "Normal wear and tear.";
 		break;
 	case 6:
 		warranty_reason = "External factor.";
@@ -471,6 +349,102 @@ void identity_warranty_reason()
 		cin.ignore();
 		cout << "Please describe your reason :";
 		getline(cin, warranty_reason);
+		break;
+	}
+}
+
+void identity_warranty_date()
+{
+	while (W_month < 1 || W_month >12)
+	{
+		cout << "Invalid month..." << endl;
+		cout << "Please enter again :";
+		cin >> W_month;
+	}
+	switch (W_month)
+	{
+	case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+		while (W_date < 1 || W_date >31)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 4: case 6: case 9: case 11:
+		while (W_date < 1 || W_date >30)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 2:
+		if ((W_year % 4 == 0 && W_year % 100 != 0) || W_year % 400 == 0)
+		{
+			while (W_date < 1 || W_date >29)
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+		else
+		{
+			while (W_date < 1 || W_date >28)
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+	}
+}
+
+void compare_warranty_date()
+{
+	time();
+	identity_warranty_date();
+	if (W_year < year ||
+		(W_year == year && W_month < month) ||
+		(W_year == year && W_month == month && W_date < day))
+	{
+		cout << endl;
+		cout << "Warranty has expired..." << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
+}
+
+void identity_refund_reason()
+{
+	switch (choice_reason)
+	{
+	case 1:
+		refund_reason = "Product is not working.";
+		break;
+	case 2:
+		refund_reason = "Received the wrong model or color.";
+		break;
+	case 3:
+		refund_reason = "Physical damage found upon opening.";
+		break;
+	case 4:
+		refund_reason = "Battery issue.";
+		break;
+	case 5:
+		refund_reason = "Item is not compatible with my device.";
+		break;
+	case 6:
+		refund_reason = "Wrong quantity received.";
+		break;
+	case 7:
+		cin.ignore();
+		cout << "Please describe your reason :";
+		getline(cin, refund_reason);
 		break;
 	}
 }
@@ -1129,6 +1103,17 @@ void refund()
 	}
 }
 
+void receipt_refund()
+{
+	time();
+	cout << "Invoice No :" << refund_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << "Product    :" << refund_product << endl;
+	cout << "Reason :" << refund_reason << endl;
+	cout << "Your refund request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+
+}
+
 void warranty()
 {
 	time();
@@ -1168,7 +1153,6 @@ void warranty()
 
 	identity_warranty_date();
 	compare_warranty_date();
-	//////////
 
 	cout << "-------- Warranty Request Confirmation --------" << endl;
 	cout << "Name             :" << cust_name << endl;
@@ -1204,6 +1188,23 @@ void warranty()
 		cout << endl;
 		menu();
 	}
+}
+
+void receipt_warranty()
+{
+	cout << "Invoice No :" << warranty_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << "Item   :" << warranty_product << endl;
+	cout << "Reason :" << warranty_reason << endl;
+	cout << "Your warranty request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+}
+
+void report()
+{
+	cout << day << "/" << month << "/" << year << endl;
+	cout << "Today total customer : " << custnum << endl;
+	cout << "Today total warranty : " << warranty_num << endl;
+	cout << "Today total refund   : " << refund_num << endl;
 }
 
 void menu()
@@ -1256,13 +1257,11 @@ void menu()
 	} while (menuchoice != 'D' && menuchoice != 'd'); // loop until user chooses to exit
 }
 
-
 int main() 
 {
 	time();
 
 	menu();
 
-	
 	return 0;
 }
