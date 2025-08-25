@@ -37,11 +37,18 @@ int cust_phone, choice_reason;
 int W_date, W_month, W_year;
 char confirm_warranty;
 int warranty_num = 0;
+// use for refund
+string cust_R_name, refund_product, refund_reason;
+int cust_R_phone, choice_R_reason;
+char confirm_refund;
+double refundprice;
+int refund_num = 0;
 
 void menu();
 void time();
 void identity_price_name();
 void identity_warranty_reason();
+void identity_refund_reason();
 void identity_warranty_date();
 void compare_warranty_date();
 
@@ -55,8 +62,50 @@ void customer_service();
 void refund();
 void warranty();
 void receipt_warranty();
+void receipt_refund();
 
 void report();
+
+void receipt_refund()
+{
+	time ();
+	cout << "Invoice No :" << refund_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << "Product    :" << refund_product << endl;
+	cout << "Reason :" << refund_reason << endl;
+	cout << "Your refund request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+
+}
+
+void identity_refund_reason()
+{
+	switch (choice_reason)
+	{
+	case 1:
+		refund_reason = "Product is not working.";
+		break;
+	case 2:
+		refund_reason = "Received the wrong model or color.";
+		break;
+	case 3:
+		refund_reason = "Physical damage found upon opening.";
+		break;
+	case 4:
+		refund_reason = "Battery issue.";
+		break;
+	case 5:
+		refund_reason = "Item is not compatible with my device.";
+		break;
+	case 6:
+		refund_reason = "Wrong quantity received.";
+		break;
+	case 7:
+		cin.ignore();
+		cout << "Please describe your reason :";
+		getline(cin, refund_reason);
+		break;
+	}
+}
 
 void receipt_warranty()
 {
@@ -136,6 +185,8 @@ void report()
 {
 	cout << day << "/" << month << "/" << year << endl;
 	cout << "Today total customer : " << custnum << endl;
+	cout << "Today total warranty : " << warranty_num << endl;
+	cout << "Today total refund   : " << refund_num << endl;
 }
 void time()
 {
@@ -1007,6 +1058,75 @@ void customer_service()
 
 void refund()
 {
+	time();
+	cout << "Enter your name :";
+	cin.ignore();
+	getline(cin, cust_R_name);
+
+	cout << "Enter phone number without - :";
+	cin >> cust_R_phone;
+
+	cout << "Enter name of product you want to refund : ";
+	cin.ignore();
+	getline(cin, refund_product);
+
+	cout << "Enter price of product :";
+	cin >> refundprice;
+
+	cout << "Please select a reason for refund request:" << endl;
+	cout << "1. Product is not working." << endl;
+	cout << "2. Received the wrong model or color." << endl;
+	cout << "3. Physical damage found upon opening." << endl;
+	cout << "4. Battery issue." << endl;
+	cout << "5. Item is not compatible with my device." << endl;
+	cout << "6. Wrong quantity received." << endl;
+	cout << "7. Other." << endl;
+	cout << "Enter the number of your reason (1-7): ";
+	cin >> choice_R_reason;
+
+	while (choice_R_reason < 1 || choice_R_reason > 7)
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again :";
+		cin >> choice_R_reason;
+	}
+
+	identity_refund_reason();
+
+	cout << "-------- Warranty Request Confirmation --------" << endl;
+	cout << "Name             :" << cust_R_name << endl;
+	cout << "Phone number     :" << cust_R_phone << endl;
+	cout << "Product          :" << refund_product << endl;
+	cout << "Price            :" << fixed << setprecision(2) << refundprice << endl;
+	cout << "Warranty reason  :" << refund_reason << endl;
+	cout << endl;
+	cout << "Please confirm your information is correct (Y/N) :";
+	cin >> confirm_refund;
+
+	while (confirm_refund != 'Y' && confirm_refund != 'y' && confirm_refund != 'N' && confirm_refund != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> confirm_refund;
+	}
+
+	if (confirm_refund == 'Y' || confirm_refund == 'y')
+	{
+		cout << "Your refund request is done !" << endl;
+		cout << "Any issue please contact our hotline (0123456789)" << endl;
+		cout << "Here is your receipt !!!" << endl;
+		refund_num++;
+		receipt_refund();
+		cout << "Thank you !!!" << endl;
+		cout << "Have a nice day !!!" << endl;
+	}
+	else if (confirm_refund == 'N' || confirm_refund == 'n')
+	{
+		cout << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
 }
 
 void warranty()
