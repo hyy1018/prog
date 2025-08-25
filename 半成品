@@ -14,7 +14,7 @@ int day, month, year;
 char accessory, itembuy, addon_order;
 double priceitem = 0;
 string itemname;
-int qty = 0, A_qty = 0;
+int qty = 0, A_qty = 0, AA_qty = 0;
 int custnum = 0, ordernum = 0;
 // use for addon order
 char A_accessory, A_itembuy;
@@ -22,17 +22,121 @@ double A_priceitem = 0;
 string A_itemname;
 // use for invoice
 double total = 0, discountrate = 0, afterdiscount = 0, chargerate = 0, taxrate, final = 0;
-double A_total = 0, AA_total, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate, A_final = 0;
+double A_total = 0, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate, A_final = 0;
+double AA_total = 0, AA_discountrate = 0, AA_afterdiscount = 0, AA_chargerate = 0, AA_taxrate, AA_final = 0;
 char payment;
 string payment_method;
 double amount, change = 0;
+// use for int main
+char next_cust;
+// use for customer service
+char cust_choice;
+// use for warranty
+string cust_name, warranty_product, warranty_reason;
+int cust_phone, choice_reason;
+int W_date, W_month, W_year;
+char confirm_warranty;
+int warranty_num = 0;
 
+void menu();
+void time();
 void identity_price_name();
+void identity_warranty_reason();
+void identity_warranty_date();
+void compare_warranty_date();
+
 void order_menu();
 void addon_order_menu();
-void time();
+
 void invoice();
 void receipt();
+
+void customer_service();
+void refund();
+void warranty();
+void receipt_warranty();
+
+void report();
+
+void receipt_warranty()
+{
+	cout << "Invoice No :" << warranty_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << "Item   :" << warranty_product << endl;
+	cout << "Reason :" << warranty_reason << endl;
+	cout << "Your warranty request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+}
+
+void compare_warranty_date()
+{
+	time();
+	identity_warranty_date();
+	if (W_year < year ||
+		(W_year == year && W_month < month) ||
+		(W_year == year && W_month == month && W_date < day))
+	{
+		cout << endl;
+		cout << "Warranty has expired..." << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
+}
+
+void identity_warranty_date()
+{
+	while (W_month < 1 || W_month >12)
+	{
+		cout << "Invalid month..." << endl;
+		cout << "Please enter again :";
+		cin >> W_month;
+	}
+	switch (W_month)
+	{
+	case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+		while (W_date < 1 || W_date >31)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 4: case 6: case 9: case 11:
+		while (W_date < 1 || W_date >30)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 2:
+		if ((W_year % 4 == 0 && W_year % 100 != 0) || W_year % 400 == 0)
+		{
+			while (W_date < 1 || W_date >29)
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+		else
+		{
+			while (W_date < 1 || W_date >28)
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+	}
+}
+void report()
+{
+	cout << day << "/" << month << "/" << year << endl;
+	cout << "Today total customer : " << custnum << endl;
+}
 void time()
 {
 	time_t now = time(0);
@@ -290,6 +394,36 @@ void identity_addon_price_name()  // identify item price and name ADDONNNNNNNNNN
 	}
 }
 
+void identity_warranty_reason() 
+{
+	switch (choice_reason) 
+	{
+	case 1 :
+		warranty_reason = "Manufacturing defect." ;
+		break;
+	case 2:
+		warranty_reason = "Hardware failure.";
+		break;
+	case 3:
+		warranty_reason =  "Software issue." ;
+		break;
+	case 4:
+		warranty_reason =  "Improper usage." ;
+		break;
+	case 5:
+		warranty_reason =  "Normal wear and tear.";
+		break;
+	case 6:
+		warranty_reason = "External factor.";
+		break;
+	case 7:
+		cin.ignore();
+		cout << "Please describe your reason :";
+		getline(cin, warranty_reason);
+		break;
+	}
+}
+
 void addon_order_menu()
 {
 	identity_addon_price_name();
@@ -390,6 +524,8 @@ void addon_order_menu()
 		cout << endl;
 		cout << "Enter your choice :";
 		cin >> A_itembuy;
+		cout << "Quantity :";
+		cin >> A_qty;
 	}
 	else if (A_accessory == 'B' || A_accessory == 'b')
 	{
@@ -479,7 +615,10 @@ void addon_order_menu()
 		cout << endl;
 		cout << "Enter your choice :";
 		cin >> A_itembuy;
+		cout << "Quantity :";
+		cin >> A_qty;
 	}
+	identity_addon_price_name();
 	A_total = A_priceitem * A_qty;
 	cout << "Your choice is " << A_itembuy << "and the price per pax is RM " << fixed << setprecision(2) << A_priceitem << endl;
 	cout << "The total of " << A_itembuy << "." << A_itemname << " is RM " << fixed << setprecision(2) << A_priceitem << "x" << A_qty << " : RM" << fixed << setprecision(2) << A_total << endl;
@@ -498,8 +637,10 @@ void addon_order_menu()
 		cin >> payment;
 	}
 	cout << "Payment Amount: RM" << fixed << setprecision(2) << final << endl;
+	cin >> amount;
 	cout << endl;
 	receipt();
+	///
 
 }
 
@@ -697,7 +838,7 @@ void order_menu()
 		cout << "Quantity x";
 		cin >> qty;
 	}
-	identity_addon_price_name();
+	identity_price_name();
 	total = priceitem * qty;
 	cout << "Your choice is " << itembuy << "." << itemname << " and the price per pax is RM " << fixed << setprecision(2) << priceitem << endl;
 	cout << "The total of " << itembuy << "." << itemname << " is RM " << fixed << setprecision(2) << priceitem << "x" << qty << " : RM" << fixed << setprecision(2) << total << endl;
@@ -730,7 +871,7 @@ void order_menu()
 			cout << "Please choose again payment method..." << endl;
 			cin >> payment;
 		}
-		cout << "Payment Amount: RM" << fixed << setprecision(2) << final << endl;
+		cout << "Total Amount: RM" << fixed << setprecision(2) << final << endl;
 		cout << endl;
 		receipt();
 
@@ -750,7 +891,7 @@ void invoice()
 
 	cout << endl;
 	cout << "Invoice No: " << ordernum << "                            " << day << "/" << month << "/" << year << endl;
-	cout << "1." << itemname << "(" << qty << "x" << priceitem << ")" << "                     " << "RM " << fixed << setprecision(2) << total << endl;
+	cout << "1." << itemname << "(" << qty << "x" << priceitem << ")" << "      " << "RM " << fixed << setprecision(2) << total << endl;
 
 	if (addon_order == 'N' || addon_order == 'n')
 	{
@@ -775,37 +916,48 @@ void invoice()
 		cout << "Tax (6%)" << "                              " << "RM " << fixed << setprecision(2) << taxrate << endl;
 		cout << endl;
 		cout << "Total items:" << qty << endl;
-		cout << "Total payable:" << "                        " << "RM " << fixed << setprecision(2) << final << endl;
+		cout << "Total Amount:" << "                        " << "RM " << fixed << setprecision(2) << final << endl;
 	}
 	else if (addon_order == 'Y' || addon_order == 'y')
 	{
 		A_total = A_priceitem * A_qty;
 		AA_total = total + A_total;
 
-		cout << "2. " << A_itembuy << "(" << A_qty << "x" << A_priceitem << ")" << setw(30) << "RM " << fixed << setprecision(2) << A_total << endl;
+		cout << "2." << A_itemname << "(" << A_qty << "x" << A_priceitem << ")" << "                     " << "RM " << fixed << setprecision(2) << A_total << endl;
 
 		if (AA_total >= 100.00)
 		{
 			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
-			discountrate = AA_total * discount;
-			afterdiscount = AA_total - discountrate;
-			chargerate = AA_total * charge;
-			taxrate = AA_total * tax;
-			final = afterdiscount + chargerate + taxrate;
+			A_discountrate = A_total * discount;
+			A_afterdiscount = A_total - discountrate;
+			A_chargerate = A_total * charge;
+			A_taxrate = A_total * tax;
+			A_final = afterdiscount + chargerate + taxrate;
+
+			AA_discountrate = A_discountrate + discountrate;
+			AA_afterdiscount = A_afterdiscount + afterdiscount;
+			AA_chargerate = A_chargerate + chargerate;
+			AA_taxrate = A_taxrate + taxrate;
+			AA_final = A_final + final;
+			AA_qty = A_qty + qty;
 		}
 		else
 		{
-			chargerate = AA_total * charge;
-			taxrate = AA_total * tax;
-			final = AA_total + chargerate + taxrate;
+			A_chargerate = A_total * charge;
+			A_taxrate = A_total * tax;
+			A_final = A_total + chargerate + taxrate;
+			AA_chargerate = A_chargerate + chargerate;
+			AA_taxrate = A_taxrate + taxrate;
+			AA_final = A_final + final;
+			AA_qty = A_qty + qty;
 		}
 		cout << "Subtotal" << setw(30) << "RM " << fixed << setprecision(2) << AA_total << endl;
-		cout << "Discount" << setw(30) << "RM " << fixed << setprecision(2) << discountrate << endl;
-		cout << "Service Charge (6%)" << setw(30) << "RM " << fixed << setprecision(2) << chargerate << endl;
-		cout << "Tax (6%)" << setw(30) << "RM " << fixed << setprecision(2) << taxrate << endl;
+		cout << "Discount" << setw(30) << "RM " << fixed << setprecision(2) << AA_discountrate << endl;
+		cout << "Service Charge (6%)" << setw(30) << "RM " << fixed << setprecision(2) << AA_chargerate << endl;
+		cout << "Tax (6%)" << setw(30) << "RM " << fixed << setprecision(2) << AA_taxrate << endl;
 		cout << endl;
-		cout << "Total items:" << qty << endl;
-		cout << "Total payable:" << setw(30) << "RM " << fixed << setprecision(2) << final << endl;
+		cout << "Total items:" << AA_qty << endl;
+		cout << "Total payable:" << setw(30) << "RM " << fixed << setprecision(2) << AA_final << endl;
 	}
 }
 
@@ -817,12 +969,121 @@ void receipt()
 	invoice();
 	cout << endl;
 	cout << endl;
-	cout << "Enter total payable: RM";
+	cout << "Paid Amount: RM";
 	cin >> fixed >> setprecision(2) >> amount;
-	cout << "Payment Method     :" << payment_method << endl;
+	cout << "Payment Method     : " << payment_method << endl;
 	cout << "Payment Amount     : RM " << fixed << setprecision(2) << amount << endl;
-	change = amount - final;
+	if (addon_order == 'Y' || addon_order == 'y')
+	{
+		change = amount - AA_final;
+	}
+	else if (addon_order == 'N' || addon_order == 'n')
+	{
+		change = amount - final;
+	}
 	cout << "Change             :RM " << fixed << setprecision(2) << change << endl;
+}
+
+void customer_service()
+{
+		cout << "Would you like to refund or claim warranty? (R/W) : ";
+		cin >> cust_choice;
+	while (cust_choice != 'R' && cust_choice != 'r' && cust_choice != 'W' && cust_choice != 'w')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> cust_choice;
+	}
+	if (cust_choice == 'R' || cust_choice == 'r')
+	{
+		refund();
+	}
+	else if (cust_choice == 'W' || cust_choice == 'w')
+	{
+		warranty();
+	}
+	
+}
+
+void refund()
+{
+}
+
+void warranty()
+{
+	time();
+	cout << "Enter your name :";
+	cin.ignore();
+	getline(cin, cust_name);
+
+	cout << "Enter phone number without - :";
+	cin >> cust_phone;
+
+	cout << "Enter name of product you want to claim warranty : ";
+	cin.ignore();
+	getline(cin, warranty_product);
+
+	cout << "Please select a reason for warranty request:" << endl;
+	cout << "1. Manufacturing defect." << endl;
+	cout << "2. Hardware failure." << endl;
+	cout << "3. Software issue." << endl;
+	cout << "4. Improper usage." << endl;
+	cout << "5. Normal wear and tear." << endl;
+	cout << "6. External factor." << endl;
+	cout << "7. Other." << endl;
+	cout << "Enter the number of your reason (1-7): ";
+	cin >> choice_reason;
+	
+	while (choice_reason < 1 || choice_reason > 7)
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again :";
+		cin >> choice_reason;
+	}
+
+	identity_warranty_reason();
+
+	cout << "Please enter warranty expire date (YYYY MM DD , seperated by space) : ";
+	cin >> W_year >> W_month >> W_date;
+
+	identity_warranty_date();
+	compare_warranty_date();
+	//////////
+
+	cout << "-------- Warranty Request Confirmation --------" << endl;
+	cout << "Name             :" << cust_name << endl;
+	cout << "Phone number     :" << cust_phone << endl;
+	cout << "Product          :" << warranty_product << endl;
+	cout << "Warranty reason  :" << warranty_reason << endl;
+	cout << "Warranty expired :" << W_date << " / " << W_month << " / " << W_year << endl;
+	cout << endl;
+	cout << "Please confirm your information is correct (Y/N) :";
+	cin >> confirm_warranty;
+
+	while (confirm_warranty != 'Y' && confirm_warranty != 'y' && confirm_warranty != 'N' && confirm_warranty != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> confirm_warranty;
+	}
+
+	if (confirm_warranty == 'Y' || confirm_warranty == 'y')
+	{
+		cout << "Your warranty request is done !" << endl;
+		cout << "Any issue please contact our hotline (0123456789)" << endl;
+		cout << "Here is your receipt !!!" << endl;
+		warranty_num++;
+		receipt_warranty();
+		cout << "Thank you !!!" << endl;
+		cout << "Have a nice day !!!" << endl;
+	}
+	else if (confirm_warranty == 'N' || confirm_warranty == 'n')
+	{
+		cout << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
 }
 
 void menu()
@@ -850,20 +1111,27 @@ void menu()
 		{
 		case 'A': case 'a':
 			order_menu();
+			cout << endl;
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			cout << endl;
 			break;
-		case 'b':
-			cout << "Customer service is not yet implemented." << endl;
+		case 'B': case 'b' :
+			customer_service();
 			break;
-		case 'c':
-			cout << "Report feature is not yet implemented." << endl;
+		case 'C': case 'c':
+			cout << endl;
+			report();
 			break;
-		case 'd':
+		case 'D': case 'd':
 			cout << "Thanks for using our system !!!" << endl;
 			cout << "Have a nice day!!!" << endl;
 			break;
 		default:
 			cout << "Invalid choice. Please try again." << endl;
+			break;
 		}
+
 
 	} while (menuchoice != 'D' && menuchoice != 'd'); // loop until user chooses to exit
 }
@@ -872,6 +1140,9 @@ void menu()
 int main() 
 {
 	time();
+
 	menu();
+
+	
 	return 0;
 }
