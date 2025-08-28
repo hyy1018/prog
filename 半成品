@@ -323,7 +323,7 @@ void compare_warranty_date()  // compare warranty date  valid / invalid warranty
 
 void identity_refund_reason()  // identity refund reason
 {
-	switch (choice_reason)
+	switch (choice_R_reason)
 	{
 	case 1:
 		refund_reason = "Product is not working.";
@@ -787,6 +787,7 @@ void refund()  // proceed refund
 	cin >> refundprice;
 
 	cout << "Please select a reason for refund request:" << endl;
+	cout << endl;
 	cout << "1. Product is not working." << endl;
 	cout << "2. Received the wrong model or color." << endl;
 	cout << "3. Physical damage found upon opening." << endl;
@@ -805,16 +806,17 @@ void refund()  // proceed refund
 	}
 
 	identity_refund_reason();
-
+	cout << endl;
 	cout << "-------- Refund Request Confirmation --------" << endl;
 	cout << "Name             :" << cust_R_name << endl;
 	cout << "Phone number     :" << cust_R_phone << endl;
 	cout << "Product          :" << refund_product << endl;
 	cout << "Price            :" << fixed << setprecision(2) << refundprice << endl;
-	cout << "Refund reason  :" << refund_reason << endl;
+	cout << "Refund reason    :" << refund_reason << endl;
 	cout << endl;
 	cout << "Please confirm your information is correct (Y/N) :";
 	cin >> confirm_refund;
+	cout << endl;
 
 	while (confirm_refund != 'Y' && confirm_refund != 'y' && confirm_refund != 'N' && confirm_refund != 'n')
 	{
@@ -830,8 +832,6 @@ void refund()  // proceed refund
 		cout << "Here is your receipt !!!" << endl;
 		refund_num++;
 		receipt_refund();
-		cout << "Thank you !!!" << endl;
-		cout << "Have a nice day !!!" << endl;
 	}
 	else if (confirm_refund == 'N' || confirm_refund == 'n')
 	{
@@ -845,11 +845,15 @@ void refund()  // proceed refund
 void receipt_refund()  // receipt for refund
 {
 	time();
-	cout << "Invoice No :" << refund_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
+	cout << setw(40) << setfill(' ') << "---------------------" << endl;
+	cout << "Invoice No :" << refund_num << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Product    :" << refund_product << endl;
-	cout << "Reason :" << refund_reason << endl;
+	cout << "Reason     :" << refund_reason << endl;
+	cout << endl;
 	cout << "Your refund request result will be notified within 3 days." << endl;
 	cout << "Don't forget to check WhatsApp for the update!" << endl;
+	cout << endl;
 
 }
 
@@ -868,6 +872,7 @@ void warranty()  // proceed warranty
 	getline(cin, warranty_product);
 
 	cout << "Please select a reason for warranty request:" << endl;
+	cout << endl;
 	cout << "1. Manufacturing defect." << endl;
 	cout << "2. Hardware failure." << endl;
 	cout << "3. Software issue." << endl;
@@ -877,6 +882,7 @@ void warranty()  // proceed warranty
 	cout << "7. Other." << endl;
 	cout << "Enter the number of your reason (1-7): ";
 	cin >> choice_reason;
+	cout << endl;
 
 	while (choice_reason < 1 || choice_reason > 7)
 	{
@@ -889,6 +895,7 @@ void warranty()  // proceed warranty
 
 	cout << "Please enter warranty expire date (YYYY MM DD , seperated by space) : ";
 	cin >> W_year >> W_month >> W_date;
+	cout << endl;
 
 	identity_warranty_date();
 	compare_warranty_date();
@@ -902,6 +909,7 @@ void warranty()  // proceed warranty
 	cout << endl;
 	cout << "Please confirm your information is correct (Y/N) :";
 	cin >> confirm_warranty;
+	cout << endl;
 
 	while (confirm_warranty != 'Y' && confirm_warranty != 'y' && confirm_warranty != 'N' && confirm_warranty != 'n')
 	{
@@ -931,11 +939,15 @@ void warranty()  // proceed warranty
 
 void receipt_warranty()  // receipt for warranty
 {
-	cout << "Invoice No :" << warranty_num << "                " << day << "/" << month << "/" << year << endl;
+	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
+	cout << setw(40) << setfill(' ') << "---------------------" << endl;
+	cout << "Invoice No :" << warranty_num << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Item   :" << warranty_product << endl;
 	cout << "Reason :" << warranty_reason << endl;
+	cout << endl;
 	cout << "Your warranty request result will be notified within 3 days." << endl;
 	cout << "Don't forget to check WhatsApp for the update!" << endl;
+	cout << endl;
 }
 
 void report()
@@ -948,14 +960,14 @@ void report()
 
 void menu()  // daily report
 {
-	cout << setw(79) << "CSG Gadget Shop" << endl;
-	cout << setw(83) << "LOT 1851-A, Jalan KPB 6," << endl;
-	cout << setw(86) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
-	cout << setw(86) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
-	cout << setw(83) << "(MID VALLEY SHOPPING MALL)" << endl;
-	cout << setw(83) << "Hotline support : 0123456789" << endl;
-	cout << setw(90) << "" << endl;
 	do {
+		cout << setw(79) << "CSG Gadget Shop" << endl;
+		cout << setw(83) << "LOT 1851-A, Jalan KPB 6," << endl;
+		cout << setw(86) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
+		cout << setw(86) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
+		cout << setw(83) << "(MID VALLEY SHOPPING MALL)" << endl;
+		cout << setw(83) << "Hotline support : 0123456789" << endl;
+		cout << setw(90) << "" << endl;
 		cout << "\n[-Welcome to CSG Gadget Shop-]" << endl;
 		cout << "Please choose an option:" << endl;
 		cout << "A. Menu" << endl;
