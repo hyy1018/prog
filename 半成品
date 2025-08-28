@@ -693,45 +693,27 @@ void invoice()  // invoice
 		A_total = A_priceitem * A_qty;
 		AA_total = total + A_total;
 
-		cout << "2." << A_itemname << "(" << A_qty << "x" << A_priceitem << ")" << setw(50) << setfill(' ') << "RM " << fixed << setprecision(2) << A_total << endl;
+		cout << "2." << A_itemname << "(" << A_qty << "x" << A_priceitem << ")" << setw(23) << setfill(' ') << "RM " << fixed << setprecision(2) << A_total << endl;
 
 		if (AA_total >= 100.00)
 		{
 			cout << endl;
 			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
 			cout << endl;
-			discountrate = total * discount;
-			afterdiscount = total - discountrate;
-			chargerate = total * charge;
-			taxrate = total * tax;
-			final = afterdiscount + chargerate + taxrate;
 
-			A_discountrate = A_total * discount;
-			A_afterdiscount = A_total - discountrate;
-			A_chargerate = A_total * charge;
-			A_taxrate = A_total * tax;
-			A_final = afterdiscount + chargerate + taxrate;
-
-			AA_discountrate = A_discountrate + discountrate;
-			AA_afterdiscount = A_afterdiscount + afterdiscount;
-			AA_chargerate = A_chargerate + chargerate;
-			AA_taxrate = A_taxrate + taxrate;
-			AA_final = A_final + final;
-			AA_qty = A_qty + qty;
+			AA_discountrate = AA_total * discount;
+			AA_afterdiscount = AA_total - AA_discountrate;
+			AA_chargerate = AA_afterdiscount * charge;
+			AA_taxrate = AA_afterdiscount * tax;
+			AA_final = AA_afterdiscount + AA_chargerate + AA_taxrate;
 		}
 		else
 		{
-			chargerate = total * charge;
-			taxrate = total * tax;
-			final = total + chargerate + taxrate;
-
-			A_chargerate = A_total * charge;
-			A_taxrate = A_total * tax;
-			A_final = A_total + chargerate + taxrate;
-			AA_chargerate = A_chargerate + chargerate;
-			AA_taxrate = A_taxrate + taxrate;
-			AA_final = A_final + final;
-			AA_qty = A_qty + qty;
+			AA_discountrate = 0.0;
+			AA_afterdiscount = AA_total;
+			AA_chargerate = AA_total * charge;
+			AA_taxrate = AA_total * tax;
+			AA_final = AA_total + AA_chargerate + AA_taxrate;
 		}
 		cout << "Subtotal" << setw(60) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_total << endl;
 		cout << "Discount" << setw(60) << setfill(' ') << "-RM " << fixed << setprecision(2) << AA_discountrate << endl;
