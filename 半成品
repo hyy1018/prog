@@ -380,7 +380,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "B. XIAOMI Normal USB-C Cable RM 25.99" << endl;
 		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
 		cout << "      More affordable, offering great value for basic charging." << endl;
-		cout << "Cons: Limited to standard cahrging." << endl;
+		cout << "Cons: Limited to standard charging." << endl;
 		cout << "      May not support higher power output for power-hungry devices." << endl;
 		cout << endl;
 		cout << "Lightning Cable :" << endl;
@@ -402,7 +402,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "E. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
 		cout << "      Small and lightweight, easy handle and carry out." << endl;
-		cout << "Cons: Due to small size, esaily misplaced." << endl;
+		cout << "Cons: Due to small size, easily misplaced." << endl;
 		cout << "      Limited battery life, needs to be charged regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
@@ -422,13 +422,13 @@ void addon_order_menu()  // 2nd time order
 		cout << "-----------------" << endl;
 		cout << "A. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
 		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
-		cout << "      Compact and portable, small size easy to carry aroung." << endl;
+		cout << "      Compact and portable, small size easy to carry around." << endl;
 		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
 		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. Kingston USB Flash Drive 64GB RM 30.99" << endl;
 		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
-		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
+		cout << "      Durable design, robust meterials provide better protection from physical impact." << endl;
 		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
 		cout << "      Low speed especially for very large file transfer and store." << endl;
 		cout << endl;
@@ -441,10 +441,10 @@ void addon_order_menu()  // 2nd time order
 		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "D. Seagate 512GB External Hard Drive RM 180.99" << endl;
-		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
+		cout << "Pros: More affordable, more cheaper and suitable for budget-conscious users." << endl;
 		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
 		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
-		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
+		cout << "      May require additional storage, might need external drive again for extra space." << endl;
 		cout << endl;
 		cout << "Mouse :" << endl;
 		cout << "-------" << endl;
@@ -452,7 +452,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
 		cout << "      Small and lightweight, easy handle and carry out." << endl;
 		cout << "Cons: Battery dependency, requires battery replacement." << endl;
-		cout << "      May experience lag or disconeects due to wireless interference." << endl;
+		cout << "      May experience lag or disconnects due to wireless interference." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOAMI Wired Mouse RM 30.99" << endl;
 		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
