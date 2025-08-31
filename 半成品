@@ -1,48 +1,58 @@
-#include<iostream>  ////////DONEEEEEEEEEEEEEEE 我改grammer error罢了
+#include<iostream>  ////////DONEEEEEEEEEEEEEEE
 #include<iomanip>
 #include<ctime>
 #include<string>
 #define discount 0.20
 #define charge 0.06
 #define tax 0.06
+
 using namespace std;
-// use for menu
-char menuchoice;
-// use for report
+
+// use for int main
+char menuchoice; 
+
+// use for time
 int day, month, year;
+
 // use for order
 char accessory, itembuy, addon_order;
 double priceitem = 0;
 string itemname;
-int qty = 0, A_qty = 0, AA_qty = 0;
-int custnum = 0, ordernum = 0;
+
 // use for addon order
-char A_accessory, A_itembuy;
-double A_priceitem = 0;
-string A_itemname;
+char A_accessory, A_itembuy; 
+double A_priceitem = 0; 
+string A_itemname; 
+
 // use for invoice
-double total = 0, discountrate = 0, afterdiscount = 0, chargerate = 0, taxrate, final = 0;
-double A_total = 0, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate, A_final = 0;
-double AA_total = 0, AA_discountrate = 0, AA_afterdiscount = 0, AA_chargerate = 0, AA_taxrate, AA_final = 0;
-char payment;
-string payment_method;
-double amount, change = 0;
-// use for int main
-char next_cust;
+int qty = 0, A_qty = 0, AA_qty;
+double total = 0, discountrate = 0, afterdiscount = 0, chargerate = 0, taxrate = 0, final = 0; 
+double A_total = 0, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate = 0, A_final = 0; 
+double AA_total = 0;
+char payment; 
+string payment_method; 
+double amount = 0, change = 0;  
+
 // use for customer service
 char cust_choice;
+
 // use for warranty
 string cust_name, warranty_product, warranty_reason;
 int cust_phone, choice_reason;
 int W_date, W_month, W_year;
 char confirm_warranty;
-int warranty_num = 0;
+
 // use for refund
 string cust_R_name, refund_product, refund_reason;
 int cust_R_phone, choice_R_reason;
 char confirm_refund;
 double refundprice;
-int refund_num = 0;
+
+// use for report
+int refundnum = 1;
+int custnum = 1;
+int warrantynum = 1;
+int invoicenum = 1;
 
 void menu();
 void time();
@@ -380,7 +390,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "B. XIAOMI Normal USB-C Cable RM 25.99" << endl;
 		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
 		cout << "      More affordable, offering great value for basic charging." << endl;
-		cout << "Cons: Limited to standard charging." << endl;
+		cout << "Cons: Limited to standard cahrging." << endl;
 		cout << "      May not support higher power output for power-hungry devices." << endl;
 		cout << endl;
 		cout << "Lightning Cable :" << endl;
@@ -402,7 +412,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "E. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
 		cout << "      Small and lightweight, easy handle and carry out." << endl;
-		cout << "Cons: Due to small size, easily misplaced." << endl;
+		cout << "Cons: Due to small size, esaily misplaced." << endl;
 		cout << "      Limited battery life, needs to be charged regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
@@ -422,13 +432,13 @@ void addon_order_menu()  // 2nd time order
 		cout << "-----------------" << endl;
 		cout << "A. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
 		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
-		cout << "      Compact and portable, small size easy to carry around." << endl;
+		cout << "      Compact and portable, small size easy to carry aroung." << endl;
 		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
 		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. Kingston USB Flash Drive 64GB RM 30.99" << endl;
 		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
-		cout << "      Durable design, robust meterials provide better protection from physical impact." << endl;
+		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
 		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
 		cout << "      Low speed especially for very large file transfer and store." << endl;
 		cout << endl;
@@ -441,10 +451,10 @@ void addon_order_menu()  // 2nd time order
 		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "D. Seagate 512GB External Hard Drive RM 180.99" << endl;
-		cout << "Pros: More affordable, more cheaper and suitable for budget-conscious users." << endl;
+		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
 		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
 		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
-		cout << "      May require additional storage, might need external drive again for extra space." << endl;
+		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
 		cout << endl;
 		cout << "Mouse :" << endl;
 		cout << "-------" << endl;
@@ -452,7 +462,7 @@ void addon_order_menu()  // 2nd time order
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
 		cout << "      Small and lightweight, easy handle and carry out." << endl;
 		cout << "Cons: Battery dependency, requires battery replacement." << endl;
-		cout << "      May experience lag or disconnects due to wireless interference." << endl;
+		cout << "      May experience lag or disconeects due to wireless interference." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOAMI Wired Mouse RM 30.99" << endl;
 		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
@@ -469,8 +479,6 @@ void addon_order_menu()  // 2nd time order
 	A_total = A_priceitem * A_qty;
 	cout << "Your choice is " << A_itembuy << "and the price per pax is RM " << fixed << setprecision(2) << A_priceitem << endl;
 	cout << "The total of " << A_itembuy << "." << A_itemname << " is RM " << fixed << setprecision(2) << A_priceitem << "x" << A_qty << " : RM" << fixed << setprecision(2) << A_total << endl;
-	ordernum++;
-	custnum++;
 
 	identity_payment();
 	cout << endl;
@@ -607,8 +615,6 @@ void order_menu()   // 1st time order
 	total = priceitem * qty;
 	cout << "Your choice is " << itembuy << "." << itemname << " and the price per pax is RM " << fixed << setprecision(2) << priceitem << endl;
 	cout << "The total of " << itembuy << "." << itemname << " is RM " << fixed << setprecision(2) << priceitem << "x" << qty << " : RM" << fixed << setprecision(2) << total << endl;
-	ordernum++;
-	custnum++;
 	cout << "Would you like to add on something ? You only can add on once!!! (Y/N) :";
 	cin >> addon_order;
 
@@ -657,9 +663,12 @@ void invoice()  // invoice
 	cout << setw(40) << setfill(' ') << "     Tel: 012-3456789" << endl;
 
 	cout << endl;
-	cout << "Invoice No: " << ordernum << setw(50)<< setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No: " << invoicenum << setw(70)<< setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << endl;
-	cout << "1." << itemname << "(" << qty << "x" << priceitem << ")" <<  setw(23) << setfill(' ') << "RM " << fixed << setprecision(2) << total << endl;
+	cout << endl;
+	cout << left << setw(30) << setfill(' ') << "Quantity" << left << setw(52) << setfill(' ') << "Item" << left << setw(35) << setfill(' ') << "Price(RM)" << endl;
+	cout << "-------------------------------------------------------------------------------------------- " << endl;
+	cout << right << setw(4) << setfill(' ') << qty << setw(13) << "" << left << setw(62) << itemname << right << setw(10) << setfill(' ') << fixed << setprecision(2) << total << endl;
 
 	if (addon_order == 'N' || addon_order == 'n')
 	{
@@ -680,20 +689,21 @@ void invoice()  // invoice
 			taxrate = total * tax;
 			final = total + chargerate + taxrate;
 		}
-		cout << "Subtotal" << setw(60) << setfill(' ') <<  "RM " << fixed << setprecision(2) << total << endl;
-		cout << "Discount" << setw(60) << setfill(' ') << "-RM " << fixed << setprecision(2) << discountrate << endl;
-		cout << "Service Charge (6%)" << setw(49) << setfill(' ') << "RM " << fixed << setprecision(2) << chargerate << endl;
-		cout << "Tax (6%)" << setw(60) << setfill(' ') << "RM " << fixed << setprecision(2) << taxrate << endl;
+		cout << "Subtotal" << setw(78) << setfill(' ') <<  "RM " << fixed << setprecision(2) << total << endl;
+		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << discountrate << endl;
+		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << chargerate << endl;
+		cout << "Tax (6%)" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << taxrate << endl;
 		cout << endl;
-		cout << "Total items" << setw(55) << setfill(' ') << qty << endl;
-		cout << "Total Amount" << setw(56) << setfill(' ') << "RM " << fixed << setprecision(2) << final << endl;
+		cout << "Total items" << setw(73) << setfill(' ') << qty << endl;
+		cout << "Total Amount" << setw(74) << setfill(' ') << "RM " << fixed << setprecision(2) << final << endl;
 	}
 	else if (addon_order == 'Y' || addon_order == 'y')
 	{
 		A_total = A_priceitem * A_qty;
 		AA_total = total + A_total;
+		AA_qty = qty + A_qty;
 
-		cout << "2." << A_itemname << "(" << A_qty << "x" << A_priceitem << ")" << setw(23) << setfill(' ') << "RM " << fixed << setprecision(2) << A_total << endl;
+		cout << right << setw(4) << setfill(' ') << A_qty << setw(13) << "" << left << setw(62) << A_itemname << right << setw(10) << setfill(' ') << fixed << setprecision(2) << A_total << endl;
 
 		if (AA_total >= 100.00)
 		{
@@ -701,27 +711,27 @@ void invoice()  // invoice
 			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
 			cout << endl;
 
-			AA_discountrate = AA_total * discount;
-			AA_afterdiscount = AA_total - AA_discountrate;
-			AA_chargerate = AA_afterdiscount * charge;
-			AA_taxrate = AA_afterdiscount * tax;
-			AA_final = AA_afterdiscount + AA_chargerate + AA_taxrate;
+			A_discountrate = AA_total * discount;
+			A_afterdiscount = AA_total - A_discountrate;
+		    A_chargerate = A_afterdiscount * charge;
+			A_taxrate = A_afterdiscount * tax;
+			A_final = A_afterdiscount + A_chargerate + A_taxrate;
 		}
 		else
 		{
-			AA_discountrate = 0.0;
-			AA_afterdiscount = AA_total;
-			AA_chargerate = AA_total * charge;
-			AA_taxrate = AA_total * tax;
-			AA_final = AA_total + AA_chargerate + AA_taxrate;
+			A_discountrate = 0.0;
+			A_afterdiscount = AA_total;
+			A_chargerate = AA_total * charge;
+			A_taxrate = AA_total * tax;
+			A_final = AA_total + A_chargerate + A_taxrate;
 		}
-		cout << "Subtotal" << setw(60) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_total << endl;
-		cout << "Discount" << setw(60) << setfill(' ') << "-RM " << fixed << setprecision(2) << AA_discountrate << endl;
-		cout << "Service Charge (6%)" << setw(49) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_chargerate << endl;
-		cout << "Tax (6%)" << setw(60) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_taxrate << endl;
+		cout << "Subtotal" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_total << endl;
+		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << A_discountrate << endl;
+		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << A_chargerate << endl;
+		cout << "Tax (6%)" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << A_taxrate << endl;
 		cout << endl;
-		cout << "Total items" << setw(55) << setfill(' ') << AA_qty << endl;
-		cout << "Total Amount" << setw(56) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_final << endl;
+		cout << "Total items" << setw(74) << setfill(' ') << AA_qty << endl;
+		cout << "Net Total" << setw(77) << setfill(' ') << "RM " << fixed << setprecision(2) << A_final << endl;
 	}
 }
 
@@ -733,19 +743,37 @@ void receipt() // receipt after invoice
 	invoice();
 	cout << endl;
 	cout << endl;
-	cout << "Paid Amount" << setw(56) << setfill(' ') << "RM";
-	cin >> fixed >> setprecision(2) >> amount;
-	cout << "Payment Method" << setw(55) << setfill(' ') << payment_method << endl;
-	cout << "Payment Amount" << setw(53) << setfill(' ') << "RM" << fixed << setprecision(2) << amount << endl;
+	cout << "Payment Method" << setw(73) << setfill(' ') << payment_method << endl;
+	cout << "Paid Amount" << setw(75) << setfill(' ') << "RM ";
+	cin >> amount;
+	cout << "Payment Amount" << setw(72) << setfill(' ') << "RM " << fixed << setprecision(2) << amount << endl;
 	if (addon_order == 'Y' || addon_order == 'y')
 	{
-		change = amount - AA_final;
+		while (amount < A_final)
+		{
+			cout << endl;
+			cout << "Pay again..." << endl;
+			cout << "New Paid Amount : ";
+			cin >> amount;
+			cout << endl;
+		}
+		change = amount - A_final;
 	}
 	else if (addon_order == 'N' || addon_order == 'n')
 	{
+		while (amount < final)
+		{
+			cout << endl;
+			cout << "Pay again..." << endl;
+			cout << "New Paid Amount : ";
+			cin >> amount;
+			cout << endl;
+		}
 		change = amount - final;
 	}
-	cout << "Change" << setw(61) << setfill(' ') << "RM" << fixed << setprecision(2) << change << endl;
+	cout << "Change" << setw(80) << setfill(' ') << "RM " << fixed << setprecision(2) << change << endl;
+	invoicenum++;
+	custnum++;
 }
 
 void customer_service()  // proceed warranty/refund (additional function)
@@ -785,7 +813,7 @@ void refund()  // proceed refund
 
 	cout << "Enter price of product :";
 	cin >> refundprice;
-
+	cout << endl;
 	cout << "Please select a reason for refund request:" << endl;
 	cout << endl;
 	cout << "1. Product is not working." << endl;
@@ -811,7 +839,7 @@ void refund()  // proceed refund
 	cout << "Name             :" << cust_R_name << endl;
 	cout << "Phone number     :" << cust_R_phone << endl;
 	cout << "Product          :" << refund_product << endl;
-	cout << "Price            :" << fixed << setprecision(2) << refundprice << endl;
+	cout << "Price            :RM" << fixed << setprecision(2) << refundprice << endl;
 	cout << "Refund reason    :" << refund_reason << endl;
 	cout << endl;
 	cout << "Please confirm your information is correct (Y/N) :";
@@ -830,7 +858,6 @@ void refund()  // proceed refund
 		cout << "Your refund request is done !" << endl;
 		cout << "Any issue please contact our hotline (0123456789)" << endl;
 		cout << "Here is your receipt !!!" << endl;
-		refund_num++;
 		receipt_refund();
 	}
 	else if (confirm_refund == 'N' || confirm_refund == 'n')
@@ -847,14 +874,15 @@ void receipt_refund()  // receipt for refund
 	time();
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
-	cout << "Invoice No :" << refund_num << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No :" << invoicenum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Product    :" << refund_product << endl;
 	cout << "Reason     :" << refund_reason << endl;
 	cout << endl;
 	cout << "Your refund request result will be notified within 3 days." << endl;
 	cout << "Don't forget to check WhatsApp for the update!" << endl;
 	cout << endl;
-
+	refundnum++;
+	invoicenum++;
 }
 
 void warranty()  // proceed warranty
@@ -923,7 +951,6 @@ void warranty()  // proceed warranty
 		cout << "Your warranty request is done !" << endl;
 		cout << "Any issue please contact our hotline (0123456789)" << endl;
 		cout << "Here is your receipt !!!" << endl;
-		warranty_num++;
 		receipt_warranty();
 		cout << "Thank you !!!" << endl;
 		cout << "Have a nice day !!!" << endl;
@@ -941,21 +968,24 @@ void receipt_warranty()  // receipt for warranty
 {
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
-	cout << "Invoice No :" << warranty_num << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No :" << warrantynum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Item   :" << warranty_product << endl;
 	cout << "Reason :" << warranty_reason << endl;
 	cout << endl;
 	cout << "Your warranty request result will be notified within 3 days." << endl;
 	cout << "Don't forget to check WhatsApp for the update!" << endl;
 	cout << endl;
+	warrantynum++;
+	invoicenum++;
 }
 
 void report()
 {
 	cout << day << "/" << month << "/" << year << endl;
-	cout << "Today total customer : " << custnum << endl;
-	cout << "Today total warranty : " << warranty_num << endl;
-	cout << "Today total refund   : " << refund_num << endl;
+	cout << "Today total customer : " << invoicenum << endl;
+	cout << "Today total sales    : " << custnum << endl;
+	cout << "Today total warranty : " << warrantynum << endl;
+	cout << "Today total refund   : " << refundnum << endl;
 }
 
 void menu()  // daily report
