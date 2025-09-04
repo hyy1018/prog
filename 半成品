@@ -50,6 +50,7 @@ double refundprice;
 
 // use for report
 int staff_id;
+int staff_ids[] = { 123457, 987654, 555555 };
 int refundnum = 0;
 int custnum = 0;
 int warrantynum = 0;
@@ -982,7 +983,7 @@ void receipt_warranty()  // receipt for warranty
 	cout << endl;
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
-	cout << "Invoice No :" << warrantynum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No :" << invoicenum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Item   :" << warranty_product << endl;
 	cout << "Reason :" << warranty_reason << endl;
 	cout << endl;
@@ -995,13 +996,25 @@ void receipt_warranty()  // receipt for warranty
 
 void report()  // daily report
 {
-	for (int i = 1; i <= 3; i++)
+	for (int i = 1; i <= 3; i++)  
 	{
 		cout << "Hello, please enter your ID : ";
 		cin >> staff_id;
 
-		if (staff_id == 123457)
+		bool valid = false;  
+
+		for (int j = 0; j < 3; j++)  
 		{
+			if (staff_id == staff_ids[j])
+			{
+				valid = true; 
+			}
+		}
+
+		if (valid)
+		{
+			cout << endl;
+			cout << endl;
 			cout << "            Daily Report" << endl;
 			cout << "-----------------------------------" << endl;
 			cout << day << "/" << month << "/" << year << endl;
@@ -1009,13 +1022,14 @@ void report()  // daily report
 			cout << "Today total sales    : " << custnum << endl;
 			cout << "Today total warranty : " << warrantynum << endl;
 			cout << "Today total refund   : " << refundnum << endl;
-			i += 2;
+			i += 2; 
 		}
 		else
 		{
 			cout << "Invalid ID..." << endl;
 			cout << endl;
-			if (i == 3)
+
+			if (i == 3) 
 			{
 				cout << "Enter too many times!!!" << endl;
 				cout << "Back to main menu!!!" << endl;
@@ -1024,6 +1038,7 @@ void report()  // daily report
 		}
 	}
 }
+
 
 void menu()  // main menu
 {
