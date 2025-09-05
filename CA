@@ -1,33 +1,70 @@
 .MODEL SMALL
 .STACK 100
 .DATA
-    ;Menu and submenu
-	SHOPNAME    	DB "==============One Bite Bakery==============$"
-	SHOPNAME_ICON1	DB "          ---	   -----    -----     $" 
-	SHOPNAME_ICON2	DB "        /     \   |  _  \  |  _  \    $"
-	SHOPNAME_ICON3	DB "       |  / \  |  |     /  |     /    $"
-	SHOPNAME_ICON4	DB "       |  \ /  |  |  _  \  |  _  \    $"
-	SHOPNAME_ICON5	DB "        \     /   |     /  |     /    $"
-	SHOPNAME_ICON6	DB "          ---	   -----    -----     $"
-						; all underscore symbol (keyboard)
-						
-	MENU_ORDER      DB "  1. View Menu   $"
-	MENU_STAFFLOGIN DB "  2. Staff Login $"
-	MENU_EXIT	    DB "  3. Exit        $"
-	MENU_SELECT 	DB "  Enter your selection: $"
+    ;Menu and submenu for customer
+	SHOPNAME		DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+					DB	"  |                                               |", 0AH, 0DH  ;01H	
+					DB  "  |  ==============One Bite Bakery==============  |", 0AH, 0DH  ;02H
+					DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;03H
+					DB  "  |          /     \   |  _  \  |  _  \           |", 0AH, 0DH  ;04H
+					DB  "  |         |  / \  |  |     /  |     /           |", 0AH, 0DH  ;05H
+					DB  "  |         |  \ /  |  |  _  \  |  _  \           |", 0AH, 0DH  ;06H
+					DB  "  |          \     /   |     /  |     /           |", 0AH, 0DH  ;07H
+					DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;08H
+					DB	"  |                                               |", 0AH, 0DH	 ;09H
+					DB	"  |   1. View Menu                                |", 0AH, 0DH  ;0AH
+					DB	"  |   2. Staff Login                              |", 0AH, 0DH	 ;0BH	
+					DB	"  |   3. Exit                                     |", 0AH, 0DH	 ;0CH
+					DB	"  |                                               |", 0AH, 0DH	 ;0DH	
+					DB	"  |   Enter your selection:                       |", 0AH, 0DH	 ;0EH	
+					DB	"  |                                               |", 0AH, 0DH	 ;0FH	
+					DB	"  |                                               |", 0AH, 0DH	 ;10H	
+					DB	"  |                                               |", 0AH, 0DH	 ;11H	
+					DB	"  |                                               |", 0AH, 0DH	 ;12H
+					DB	"  |                                               |", 0AH, 0DH	 ;13H
+					DB	"  |                                               |", 0AH, 0DH	 ;14H
+					DB	"  |                                               |", 0AH, 0DH	 ;15H
+					DB	"  |                                               |", 0AH, 0DH	 ;16H
+					DB	"  |                                               |", 0AH, 0DH	 ;17H
+					DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
+								; all underscore symbol (keyboard)
+
 	MENU_SELECTION  DB ?
-	MENU_THANKS     DB "  Thankyou for using our system! Have a nice day! $"
-	MENU_INVALID    DB "  Invalid Option!!!  PLEASE RE-ENTER$"
+	MENU_THANKS		DB	"  |        Thankyou for using our system!         |", 0AH, 0DH	 ;0AH
+					DB	"  |               Have a nice day!                |", 0AH, 0DH	 ;0BH
+					DB	"  |                                               |", 0AH, 0DH	 ;0CH
+					DB	"  |_______________________________________________|", 0AH, 0DH	 ;0DH	
+					DB	"                                                   ", 0AH, 0DH	 ;0EH	
+					DB	"                                                   ", 0AH, 0DH	 ;0FH	
+					DB	"                                                   ", 0AH, 0DH	 ;10H	
+					DB	"                                                   ", 0AH, 0DH	 ;11H	
+					DB	"                                                   ", 0AH, 0DH	 ;12H
+					DB	"                                                   ", 0AH, 0DH	 ;13H
+					DB	"                                                   ", 0AH, 0DH	 ;14H
+					DB	"                                                   ", 0AH, 0DH	 ;15H
+					DB	"                                                   ", 0AH, 0DH	 ;16H
+					DB	"                                                   ", 0AH, 0DH	 ;17H
+					DB	"                                                   ", 0AH, 0DH,"$";18H
+ 
+	MENU_INVALID 	DB	"  |    { Invalid Option!!!!  PLEASE RE-ENTER }    |", 0AH, 0DH	 ;10H	
+					DB	"  |                                               |", 0AH, 0DH	 ;11H
+					DB	"  |                                               |", 0AH, 0DH	 ;12H
+					DB	"  |                                               |", 0AH, 0DH	 ;13H
+					DB	"  |                                               |", 0AH, 0DH	 ;14H
+					DB	"  |                                               |", 0AH, 0DH	 ;15H
+					DB	"  |                                               |", 0AH, 0DH	 ;16H
+					DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
+																						 ;18H
 	
 	;Admin Login and logout module
-	STRFONT  	DB "***Welcome To Login Page***$"
-	STRLOGIN 	DB "Log in to access your account$"
-	INVALID  	DB "INVALID username or password!!!$"
-	WAITING  	DB "Just a moment...$"
-	NL 			DB 0AH,0DH,"$"
-	USERNAME 	DB "Username : $"
-	PASSWORD 	DB "Password : $"
-	ENTERLOG 	DB "PRESS <ENTER> TO LOG IN$"
+	STRFONT  		DB  "         ***Welcome To Login Page***   $"
+	STRLOGIN 		DB  "        Log in to access your account   $"
+	INVALID  		DB  "INVALID username or password!!!$"
+	WAITING  		DB  "Just a moment...$"
+	NL 				DB  0AH,0DH,"$"
+	USERNAME 		DB  "Username : $"
+	PASSWORD 		DB  "Password : $"
+	ENTERLOG 		DB  "PRESS <ENTER> TO LOG IN$"
 	;<ENTER> DB 0DH
 	
 	;Admin Login: 
@@ -52,55 +89,867 @@
 	REMOVEINV   DB "	   PRESS <ENTER> TO RETURN$"
 	
 	HERE DB "HERE IS REPORT$"
-	;Custome Menu :
-	;Change Order
 	;Check Order Status
 	
 	;Place Order
-	REPORT_COST 	DB 20 DUP("$") ; AN ARRAY TO STORE COST
-	DAILY_INCOME 	DB "TODAY INCOME: $"
-	
-	LINE_SINGLE		DB "______________________________________________$"
-	LINE_DOUBLE		DB "==============================================$"
-	
-    ;FONTPAGE
-	WELC_MENU   	DB "===WELCOME TO MENU===$"
-	LIST_PROD    	DB "CATEGORY OF PRODUCTS:$"
-	LIST_OPT1    	DB "BUN                  $"
-	LIST_OPT2    	DB "CAKE                 $"
-	LIST_SUBOPT1 	DB "CHEESE BUN     (press 'A' & <Enter>)$"
-	LIST_SUBOPT2 	DB "POTATO BUN     (press 'B' & <Enter>)$"
-	LIST_SUBOPT3 	DB "CHOCOLATE CAKE (press 'C' & <Enter>)$"
-	LIST_SUBOPT4 	DB "BANANA CAKE    (press 'D' & <Enter>)$"
+	;FONTPAGE			      ;05H					    			;48D = 30H       [DH]
+    WELC_MENU		DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
+					DB	"  |                                               |", 0AH, 0DH	 ;01H
+					DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
+					DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
+					DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
+					DB	"  |                                               |", 0AH, 0DH	 ;05H
+					DB	"  |    CATEGORY OF PRODUCTS :                     |", 0AH, 0DH	 ;06H
+					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+					DB	"  |   |   {1}    BUN          ~{ >>>> }~      |   |", 0AH, 0DH	 ;09H
+					DB	"  |   |   {2}    CAKE         ~{ >>>> }~      |   |", 0AH, 0DH	 ;0AH
+					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+					DB	"  |                                               |", 0AH, 0DH  ;0CH
+					DB	"  |    SELECTION :                                |", 0AH, 0DH	 ;0DH
+					DB	"  |                                               |", 0AH, 0DH	 ;0EH
+					DB	"  |                                               |", 0AH, 0DH	 ;0FH
+					DB	"  |                                               |", 0AH, 0DH	 ;10H
+					DB	"  |                                               |", 0AH, 0DH	 ;11H
+					DB	"  |                                               |", 0AH, 0DH	 ;12H
+					DB	"  |                                               |", 0AH, 0DH	 ;13H
+					DB	"  |                                               |", 0AH, 0DH	 ;14H
+					DB	"  |                                               |", 0AH, 0DH	 ;15H
+					DB	"  |                                               |", 0AH, 0DH	 ;16H
+					DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
+																						 ;18H
+																					 
+	LIST_SUBOPT1	DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
+					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+					DB	"  |   |   {A}    CHEESE BUN   >>>   RM 2.00   |   |", 0AH, 0DH	 ;09H
+					DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
+					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+					DB	"  |                                               |", 0AH, 0DH  ;0CH
+					DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
+					
+	LIST_SUBOPT2	DB	"  |    CATEGORY OF PRODUCTS :  CAKE               |", 0AH, 0DH	 ;06H
+					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+					DB	"  |   |   {A}    CHOCOLATE CAKE  >> RM 4.00   |   |", 0AH, 0DH	 ;09H
+					DB	"  |   |   {B}    BANANA CAKE     >> RM 5.00   |   |", 0AH, 0DH	 ;0AH
+					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+					DB	"  |                                               |", 0AH, 0DH  ;0CH
+					DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
 	
 	;ACTION
-	LIST_OPT_PRESS   	DB "PRESS [1-2] TO SELECT :$"
-	LIST_SUBOPT_PRESS  	DB "SELECTION :$"
-	QTY_PROD     		DB "QUANTITY > $"
-	TOTAL_PROD			DB "TOTAL COST :$"
-	TOTAL_SEN     		DB ".00$"
-	CUST_SELECTION 		DB ?
-	QUANTITY_OF_PROD 	DB ?
-	LIST_SELECT_INVALID	DB "INVALID CODE...PLEASE RE-ENTER"
+	CUST_SELECTION	DB	?				  ;|18D ==> 12H	
+	QUANTITY_PROD	DB	?                     ;21D ==> 15H
+	SELECT_PROD		DB	"  |    SELECTION :                                |", 0AH, 0DH,"$";0DH	
+	QTY_PROD		DB	"  |    QUANTITY  >>>                              |", 0AH, 0DH,"$";0EH
+	LIST_SELECT_INV	DB	"  |    INVALID CODE!!!...PLEASE RE-ENTER          |", 0AH, 0DH,"$" ;11H
 	
+	TOTAL_COST		DB	"  |    _______________________________________    |", 0AH, 0DH	 ;11H
+					DB	"  |                                               |", 0AH, 0DH	 ;12H
+					DB	"  |    TOTAL COST :                 RM            |", 0AH, 0DH,"$";13H
+						                                       ;41D==>29H
 	;PRICE
-	TOTAL_RM  	DB "  RM $"
-	PRICE1  	DB "2. 00$"
-	PRICE2  	DB "3. 00$"
-	PRICE3  	DB "4. 00$"
-	PRICE4  	DB "5. 00$"
-	NUM1    DB 2
-	NUM2    DB 3
-	NUM3    DB 4
-	NUM4    DB 5
-	TEN     DB 10
-	
-	;NUMERIC SYMBOL
-	ONE     DB "1. > $"
-	TWO     DB "2. > $"
+	NUM1	DB	2
+	NUM2	DB	3
+	NUM3	DB	4
+	NUM4	DB	5
+	TEN		DB	10
 	
 	
 .CODE
+LCUST_SELECT PROC
+	;background (SELECTION)
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,3EH
+	MOV CX,0D12H
+	MOV DX,0D14H
+	INT 10H
+	;fontground
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,0DH
+	MOV DL,13H
+	INT 10H
+	
+	MOV AH,01H
+	INT 21H
+	SUB AL,30H
+	MOV CUST_SELECTION,AL
+	
+	CMP AL,1
+	JE LCUST_OPT_1
+	CMP AL,2
+	JE LCUST_OPT_2
+	JMP LCUST_OPT_INVALID
+	
+	LCUST_OPT_1:
+	CALL LCUST_SELECT_1			;	CALL PROCEDURE
+	JMP MENU_ENDL
+	
+	LCUST_OPT_2:
+	CALL LCUST_SELECT_2			;	CALL PROCEDURE
+	JMP MENU_ENDL
+	
+	LCUST_OPT_INVALID:
+	CALL LCUST_SELECT_INVALID
+	MOV AH,01H
+	INT 21H
+	CMP AL,0DH					; <ENTER> TO CONTINUE
+	JE BACK_MENU
+	JMP BACK_MENU
+	
+	BACK_MENU:
+	JMP LWELC_MENU
+	
+	RET     ;RETURN TO PROCEDURE
+	
+LCUST_SELECT ENDP
+
+
+;=========================================================================================================
+;+++++++++++++++++++++++++++++++++++( FOR OPT 1 A & B )+++++++++++++++++++++++++++++++++++++++++++++++++++
+LCUST_SELECT_1 PROC
+    PUSH DX	; store main procedure cursor 
+    
+	LCUST_SELECT_1_DISPLAY:
+		;background (MENU FONT)
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,6EH
+		MOV CX,0600H
+		MOV DX,0D38H
+		INT 10H
+		
+		;fontground (LIST_SUBOPT1 PART)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,06H 
+		MOV DL,00H       
+		INT 10H
+		
+		; show LIST_SUBOPT1
+		MOV AH,09H
+		LEA DX,LIST_SUBOPT1
+		INT 21H
+		
+		;background to hide input
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,66H
+		MOV CX,0E00H
+		MOV DX,0E01H
+		INT 10H
+		;fontground for hide input
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0EH
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
+		CMP AL,0DH
+		JE LCUST_SELECT_1_CONTINUE
+		CMP AL,'r'
+		JE LCUST_SELECT_1_RETURN
+		CMP AL,'R'
+		JE LCUST_SELECT_1_RETURN
+		JMP LCUST_SELECT_1_DISPLAY		; jmp back LCUST_SELECT_1_DISPLAY
+	
+	LCUST_SELECT_1_RETURN:
+		POP DX 		;to recover LWELC_MENU:           
+		JMP LWELC_MENU          
+
+
+	LCUST_SELECT_1_CONTINUE:
+		;fontground (SELECTION A OR B)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,09H
+		LEA DX,SELECT_PROD
+		INT 21H
+
+		;fontground (SELECTION A OR B)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,13H
+		INT 10H
+		
+		; SELECTION A OR B
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
+		CMP AL,'A'
+		JE LCUST_SELECT_1_A
+		CMP AL,'a'
+		JE LCUST_SELECT_1_A
+		CMP AL,'B'
+		JE LCUST_SELECT_1_B
+		CMP AL,'b'
+		JE LCUST_SELECT_1_B
+		JMP LCUST_SELECT_1_CONTINUE		; jmp back LCUST_SELECT_1_CONTINUE
+	
+	LCUST_SELECT_1_A:
+		CALL LCUST_SELECT_1_A_BUY
+		JMP LCUST_SELECT_1_COST
+	
+	LCUST_SELECT_1_B:
+		CALL LCUST_SELECT_1_B_BUY
+		JMP LCUST_SELECT_1_COST
+
+
+	LCUST_SELECT_1_COST:
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE        
+LCUST_SELECT_1 ENDP
+
+
+LCUST_SELECT_1_A_BUY PROC
+    PUSH DX	
+    PUSH BX
+    PUSH CX
+    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
+    
+    ;background (QTY)
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0E00H
+    MOV DX,0E2FH
+    INT 10H
+    
+    ;fontground (QTY)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,QTY_PROD
+    INT 21H
+    
+    ;cin >> quantity 
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH     
+    MOV DL,17H
+    INT 10H
+    
+    ;QTY TENS DIGIT IF QTY >= 10
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BL,AL      
+    
+    ;QTY ONES DIGIT ONLY
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BH,AL 
+    
+    ;REAL QTY = 10(BL)+BH
+	MOV AL,BL
+	MOV CL,10
+    MUL CL		;AL = BL * 10   
+    ADD AL,BH   ;10(BL)+BH
+    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
+    
+    ;cout << total_cost
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H     
+    MOV DL,00H
+    INT 10H    
+    
+    MOV AH,09H
+    LEA DX,TOTAL_COST
+    INT 21H
+    
+    ;=====CALCULATION OF COST=========
+	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
+    MOV AL,QUANTITY_PROD 
+	MOV BL,NUM1		; STORE NUM1(2) --> [BL]
+    MUL BL              
+	
+	;STORE REAL QUANTITY_PROD -> [SI]
+	MOV SI,AX
+    
+    ;DEVIDE TENS & ONES TO AVOID COMBINE
+    MOV BL,10
+    DIV BL      ; AL -> TENS | AH -> ONES
+
+    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
+    MOV CH,AH             
+    
+    ;fontground (cost)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,13H
+    MOV DL,29H
+    INT 10H    
+    
+    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
+    CMP CL,0         
+    JE DISPLAY_ONES_DIGIT_1_A_BUY
+    
+    ;IF NOT (INVALID)
+    MOV AH,02H 
+    MOV DL,CL
+    ADD DL,30H
+    INT 21H
+
+	DISPLAY_ONES_DIGIT_1_A_BUY:
+		MOV AH,02H       
+		MOV DL,CH
+		ADD DL,30H
+		INT 21H
+		
+		;DECIMAL POINT
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+
+		POP SI		
+		POP CX
+		POP BX
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE 
+LCUST_SELECT_1_A_BUY ENDP
+
+
+LCUST_SELECT_1_B_BUY PROC
+    PUSH DX	; store main procedure cursor 
+	PUSH BX
+    PUSH CX
+    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE	
+    
+    ;background (QTY)
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0E00H
+    MOV DX,0E2FH
+    INT 10H
+    
+    ;fontground (QTY)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,QTY_PROD
+    INT 21H
+    
+    ;cin >> quantity 
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH     
+    MOV DL,17H
+    INT 10H
+    
+    ;QTY TENS DIGIT IF QTY >= 10
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BL,AL      
+    
+    ;QTY ONES DIGIT ONLY
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BH,AL 
+    
+    ;REAL QTY = 10(BL)+BH
+	MOV AL,BL
+	MOV CL,10
+    MUL CL		;AL = BL * 10   
+    ADD AL,BH   ;10(BL)+BH
+    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
+    
+    ;cout << total_cost
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H     
+    MOV DL,00H
+    INT 10H    
+    
+    MOV AH,09H
+    LEA DX,TOTAL_COST
+    INT 21H
+    
+    ;=====CALCULATION OF COST=========
+	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
+    MOV AL,QUANTITY_PROD 
+	MOV BL,NUM2		; STORE NUM1(2) --> [BL]
+    MUL BL              
+	
+	;STORE REAL QUANTITY_PROD -> [SI]
+	MOV SI,AX
+    
+    ;DEVIDE TENS & ONES TO AVOID COMBINE
+    MOV BL,10
+    DIV BL      ; AL -> TENS | AH -> ONES
+
+    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
+    MOV CH,AH             
+    
+    ;fontground (cost)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,13H
+    MOV DL,29H
+    INT 10H    
+    
+    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
+    CMP CL,0         
+    JE DISPLAY_ONES_DIGIT_1_B_BUY
+    
+    ;IF NOT (INVALID)
+    MOV AH,02H 
+    MOV DL,CL
+    ADD DL,30H
+    INT 21H
+
+	DISPLAY_ONES_DIGIT_1_B_BUY:
+		MOV AH,02H       
+		MOV DL,CH
+		ADD DL,30H
+		INT 21H
+		
+		;DECIMAL POINT
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+
+		POP SI		
+		POP CX
+		POP BX
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE 
+LCUST_SELECT_1_B_BUY ENDP
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;=========================================================================================================
+
+
+;=========================================================================================================
+;+++++++++++++++++++++++++++++++++++( FOR OPT 2 A & B )+++++++++++++++++++++++++++++++++++++++++++++++++++
+LCUST_SELECT_2 PROC
+    PUSH DX	; store main procedure cursor 
+    
+	LCUST_SELECT_2_DISPLAY:
+		;background (MENU FONT)
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,6EH
+		MOV CX,0600H
+		MOV DX,0D38H
+		INT 10H
+		
+		;fontground (LIST_SUBOPT2 PART)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,06H 
+		MOV DL,00H       
+		INT 10H
+		
+		; show LIST_SUBOPT1
+		MOV AH,09H
+		LEA DX,LIST_SUBOPT2
+		INT 21H
+		
+		;background to hide input
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,66H
+		MOV CX,0E00H
+		MOV DX,0E01H
+		INT 10H
+		;fontground for hide input
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0EH
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
+		CMP AL,0DH
+		JE LCUST_SELECT_2_CONTINUE
+		CMP AL,'r'
+		JE LCUST_SELECT_2_RETURN
+		CMP AL,'R'
+		JE LCUST_SELECT_2_RETURN
+		JMP LCUST_SELECT_2_DISPLAY		; jmp back LCUST_SELECT_2_DISPLAY
+	
+	LCUST_SELECT_2_RETURN:
+		POP DX 		;to recover LWELC_MENU:           
+		JMP LWELC_MENU          
+
+
+	LCUST_SELECT_2_CONTINUE:
+		;fontground (SELECTION A OR B)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,09H
+		LEA DX,SELECT_PROD
+		INT 21H
+
+		;fontground (SELECTION A OR B)
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,13H
+		INT 10H
+		
+		; SELECTION A OR B
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
+		CMP AL,'A'
+		JE LCUST_SELECT_2_A
+		CMP AL,'a'
+		JE LCUST_SELECT_2_A
+		CMP AL,'B'
+		JE LCUST_SELECT_2_B
+		CMP AL,'b'
+		JE LCUST_SELECT_2_B
+		JMP LCUST_SELECT_2_CONTINUE		; jmp back LCUST_SELECT_2_CONTINUE
+	
+	LCUST_SELECT_2_A:
+		CALL LCUST_SELECT_2_A_BUY
+		JMP LCUST_SELECT_2_COST
+	
+	LCUST_SELECT_2_B:
+		CALL LCUST_SELECT_2_B_BUY
+		JMP LCUST_SELECT_2_COST
+
+
+	LCUST_SELECT_2_COST:
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE        
+LCUST_SELECT_2 ENDP
+
+
+LCUST_SELECT_2_A_BUY PROC
+    PUSH DX	; store main procedure cursor 
+	PUSH BX
+    PUSH CX
+    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
+    
+    ;background (QTY)
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0E00H
+    MOV DX,0E2FH
+    INT 10H
+    
+    ;fontground (QTY)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,QTY_PROD
+    INT 21H
+    
+    ;cin >> quantity 
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH     
+    MOV DL,17H
+    INT 10H
+    
+    ;QTY TENS DIGIT IF QTY >= 10
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BL,AL      
+    
+    ;QTY ONES DIGIT ONLY
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BH,AL 
+    
+    ;REAL QTY = 10(BL)+BH
+	MOV AL,BL
+	MOV CL,10
+    MUL CL		;AL = BL * 10   
+    ADD AL,BH   ;10(BL)+BH
+    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
+    
+    ;cout << total_cost
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H     
+    MOV DL,00H
+    INT 10H    
+    
+    MOV AH,09H
+    LEA DX,TOTAL_COST
+    INT 21H
+    
+    ;=====CALCULATION OF COST=========
+	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
+    MOV AL,QUANTITY_PROD 
+	MOV BL,NUM3		; STORE NUM3(4) --> [BL]
+    MUL BL
+
+	;STORE REAL QUANTITY_PROD -> [SI]
+	MOV SI,AX	
+    
+    ;DEVIDE TENS & ONES TO AVOID COMBINE
+    MOV BL,10
+    DIV BL      ; AL -> TENS | AH -> ONES
+
+    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
+    MOV CH,AH             
+    
+    ;fontground (cost)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,13H
+    MOV DL,29H
+    INT 10H    
+    
+    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
+    CMP CL,0         
+    JE DISPLAY_ONES_DIGIT_2_A_BUY
+    
+    ;IF NOT (INVALID)
+    MOV AH,02H 
+    MOV DL,CL
+    ADD DL,30H
+    INT 21H
+
+	DISPLAY_ONES_DIGIT_2_A_BUY:
+		MOV AH,02H       
+		MOV DL,CH
+		ADD DL,30H
+		INT 21H
+		
+		;DECIMAL POINT
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		POP SI
+		POP CX
+		POP BX
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE 
+LCUST_SELECT_2_A_BUY ENDP
+
+
+LCUST_SELECT_2_B_BUY PROC
+    PUSH DX	; store main procedure cursor 
+	PUSH BX
+    PUSH CX
+    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
+    
+    ;background (QTY)
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0E00H
+    MOV DX,0E2FH
+    INT 10H
+    
+    ;fontground (QTY)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,QTY_PROD
+    INT 21H
+    
+    ;cin >> quantity 
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH     
+    MOV DL,17H
+    INT 10H
+    
+    ;QTY TENS DIGIT IF QTY >= 10
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BL,AL      
+    
+    ;QTY ONES DIGIT ONLY
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV BH,AL 
+    
+    ;REAL QTY = 10(BL)+BH
+	MOV AL,BL
+	MOV CL,10
+    MUL CL		;AL = BL * 10   
+    ADD AL,BH   ;10(BL)+BH
+    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
+    
+    ;cout << total_cost
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H     
+    MOV DL,00H
+    INT 10H    
+    
+    MOV AH,09H
+    LEA DX,TOTAL_COST
+    INT 21H
+    
+    ;=====CALCULATION OF COST=========
+	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
+    MOV AL,QUANTITY_PROD 
+	MOV BL,NUM4		; STORE NUM1(2) --> [BL]
+    MUL BL              
+		
+	;STORE REAL QUANTITY_PROD -> [SI]
+	MOV SI,AX
+    
+    ;DEVIDE TENS & ONES TO AVOID COMBINE
+    MOV BL,10
+    DIV BL      ; AL -> TENS | AH -> ONES
+
+    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
+    MOV CH,AH             
+    
+    ;fontground (cost)
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,13H
+    MOV DL,29H
+    INT 10H    
+    
+    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
+    CMP CL,0         
+    JE DISPLAY_ONES_DIGIT_2_B_BUY
+    
+    ;IF NOT (INVALID)
+    MOV AH,02H 
+    MOV DL,CL
+    ADD DL,30H
+    INT 21H
+
+	DISPLAY_ONES_DIGIT_2_B_BUY:
+		MOV AH,02H       
+		MOV DL,CH
+		ADD DL,30H
+		INT 21H
+		
+		;DECIMAL POINT
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		POP SI		
+		POP CX
+		POP BX
+		POP DX		;to recover LWELC_MENU:
+		MOV AH, 02H
+		MOV BH, 00H
+		MOV DH, 0DH
+		MOV DL, 13H
+		INT 10H
+		RET            ;RETURN TO PROCEDURE 
+LCUST_SELECT_2_B_BUY ENDP
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;=========================================================================================================
+
+
+LCUST_SELECT_INVALID PROC
+    
+	PUSH DX  ; store main procedure cursor 
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H       
+    MOV DL,00H       
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,LIST_SELECT_INV
+    INT 21H
+    
+    POP DX	; take out the main procedure cursor
+	
+	; to recover the LCUST_SELECT PROC
+    MOV AH,06H
+    MOV AL,00H  
+    MOV BH,3EH       
+    MOV CX,0D12H     
+    MOV DX,0D14H     
+    INT 10H
+
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH        
+    MOV DL,13H   
+    INT 10H
+    
+    RET		;RETURN TO PROCEDURE
+LCUST_SELECT_INVALID ENDP
+
 MAIN PROC
     MOV AX, @DATA
     MOV DS, AX	
@@ -119,76 +968,16 @@ MAIN PROC
 		MOV DX,0000
 		INT 10H
 		
+		;========================== MAIN MENU OPTION ===============================
+		;shopname + icon + ENTSR SELECTION
 		MOV AH,09H
 		LEA DX,SHOPNAME
 		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
 		
-		;icon
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON1
-		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON2
-		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON3
-		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON4
-		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON5
-		INT 21H
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,SHOPNAME_ICON6
-		INT 21H
-		
-		;========================== MAIN MENU OPTION ===============================
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,MENU_ORDER		; 1. View Menu
-		INT 21H
-		
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,MENU_STAFFLOGIN	; 2. Staff Login
-		INT 21H
-		
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,MENU_EXIT		; 3. Exit 
-		INT 21H
-
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,MENU_SELECT		;Enter your selection:
-		INT 21H
+		MOV AH,02H
+		MOV BX,00
+		MOV DX,0D1DH
+		INT 10H
 		
 		MOV AH,01H
 		INT 21H
@@ -199,8 +988,7 @@ MAIN PROC
 		CMP AL,'3'
 		JE LMENU_THANKS			; else if (selection == '3')
 		CMP AL,'1'
-		CALL Lcust_ORDER				; if (selection == '1')
-		JMP CONTINUE_2
+		CALL LWELC_MENU		; if (selection == '1')
 		
 		MOV AH,09H				; else
 		LEA DX,NL
@@ -208,16 +996,20 @@ MAIN PROC
 		MOV AH,09H
 		LEA DX,MENU_INVALID		; Invalid Option!!!  Please RE-ENTER
 		INT 21H
-		JMP CONTINUE_2
+		JMP MENU_ENDL
 		
 		LMENU_THANKS:
-			MOV AH,09H	
-			LEA DX,NL
-			INT 21H
+			;fontground
+			MOV AH,02H
+			MOV BH,00H
+			MOV DH,09H       
+			MOV DL,00H       
+			INT 10H
+			
 			MOV AH,09H
 			LEA DX,MENU_THANKS	; Thankyou for using our system!
 			INT 21H
-			JMP CONTINUE_2
+			JMP MENU_ENDL
 		
 ;==================================(MAIN MENU)============================================
 	LMAIN_MENU:
@@ -366,15 +1158,15 @@ MAIN PROC
 		
 		MOV AH,06H
 		MOV AX,0600H
-		MOV BH,4EH
-		MOV CX,0D04H
-		MOV DX,0D28H
+		MOV BH,34H
+		MOV CX,0C05H
+		MOV DX,0C27H
 		INT 10H
 	
 		;fontground
 		MOV AH,02H
 		MOV BX,00
-		MOV DH,0DH
+		MOV DH,0CH
 		MOV DL,07H
 		INT 10H
 	
@@ -481,6 +1273,7 @@ MAIN PROC
 	JL LINVALIDSECa		; 		cout << "INVALID SELECTION!!! PLEASE RE-ENTER...";
 	CMP SELECTION,2		; else
 	JG LINVALIDSECa		; 		cout << "INVALID SELECTION!!! PLEASE RE-ENTER..."
+	JMP CONTINUE_ADMIN
 	
 	;====================================================================
 	Llogin_BACK1:			;a label help to jump back Admin Login
@@ -546,7 +1339,7 @@ MAIN PROC
 		LEA DX,HERE  		; to put the part of report later
 		INT 21H
 		
-		JMP CONTINUE_2
+		JMP MENU_ENDL
 		
 	;====================================================================
 	
@@ -606,11 +1399,11 @@ MAIN PROC
 		MOV AH,09H
 		LEA DX,INVALIDSEC
 		INT 21H
-		JMP CONTINUE_2
+		JMP MENU_ENDL
 	
 ;============================================ CUSTOMER ORDER PART + VIEW MENU ========================================	
-	Lcust_ORDER:
-		;background
+	LWELC_MENU:
+		;background (WHOLE PART)
 		MOV AH,06H
 		MOV AX,0600H
 		MOV BH,6EH
@@ -618,637 +1411,33 @@ MAIN PROC
 		MOV DX,184FH
 		INT 10H
 		
-		;BLOCK background MENU 
+		;background (MENU FONT)
 		MOV AH,06H
 		MOV AX,0600H
 		MOV BH,34H
-		MOV CX,0204H
-		MOV DX,0219H
+		MOV CX,0205H
+		MOV DX,022FH
 		INT 10H
 		
-		;fontground MENU
+		;fontground (WHOLE PART)
 		MOV AH,02H
 		MOV BH,00H
-		MOV DH,02H
-		MOV DL,05H
+		MOV DH,00H
+		MOV DL,00H
 		INT 10H
 		
 		MOV AH,09H
-		LEA DX,WELC_MENU  ; DH=02H DL=05H
+		LEA DX,WELC_MENU
 		INT 21H
-		
-		;fontground
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,04H
-		MOV DL,01H
-		INT 10H
-		
-		MOV AH,09H ;<ENTER>
-		LEA DX,NL    ; START DH=04H DL=01H
-		INT 21H      ; END   DH=05H DL=00H
-		
-		MOV AH,09H ;CATEGORY
-		LEA DX,LIST_PROD  ; DH=05H DL=00H
-		INT 21H
-		
-		;*******fontground NUMERIC SYMBOL 1********
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,07H
-		MOV DL,03H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,ONE   ; START DH=07H DL=03H
-		INT 21H      ; END   DH=07H DL=05H
-		
-		;fontground OPT1 [<--15H (21D)-->]
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,07H
-		MOV DL,0AH
-		INT 10H
-		
-		MOV AH,09H	  ; 16+15=31(MOD16)	  GCD(31,16) 31=1(16)+15  --> 1FH									
-		LEA DX,LIST_OPT1   ; START DH=07H DL=0AH    0A + 15 = 1F  
-		INT 21H		  ; END   DH=07H DL=1FH    
-		
-		;*******fontground NUMERIC SYMBOL 2********
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,08H
-		MOV DL,03H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,TWO   ; START DH=08H DL=03H
-		INT 21H      ; END   DH=08H DL=05H
-		
-		;fontground OPT2 [<--15H (21D)-->]
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,08H
-		MOV DL,0AH
-		INT 10H
-		
-		MOV AH,09H	  ; 16+15=31(MOD16)	  GCD(31,16) 31=1(16)+15  --> 1FH									
-		LEA DX,LIST_OPT2   ; START DH=08H DL=0AH    0A + 15 = 1F  
-		INT 21H		  ; END   DH=08H DL=1FH    
-		
-		;fontground LINE
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,09H
-		MOV DL,03H
-		INT 10H
-		
-		MOV AH,09H	  								
-		LEA DX,LINE_SINGLE  
-		INT 21H		
-		
-		;fontground ACTION - PRESS [<---15H (21D)--->]
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0BH     ; 0F + 02 --> 11
-		MOV DL,03H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,LIST_OPT_PRESS   ; START DH=0BH DL=03H    03 + 15 --> 18
-		INT 21H        ; END   DH=0BH DL=18H
 		
 		; cin >> selection
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0BH 
-		MOV DL,1AH     ; PRESS...SELECT :__1 | PRESS...SELECT :__2  
-		INT 10H
+		CALL LCUST_SELECT ; CALL FUNCTION
 		
-		MOV AH,01H
-		INT 21H
-		SUB AL,30H
-		MOV SELECTION,AL
-		
-		
-		;SELECTION OF OPT    
-		CMP SELECTION,1
-		JE LOPT1
-		CMP SELECTION,2
-		JE LOPT2
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,LIST_SELECT_INVALID
-		INT 21H          ; **END   DH=0BH DL=18H
-		JMP FIN1
-		
-		LOPT1:
-			;fontground SUBOPT1 [<--15H (21D)-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0DH    
-			MOV DL,05H
-			INT 10H
-			
-			MOV AH,09H 
-			LEA DX,LIST_SUBOPT1 ; START DH=0DH DL=05H     05 + 24(36D) --> 29
-			INT 21H        ; END   DH=0DH DL=1AH
-			
-			;fontground PRICE1 [<--4H-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0DH
-			MOV DL,2AH      ; 1A --> 2A     1E --> 2E
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,PRICE1  ; START DH=0DH DL=2AH    2A + 04 --> 2E 
-			INT 21H        ; END   DH=0DH DL=2EH
-			
-			;fontground SUBOPT2 [<--15H (21D)-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0EH     
-			MOV DL,05H
-			INT 10H
-			
-			MOV AH,09H 
-			LEA DX,LIST_SUBOPT2 ; START DH=0EH DL=05H     05 + 15 --> 1A
-			INT 21H        ; END   DH=0EH DL=1AH
-			
-			;fontground PRICE2 [<--4H-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0EH     
-			MOV DL,2AH
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,PRICE2  ; START DH=0EH DL=2AH    2A + 04 --> 2E 
-			INT 21H        ; END   DH=0EH DL=2EH
-			
-			;fontground LINE
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0FH
-			MOV DL,03H
-			INT 10H
-			
-			MOV AH,09H	  								
-			LEA DX,LINE_SINGLE  
-			INT 21H		       ; END   DH=0EH DL=1EH
-			JMP FIN1
-			
-		
-		 ; 09 -> 0D    0A -> 0E
-		 LOPT2:
-			;fontground SUBOPT3 [<--15H (21D)-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0DH    
-			MOV DL,05H
-			INT 10H
-			
-			MOV AH,09H 
-			LEA DX,LIST_SUBOPT3 ; START DH=0DH DL=05H     05 + 15 --> 1A
-			INT 21H        ; END   DH=0DH DL=1AH
-			
-			;fontground PRICE3 [<--4H-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0DH
-			MOV DL,2AH
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,PRICE3  ; START DH=0DH DL=2AH    2A + 04 --> 2E 
-			INT 21H        ; END   DH=0DH DL=2EH
-			
-			;fontground SUBOPT4 [<--15H (21D)-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0EH     
-			MOV DL,05H
-			INT 10H
-			
-			MOV AH,09H 
-			LEA DX,LIST_SUBOPT4 ; START DH=0EH DL=05H     05 + 15 --> 1A
-			INT 21H        ; END   DH=0EH DL=1AH
-			
-			;fontground PRICE4 [<--4H-->]
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0EH     
-			MOV DL,2AH      ; 1A --> 2A     1E --> 2E
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,PRICE4  ; START DH=0EH DL=2AH    2A + 04 --> 2E (16+14)
-			INT 21H        ; END   DH=0EH DL=2EH
-			
-			;fontground LINE
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,0FH
-			MOV DL,03H
-			INT 10H
-			
-			MOV AH,09H	  								
-			LEA DX,LINE_SINGLE  
-			INT 21H
-			JMP FIN1		
-		
-		FIN1:
-		;fontground ACTION - PRESS [<---15H (21D)--->]
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,11H     
-		MOV DL,03H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,LIST_SUBOPT_PRESS   ; START DH=11H DL=03H 
-		INT 21H        ; END   DH=11H DL=19H
-		
-		; cin >> selection
-		;BLOCK background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,79H
-		MOV CX,110EH
-		MOV DX,1110H
-		INT 10H
-		
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,11H     
-		MOV DL,0FH     ; PRESS...SELECT :__A | PRESS...SELECT :__B  
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		MOV SELECTION,AL
-		CMP SELECTION,'A'
-		JE LSUBOPT1
-		
-		CMP SELECTION,'B'
-		JE JMPTOB              ; a stop point before far address of LSUBOPT2
-		
-		CMP SELECTION,'C'
-		JE JMPTOC1			   ; a stop point before far address of LSUBOPT3
-		
-		CMP SELECTION,'D'
-		JE JMPTOD1			   ; a stop point before far address of LSUBOPT4
-		
-		MOV AH,09H
-		LEA DX,LIST_SELECT_INVALID
-		INT 21H
-		JMP ENDFIN  
-		
-		JMPTOB: JMP LSUBOPT2   ; a stop point before far address of LSUBOPT2 
-		JMPTOC1: JMP JMPTOC2   ; a stop point before far address of LSUBOPT3
-		JMPTOD1: JMP JMPTOD2   ; a stop point before far address of LSUBOPT4
-		
-		;===========SUBOPT1 + COST==========
-		LSUBOPT1:
-			;fonground QTY
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,QTY_PROD      ; START DH=13H DL=04H    04 + B --> F
-			INT 21H         ; END   DH=13H DL=15H
-			
-			;cin >> quantity
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,0FH
-			INT 10H
-			
-			MOV AH,01H
-			INT 21H
-			SUB AL,30H
-			MOV QUANTITY_OF_PROD,AL
-			MOV BL,QUANTITY_OF_PROD
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,15H     
-			MOV DL,02H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,LINE_DOUBLE
-			INT 21H
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_PROD    ; START DH=16H DL=04H     04 + C--> 10
-			INT 21H         	 ; END   DH=16H DL=10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_RM   	 ; START DH=16H DL=10H    
-			INT 21H         	 ; END   DH=16H DL=16H
-			
-			;********CALCULATION OF COST************
-			;8(AX) = 2(AL) * 2 * 2
-			MOV AL, QUANTITY_OF_PROD
-			MUL NUM1  
-			MOV BX,AX;BX=8, BH=00, BL=08 --> NO DX (STRING) STORE
-			
-			; SHOWING COST
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,15H
-			INT 10H
-			
-			MOV AH,0
-			MOV AL,BL
-			DIV TEN  ; 
-			MOV BX,AX; 
-							  
-			MOV AH,02H
-			MOV DL,BL 
-			ADD DL,30H
-			INT 21H
+		JMP LWELC_MENU
 
-			MOV AH,02H
-			MOV DL,BH 
-			ADD DL,30H
-			INT 21H
-			JMP ENDFIN  
-		
-		JMPTOC2: JMP LSUBOPT3  ; a stop point before far address of LSUBOPT3
-		JMPTOD2: JMP JMPTOD3   ; a stop point before far address of LSUBOPT4
-		
-		
-		;===========SUBOPT2 + COST==========
-		LSUBOPT2:
-			;fonground QTY
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,QTY_PROD     ; START DH=13H DL=04H    04 + B --> F
-			INT 21H         ; END   DH=13H DL=15H
-			
-			;cin >> quantity
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,0FH
-			INT 10H
-			
-			MOV AH,01H
-			INT 21H
-			SUB AL,30H
-			MOV QUANTITY_OF_PROD,AL
-			MOV BL,QUANTITY_OF_PROD
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,15H     
-			MOV DL,02H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,LINE_DOUBLE
-			INT 21H
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_PROD    ; START DH=16H DL=04H     04 + C--> 10
-			INT 21H         ; END   DH=16H DL=10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_RM   	 ; START DH=16H DL=10H    
-			INT 21H         	 ; END   DH=16H DL=16H
-			
-			;********CALCULATION OF COST************
-			;8(AX) = 2(AL) * 2 * 2
-			MOV AL, QUANTITY_OF_PROD
-			MUL NUM2  
-			MOV BX,AX;BX=8, BH=00, BL=08 --> NO DX (STRING) STORE
-			
-			; SHOWING COST
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,15H
-			INT 10H
-			
-			MOV AH,0
-			MOV AL,BL
-			DIV TEN  ; 
-			MOV BX,AX; 
-							  
-			MOV AH,02H
-			MOV DL,BL 
-			ADD DL,30H
-			INT 21H
-
-			MOV AH,02H
-			MOV DL,BH 
-			ADD DL,30H
-			INT 21H
-			JMP ENDFIN  
-		
-		JMPTOD3: JMP LSUBOPT4   ; a stop point before far address of LSUBOPT4
-		;===========SUBOPT3 + COST==========
-		LSUBOPT3:
-			;fonground QTY
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,QTY_PROD      ; START DH=13H DL=04H    04 + B --> F
-			INT 21H         ; END   DH=13H DL=15H
-			
-			;cin >> quantity
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,0FH
-			INT 10H
-			
-			MOV AH,01H
-			INT 21H
-			SUB AL,30H
-			MOV QUANTITY_OF_PROD,AL
-			MOV BL,QUANTITY_OF_PROD
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,15H     
-			MOV DL,02H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,LINE_DOUBLE
-			INT 21H
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_PROD    ; START DH=16H DL=04H     04 + C--> 10
-			INT 21H         ; END   DH=16H DL=10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_RM   	 ; START DH=16H DL=10H    
-			INT 21H         	 ; END   DH=16H DL=16H
-			
-			;********CALCULATION OF COST************
-			;8(AX) = 2(AL) * 2 * 2
-			MOV AL,QUANTITY_OF_PROD
-			MUL NUM3
-			MOV BX,AX;BX=8, BH=00, BL=08 --> NO DX (STRING) STORE
-			
-			; SHOWING COST
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,15H
-			INT 10H
-			
-			MOV AH,0
-			MOV AL,BL
-			DIV TEN  ; 
-			MOV BX,AX; 
-							  
-			MOV AH,02H
-			MOV DL,BL 
-			ADD DL,30H
-			INT 21H
-
-			MOV AH,02H
-			MOV DL,BH 
-			ADD DL,30H
-			INT 21H
-			JMP ENDFIN  
-		
-		;===========SUBOPT4 + COST==========
-		LSUBOPT4:
-			;fonground QTY
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,QTY_PROD      ; START DH=13H DL=04H    04 + B --> F
-			INT 21H         ; END   DH=13H DL=15H
-			
-			;cin >> quantity
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,13H     
-			MOV DL,0FH
-			INT 10H
-			
-			MOV AH,01H
-			INT 21H
-			SUB AL,30H
-			MOV QUANTITY_OF_PROD,AL
-			MOV BL,QUANTITY_OF_PROD
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,15H     
-			MOV DL,02H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,LINE_DOUBLE
-			INT 21H
-			
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,04H
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_PROD    ; START DH=16H DL=04H     04 + C--> 10
-			INT 21H         ; END   DH=16H DL=10H
-			
-			MOV AH,09H
-			LEA DX,TOTAL_RM   	 ; START DH=16H DL=10H    
-			INT 21H         	 ; END   DH=16H DL=16H
-			
-			;********CALCULATION OF COST************
-			;8(AX) = 2(AL) * 2 * 2
-			MOV AL,QUANTITY_OF_PROD
-			MUL NUM4  
-			MOV BX,AX;BX=8, BH=00, BL=08 --> NO DX (STRING) STORE
-			
-			; SHOWING COST
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,16H     
-			MOV DL,15H
-			INT 10H
-			
-			MOV AH,0
-			MOV AL,BL
-			DIV TEN  ; 
-			MOV BX,AX; 
-							  
-			MOV AH,02H
-			MOV DL,BL 
-			ADD DL,30H
-			INT 21H
-
-			MOV AH,02H
-			MOV DL,BH 
-			ADD DL,30H
-			INT 21H
-			JMP ENDFIN  
-			
-		ENDFIN:
-		
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,16H     
-		MOV DL,17H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,TOTAL_SEN
-		INT 21H    
-		
-		JMP CONTINUE_2
-
-
-	CONTINUE_2:
+	MENU_ENDL:
     MOV AX, 4C00H
     INT 21H
 MAIN ENDP  ; int main(){};a
+
 END MAIN
