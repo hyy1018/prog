@@ -2,69 +2,95 @@
 .STACK 100
 .DATA
     ;Menu and submenu for customer
-	SHOPNAME		DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
-					DB	"  |                                               |", 0AH, 0DH  ;01H	
-					DB  "  |  ==============One Bite Bakery==============  |", 0AH, 0DH  ;02H
-					DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;03H
-					DB  "  |          /     \   |  _  \  |  _  \           |", 0AH, 0DH  ;04H
-					DB  "  |         |  / \  |  |     /  |     /           |", 0AH, 0DH  ;05H
-					DB  "  |         |  \ /  |  |  _  \  |  _  \           |", 0AH, 0DH  ;06H
-					DB  "  |          \     /   |     /  |     /           |", 0AH, 0DH  ;07H
-					DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;08H
-					DB	"  |                                               |", 0AH, 0DH	 ;09H
-					DB	"  |   1. View Menu                                |", 0AH, 0DH  ;0AH
-					DB	"  |   2. Staff Login                              |", 0AH, 0DH	 ;0BH	
-					DB	"  |   3. Exit                                     |", 0AH, 0DH	 ;0CH
-					DB	"  |                                               |", 0AH, 0DH	 ;0DH	
-					DB	"  |   Enter your selection:                       |", 0AH, 0DH	 ;0EH	
-					DB	"  |                                               |", 0AH, 0DH	 ;0FH	
-					DB	"  |                                               |", 0AH, 0DH	 ;10H	
-					DB	"  |                                               |", 0AH, 0DH	 ;11H	
-					DB	"  |                                               |", 0AH, 0DH	 ;12H
-					DB	"  |                                               |", 0AH, 0DH	 ;13H
-					DB	"  |                                               |", 0AH, 0DH	 ;14H
-					DB	"  |                                               |", 0AH, 0DH	 ;15H
-					DB	"  |                                               |", 0AH, 0DH	 ;16H
-					DB	"  |                                               |", 0AH, 0DH	 ;17H
-					DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
+	SHOPNAME			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+						DB	"  |                                               |", 0AH, 0DH  ;01H	
+						DB  "  |  ==============One Bite Bakery==============  |", 0AH, 0DH  ;02H
+						DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;03H
+						DB  "  |          /     \   |  _  \  |  _  \           |", 0AH, 0DH  ;04H
+						DB  "  |         |  / \  |  |     /  |     /           |", 0AH, 0DH  ;05H
+						DB  "  |         |  \ /  |  |  _  \  |  _  \           |", 0AH, 0DH  ;06H
+						DB  "  |          \     /   |     /  |     /           |", 0AH, 0DH  ;07H
+						DB  "  |            ---     -----    -----             |", 0AH, 0DH  ;08H
+						DB	"  |                                               |", 0AH, 0DH	 ;09H
+						DB	"  |   1. View Menu                                |", 0AH, 0DH  ;0AH
+						DB	"  |   2. Staff Login                              |", 0AH, 0DH	 ;0BH	
+						DB	"  |   3. Exit                                     |", 0AH, 0DH	 ;0CH
+						DB	"  |                                               |", 0AH, 0DH	 ;0DH	
+						DB	"  |   Enter your selection:                       |", 0AH, 0DH	 ;0EH	
+						DB	"  |                                               |", 0AH, 0DH	 ;0FH	
+						DB	"  |                                               |", 0AH, 0DH	 ;10H	
+						DB	"  |                                               |", 0AH, 0DH	 ;11H	
+						DB	"  |                                               |", 0AH, 0DH	 ;12H
+						DB	"  |                                               |", 0AH, 0DH	 ;13H
+						DB	"  |                                               |", 0AH, 0DH	 ;14H
+						DB	"  |                                               |", 0AH, 0DH	 ;15H
+						DB	"  |                                               |", 0AH, 0DH	 ;16H
+						DB	"  |                                               |", 0AH, 0DH	 ;17H
+						DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
 								; all underscore symbol (keyboard)
+								
+	SHOPNAME_INVALID	DB	"  |    INVALID SELECTION!!! PLEASE RE-ENTER...    |", 0AH, 0DH	 ;10H	
+						DB	"  |             PRESS <ENTER> TO RETRY            |", 0AH, 0DH	 ;11H	
+						DB	"  |                                               |", 0AH, 0DH,"$"	 ;12H
 
-	MENU_SELECTION  DB ?
-	MENU_THANKS		DB	"  |        Thankyou for using our system!         |", 0AH, 0DH	 ;0AH
-					DB	"  |               Have a nice day!                |", 0AH, 0DH	 ;0BH
-					DB	"  |                                               |", 0AH, 0DH	 ;0CH
-					DB	"  |_______________________________________________|", 0AH, 0DH	 ;0DH	
-					DB	"                                                   ", 0AH, 0DH	 ;0EH	
-					DB	"                                                   ", 0AH, 0DH	 ;0FH	
-					DB	"                                                   ", 0AH, 0DH	 ;10H	
-					DB	"                                                   ", 0AH, 0DH	 ;11H	
-					DB	"                                                   ", 0AH, 0DH	 ;12H
-					DB	"                                                   ", 0AH, 0DH	 ;13H
-					DB	"                                                   ", 0AH, 0DH	 ;14H
-					DB	"                                                   ", 0AH, 0DH	 ;15H
-					DB	"                                                   ", 0AH, 0DH	 ;16H
-					DB	"                                                   ", 0AH, 0DH	 ;17H
-					DB	"                                                   ", 0AH, 0DH,"$";18H
- 
-	MENU_INVALID 	DB	"  |    { Invalid Option!!!!  PLEASE RE-ENTER }    |", 0AH, 0DH	 ;10H	
-					DB	"  |                                               |", 0AH, 0DH	 ;11H
-					DB	"  |                                               |", 0AH, 0DH	 ;12H
-					DB	"  |                                               |", 0AH, 0DH	 ;13H
-					DB	"  |                                               |", 0AH, 0DH	 ;14H
-					DB	"  |                                               |", 0AH, 0DH	 ;15H
-					DB	"  |                                               |", 0AH, 0DH	 ;16H
-					DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
-																						 ;18H
+	MENU_SELECTION  	DB ?
+	MENU_THANKS			DB	"  |        Thankyou for using our system!         |", 0AH, 0DH	 ;0AH
+						DB	"  |               Have a nice day!                |", 0AH, 0DH	 ;0BH
+						DB	"  |                                               |", 0AH, 0DH	 ;0CH
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;0DH	
+						DB	"                                                   ", 0AH, 0DH	 ;0EH	
+						DB	"                                                   ", 0AH, 0DH	 ;0FH	
+						DB	"                                                   ", 0AH, 0DH	 ;10H	
+						DB	"                                                   ", 0AH, 0DH	 ;11H	
+						DB	"                                                   ", 0AH, 0DH	 ;12H
+						DB	"                                                   ", 0AH, 0DH	 ;13H
+						DB	"                                                   ", 0AH, 0DH	 ;14H
+						DB	"                                                   ", 0AH, 0DH	 ;15H
+						DB	"                                                   ", 0AH, 0DH	 ;16H
+						DB	"                                                   ", 0AH, 0DH	 ;17H
+						DB	"                                                   ", 0AH, 0DH,"$";18H
 	
 	;Admin Login and logout module
-	STRFONT  		DB  "         ***Welcome To Login Page***   $"
-	STRLOGIN 		DB  "        Log in to access your account   $"
-	INVALID  		DB  "INVALID username or password!!!$"
-	WAITING  		DB  "Just a moment...$"
+
+	INVALID				DB	"  |        INVALID username or password !!!       |", 0AH, 0DH	 ;11H	
+						DB	"  |                                               |", 0AH, 0DH	 ;12H
 	NL 				DB  0AH,0DH,"$"
-	USERNAME 		DB  "Username : $"
-	PASSWORD 		DB  "Password : $"
-	ENTERLOG 		DB  "PRESS <ENTER> TO LOG IN$"
+
+	
+	RETURN_BACK_MAIN DB	"RETURN >> {R}$"
+	
+	STRFONT 			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+						DB	"  |                                               |", 0AH, 0DH  ;01H	
+						DB  "  |   <<<<<{*** Welcome To Login Page ***}>>>>>   |", 0AH, 0DH  ;02H
+						DB  "  |                                               |", 0AH, 0DH  ;03H
+						DB  "  |                WELCOME    STAFF               |", 0AH, 0DH  ;04H
+						DB  "  |    PLEASE  LOGIN  TO  ACCESS  YOUR  ACCOUNT   |", 0AH, 0DH  ;05H
+						DB  "  |                                               |", 0AH, 0DH  ;06H
+						DB  "  |      ___________________________________      |", 0AH, 0DH  ;07H
+						DB  "  |     |   _____________________________   |     |", 0AH, 0DH  ;08H
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;09H
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH  ;0AH
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0BH	
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0CH
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0DH	
+						DB	"  |     |  |_____________________________|  |     |", 0AH, 0DH	 ;0EH	
+						DB	"  |     |___________________________________|     |", 0AH, 0DH	 ;0FH	
+						DB	"  |                                               |", 0AH, 0DH	 ;10H	
+						DB	"  |                                               |", 0AH, 0DH	 ;11H	
+						DB	"  |                                               |", 0AH, 0DH	 ;12H
+						DB	"  |                                               |", 0AH, 0DH	 ;13H
+						DB	"  |                                               |", 0AH, 0DH	 ;14H
+						DB	"  |                               RETURN  {R}     |", 0AH, 0DH	 ;15H
+						DB	"  |                                               |", 0AH, 0DH	 ;16H
+						DB	"  |                                               |", 0AH, 0DH	 ;17H
+						DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
+						
+	USERNAME       		DB  "  |     |  |   Username :                |  |     |", 0AH, 0DH,"$" ;0AH
+	
+	PASSWORD			DB	"  |     |  |   Password :                |  |     |", 0AH, 0DH	 ;0BH
+						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0CH
+						DB	"  |     |  |      <ENTER>  TO LOG IN     |  |     |", 0AH, 0DH,"$" ;0DH					
+	
 	;<ENTER> DB 0DH
 	
 	;Admin Login: 
@@ -106,7 +132,7 @@
 					DB	"  |   |   {2}    CAKE                         |   |", 0AH, 0DH	 ;0AH
 					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 					DB	"  |                                               |", 0AH, 0DH  ;0CH
-					DB	"  |    SELECTION :                                |", 0AH, 0DH	 ;0DH
+					DB	"  |    SELECTION :         ||    RETURN >> {R}    |", 0AH, 0DH	 ;0DH
 					DB	"  |                                               |", 0AH, 0DH	 ;0EH
 					DB	"  |                                               |", 0AH, 0DH	 ;0FH
 					DB	"  |                                               |", 0AH, 0DH	 ;10H
@@ -158,49 +184,59 @@
 	
 .CODE
 LCUST_SELECT PROC
-	;background (SELECTION)
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,3EH
-	MOV CX,0D12H
-	MOV DX,0D14H
-	INT 10H
-	;fontground
-	MOV AH,02H
-	MOV BH,00H
-	MOV DH,0DH
-	MOV DL,13H
-	INT 10H
+		;background (SELECTION)
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,3EH
+		MOV CX,0D12H
+		MOV DX,0D14H
+		INT 10H
+		;fontground
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,13H
+		INT 10H
+
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
 	
-	MOV AH,01H
-	INT 21H
-	SUB AL,30H
-	MOV CUST_SELECTION,AL
-	
-	CMP AL,1
-	JE LCUST_OPT_1
-	CMP AL,2
-	JE LCUST_OPT_2
-	JMP LCUST_OPT_INVALID
-	
+		CMP AL,'r'
+		JE LCUST_SELECT_RETURN
+		CMP AL,'R'
+		JE LCUST_SELECT_RETURN
+		
+		SUB AL,30H
+		CMP AL,1
+		JMP LCUST_OPT_1
+		
+		CMP AL,2
+		JMP LCUST_OPT_2
+
+		JMP LCUST_OPT_INVALID
+		
+	LCUST_SELECT_RETURN:
+		CALL MAIN
+		JMP MENU_ENDL
+
 	LCUST_OPT_1:
-	CALL LCUST_SELECT_1			;	CALL PROCEDURE
-	JMP MENU_ENDL
+		CALL LCUST_SELECT_1				;	CALL PROCEDURE
+		JMP MENU_ENDL
 	
 	LCUST_OPT_2:
-	CALL LCUST_SELECT_2			;	CALL PROCEDURE
-	JMP MENU_ENDL
+		CALL LCUST_SELECT_2			;	CALL PROCEDURE
+		JMP MENU_ENDL
 	
 	LCUST_OPT_INVALID:
-	CALL LCUST_SELECT_INVALID
-	MOV AH,01H
-	INT 21H
-	CMP AL,0DH					; <ENTER> TO CONTINUE
-	JE BACK_MENU
-	JMP BACK_MENU
+		CALL LCUST_SELECT_INVALID
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH					; <ENTER> TO CONTINUE
+		JE BACK_MENU
 	
 	BACK_MENU:
-	JMP LWELC_MENU
+		JMP LWELC_MENU
 	
 	RET     ;RETURN TO PROCEDURE
 	
@@ -219,6 +255,14 @@ LCUST_SELECT_1 PROC
 		MOV BH,6EH
 		MOV CX,0600H
 		MOV DX,0D38H
+		INT 10H
+		
+		;background (RETURN {R})
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,6CH
+		MOV CX,0D21H
+		MOV DX,0D2DH
 		INT 10H
 		
 		;fontground (LIST_SUBOPT1 PART)
@@ -574,6 +618,14 @@ LCUST_SELECT_2 PROC
 		MOV BH,6EH
 		MOV CX,0600H
 		MOV DX,0D38H
+		INT 10H
+		
+		;background (RETURN {R})
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,6CH
+		MOV CX,0D21H
+		MOV DX,0D2DH
 		INT 10H
 		
 		;fontground (LIST_SUBOPT2 PART)
@@ -950,266 +1002,320 @@ LCUST_SELECT_INVALID PROC
     RET		;RETURN TO PROCEDURE
 LCUST_SELECT_INVALID ENDP
 
+
+
+;===================================================================================================================================================
+;===================================================================================================================================================
+;=========================================++++++++++++++++++++++++++++++++++++++++++++++++++++++====================================================
+;===================================================================================================================================================
+;===================================================================================================================================================
+;===================================================================================================================================================
+
+MENU_THANKS_PROCEDURE PROC
+	;fontground
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,09H       
+	MOV DL,00H       
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,MENU_THANKS	; Thankyou for using our system!
+	INT 21H
+	RET		;RETURN TO PROCEDURE
+MENU_THANKS_PROCEDURE ENDP
+
+
+MENU_SHOPNAME PROC
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,184FH
+	INT 10H
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0000
+	INT 10H
+	
+	;=========== MAIN MENU OPTION ===========
+	;shopname + icon + ENTSR SELECTION
+	MOV AH,09H
+	LEA DX,SHOPNAME
+	INT 21H
+	RET		;RETURN TO PROCEDURE
+MENU_SHOPNAME ENDP
+
+
 MAIN PROC
     MOV AX, @DATA
     MOV DS, AX	
 	
-	LmenuICON:
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,6EH
-		MOV CX,0000H
-		MOV DX,184FH
-		INT 10H
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,0000
-		INT 10H
+	CALL LmenuICON
+
+	MENU_ENDL:
+    MOV AX, 4C00H
+    INT 21H
+MAIN ENDP  ; int main(){};a
+
+LmenuICON PROC
+    PUSH AX
+    PUSH BX
+    PUSH DX    ; store main procedure cursor
+
+	CALL MENU_SHOPNAME 		;CALL FUNCTION SHOW SHOPNAME
 		
-		;========================== MAIN MENU OPTION ===============================
-		;shopname + icon + ENTSR SELECTION
-		MOV AH,09H
-		LEA DX,SHOPNAME
-		INT 21H
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0D1DH
+	INT 10H
 		
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,0D1DH
-		INT 10H
+	MOV AH,01H
+	INT 21H
+	MOV MENU_SELECTION,AL	; cmp SELECTION
 		
-		MOV AH,01H
-		INT 21H
-		MOV MENU_SELECTION,AL	; cmp SELECTION
+	CMP AL,'1'
+	JE L_WELC_MENU_CUST_SELECT	; if (selection == '1')
+	CMP AL,'2'
+	JE Llogin				; else if (selection == '2')
+	CMP AL,'3'
+	JE LMENU_THANKS			; else if (selection == '3')
+	
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,4FH
+	MOV CX,1006H
+	MOV DX,112EH
+	INT 10H
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,1000H
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,SHOPNAME_INVALID
+	INT 21H
+	MOV AH,01H
+	INT 21H
+	MOV SELECTION,AL
+	CMP AL,0DH
+	JE	RETURN_LmenuICON
+	CALL LmenuICON
+	
+	RETURN_LmenuICON:
+		CALL LmenuICON
 		
-		CMP AL,'2'
-		JE Llogin				; else if (selection == '2')
-		CMP AL,'3'
-		JE LMENU_THANKS			; else if (selection == '3')
-		CMP AL,'1'
-		CALL LWELC_MENU		; if (selection == '1')
-		
-		MOV AH,09H				; else
-		LEA DX,NL
-		INT 21H
-		MOV AH,09H
-		LEA DX,MENU_INVALID		; Invalid Option!!!  Please RE-ENTER
-		INT 21H
+	L_WELC_MENU_CUST_SELECT:
+		CALL LWELC_MENU		
+		CALL LCUST_SELECT
 		JMP MENU_ENDL
 		
-		LMENU_THANKS:
-			;fontground
-			MOV AH,02H
-			MOV BH,00H
-			MOV DH,09H       
-			MOV DL,00H       
-			INT 10H
-			
-			MOV AH,09H
-			LEA DX,MENU_THANKS	; Thankyou for using our system!
-			INT 21H
-			JMP MENU_ENDL
-		
-;==================================(MAIN MENU)============================================
-	LMAIN_MENU:
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,6EH
-		MOV CX,0000H
-		MOV DX,184FH
-		INT 10H
-	
-	
+	LMENU_THANKS:
+		CALL MENU_THANKS_PROCEDURE
+		JMP MENU_ENDL 
+
+    POP DX
+    POP BX
+    POP AX     ; to recover register
+	RET
+LmenuICON ENDP
+
 ;=============================(ADMIN LOGIN SYSTEM)========================================	
-	Llogin: ; Admin username part
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,6EH
-		MOV CX,0000H
-		MOV DX,184FH
-		INT 10H
-	
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,0000
-		INT 10H
-		
-		;Login and logout interface
-		MOV AH,09H
-		LEA DX,STRFONT
-		INT 21H
-	
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-	
-		MOV AH,09H
-		LEA DX,STRLOGIN
-		INT 21H
-		
-		;background WHITE SIDE
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,7AH
-		MOV CX,0304H
-		MOV DX,0A28H
-		INT 10H
-	
-		;background BLUE FRAME
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,1AH
-		MOV CX,0406H
-		MOV DX,0926H
-		INT 10H
-	
-		;fontground for "Username :"
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,05H
-		MOV DL,09H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,USERNAME
-		INT 21H
-	
-		;fontground for input username
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,05H
-		MOV DL,16H
-		INT 10H
-		
-		LEA SI,TARUMT    ; store(MOV) username --> SI
-		JMP Luser_ADMIN
-	
-	;compare ADMIN username
-	Luser_ADMIN:         ; Admin password part 
-		MOV AH,01H
-		INT 21H
-		MOV BL,AL  
-		MOV DL,[SI]  	 ; ARRAY for store PSW
-		CMP DL,'$'			;---
-		JE LPSW_ENTER		;\\\\
-		CMP BL,[SI]			;\\\\\
-		JNE LINVALID		;=====> compare user input with TARUMT
-		INC SI				;|||||
-		JMP Luser_ADMIN		;||||
-		JMP CONTINUE_ADMIN	;---	
-	
-	;fontground for "Password :"
-	LPSW_ENTER:
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		
-		;fontground for "Password : "
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,06H
-		MOV DL,09H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,PASSWORD
-		INT 21H
-		
-		;fontground for "<Enter> to login"
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,08H
-		MOV DL,0BH
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,ENTERLOG
-		INT 21H
-		
-		;fontground for input password
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,06H
-		MOV DL,16H
-		INT 10H
-		LEA SI,VERIFY 	; store PSW in SI
-		
-	Lpassword_ADMIN:
-		MOV AH,01H
-		INT 21H
-		MOV BL,AL
-		MOV DL,[SI]  
-		CMP DL,'$'			;---
-		JE LcheckPSW		;\\\\
-		CMP BL,[SI]			;\\\\\
-		JNE LINVALID		;=====> compare user input with TARUMT
-		INC SI				;|||||
-		JMP Lpassword_ADMIN	;----
+Llogin PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI    ; store main procedure cursor
 
-	; Invalid username or password
-	LINVALID:
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,34H
-		MOV CX,0C05H
-		MOV DX,0C27H
-		INT 10H
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,184FH
+	INT 10H
 	
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,0CH
-		MOV DL,07H
-		INT 10H
-	
-		MOV AH,09H
-		LEA DX,INVALID
-		INT 21H	
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0000
+	INT 10H
 		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		JE Llogin_RetryOneMore   ; return to login
-		JMP LINVALID
+	;Login and logout interface
+	MOV AH,09H
+	LEA DX,STRFONT
+	INT 21H
+		
+	;background WHITE SIDE
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,7AH
+	MOV CX,0304H
+	MOV DX,0A28H
+	INT 10H
+	
+	;background BLUE FRAME
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,1AH
+	MOV CX,0406H
+	MOV DX,0926H
+	INT 10H
+	
+	;fontground for "Username :"
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0AH
+	MOV DL,00H
+	INT 10H
+		
+	MOV AH,09H
+	LEA DX,USERNAME
+	INT 21H
+	
+	;fontground for input username
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0AH
+	MOV DL,17H
+	INT 10H
+		
+	LEA SI,TARUMT    ; store(MOV) username --> SI
+	JMP Luser_ADMIN
+	
+;compare ADMIN username
+Luser_ADMIN:         ; Admin password part 
+	MOV AH,01H
+	INT 21H
+	MOV BL,AL  
+	MOV DL,[SI]  	 ; ARRAY for store PSW
+	CMP DL,'$'			;---
+	JE LPSW_ENTER		;\\\\
+	CMP BL,[SI]			;\\\\\
+	JNE LINVALID		;=====> compare user input with TARUMT
+	INC SI				;|||||
+	JMP Luser_ADMIN		;||||
+	JMP CONTINUE_ADMIN	;---	
+	
+;fontground for "Password :"
+LPSW_ENTER:
+	MOV AH,09H
+	LEA DX,NL
+	INT 21H
+		
+	;fontground for "Password : "
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0BH
+	MOV DL,00H
+	INT 10H
+		
+	MOV AH,09H
+	LEA DX,PASSWORD
+	INT 21H
+		
+	;fontground for input password
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0BH
+	MOV DL,17H
+	INT 10H
+	LEA SI,VERIFY 	; store PSW in SI
+		
+Lpassword_ADMIN:
+	MOV AH,01H
+	INT 21H
+	MOV BL,AL
+	MOV DL,[SI]  
+	CMP DL,'$'			;---
+	JE LcheckPSW		;\\\\
+	CMP BL,[SI]			;\\\\\
+	JNE LINVALID		;=====> compare user input with TARUMT
+	INC SI				;|||||
+	JMP Lpassword_ADMIN	;----
 
-	;====================================================================		
-	Llogin_RetryOneMore:         ;a label help to jump to login page
-		CALL Llogin
-	;====================================================================
+; Invalid username or password
+LINVALID:
+	MOV AH,09H
+	LEA DX,NL
+	INT 21H
+		
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,34H
+	MOV CX,0C05H
+	MOV DX,0C27H
+	INT 10H
 	
-	;compare ADMIN password
-	LcheckPSW:
-		CMP BL,0DH
-		JNE LINVALID 		; for checking process
-		
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,2EH
-		MOV CX,0D04H
-		MOV DX,0D28H
-		INT 10H
-		
-		MOV AH,02H
-		MOV BX,00
-		MOV DH,0DH
-		MOV DL,0FH
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,WAITING		; show "Just a moment..."
-		INT 21H
-		JMP CONTINUE_ADMIN	
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0CH
+	MOV DL,07H
+	INT 10H
 	
-	;=============================(ADMIN SYSTEM)========================================	
-	CONTINUE_ADMIN:
+	MOV AH,09H
+	LEA DX,INVALID
+	INT 21H	
+		
+	MOV AH,01H
+	INT 21H
+	CMP AL,0DH
+	JE Llogin_RetryOneMore   ; return to login
+	JMP LINVALID
+
+;compare ADMIN password
+LcheckPSW:
+	CMP BL,0DH
+	JNE LINVALID 		; for checking process
+		
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,2EH
+	MOV CX,0D04H
+	MOV DX,0D28H
+	INT 10H
+		
+	MOV AH,02H
+	MOV BX,00
+	MOV DH,0DH
+	MOV DL,0FH
+	INT 10H
+		
+	MOV AH,09H
+	LEA DX,WAITING		; show "Just a moment..."
+	INT 21H
+	JMP CONTINUE_ADMIN	
+
+    POP SI
+    POP DX
+    POP CX
+    POP BX
+    POP AX     ; to recover register
+	RET
+Llogin ENDP
+
+;====================================================================		
+Llogin_RetryOneMore PROC         ;a label help to jump to login page
+    PUSH AX    ; store main procedure cursor
+
+	CALL Llogin
+
+    POP AX     ; to recover register
+	RET
+Llogin_RetryOneMore ENDP
+
+;=============================(ADMIN SYSTEM)========================================	
+CONTINUE_ADMIN PROC
+    PUSH AX
+    PUSH BX
+    PUSH DX    ; store main procedure cursor
+
 	;background
 	MOV AH,06H
 	MOV AX,0600H
@@ -1267,177 +1373,247 @@ MAIN PROC
 	;SELECTION OF OPT    
 	CMP SELECTION,1		; if (selection == '1') 
 	JE LSalesReport		;		Sales report;
-	CMP SELECTION,2		; else if (selection == '2') 
-	JE LExit_Logout		; 		Exit | Log out;
 	CMP SELECTION,1		; else if (selection == '0') 
 	JL LINVALIDSECa		; 		cout << "INVALID SELECTION!!! PLEASE RE-ENTER...";
 	CMP SELECTION,2		; else
 	JG LINVALIDSECa		; 		cout << "INVALID SELECTION!!! PLEASE RE-ENTER..."
+	CMP SELECTION,2		; else if (selection == '2') 
+	JE LExit_Logout		; 		Exit | Log out;
 	JMP CONTINUE_ADMIN
 	
-	;====================================================================
-	Llogin_BACK1:			;a label help to jump back Admin Login
-		CALL Llogin
-
-	CONTINUE_ADMIN_A:		;a label help to loop Admin system
-		JMP CONTINUE_ADMIN
-	;====================================================================
-	
-	; if(SELECTION == '1')  -->  Sales report
-	LSalesReport:
+; if(SELECTION == '1')  -->  Sales report
+LSalesReport:
 	JMP LshowREPORT
 	
-	LINVALIDSECa:		; else if (selection == '0' || selection >= '3') 
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,4FH
-		MOV CX,0902H
-		MOV DX,0A2BH
-		INT 10H
+LINVALIDSECa:		; else if (selection == '0' || selection >= '3') 
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,4FH
+	MOV CX,0902H
+	MOV DX,0A2BH
+	INT 10H
+	
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0904H
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,INVALIDSEC	; cout << "INVALID SELECTION!!! PLEASE RE-ENTER...";
+	INT 21H	
 		
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,0904H
-		INT 10H
+	MOV AH,09H
+	LEA DX,NL
+	INT 21H	
 		
-		MOV AH,09H
-		LEA DX,INVALIDSEC	; cout << "INVALID SELECTION!!! PLEASE RE-ENTER...";
-		INT 21H	
+	MOV AH,09H
+	LEA DX,REMOVEINV	; cout << "PRESS <ENTER> TO RETURN";
+	INT 21H	
 		
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H	
-		
-		MOV AH,09H
-		LEA DX,REMOVEINV	; cout << "PRESS <ENTER> TO RETURN";
-		INT 21H	
-		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		CALL CONTINUE_ADMIN ; <Enter> to return back ADMIN SYSTEM
-		
+	MOV AH,01H
+	INT 21H
+	CMP AL,0DH
+	CALL CONTINUE_ADMIN ; <Enter> to return back ADMIN SYSTEM
 
-	LshowREPORT:			; if (selection == '1')
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,30H
-		MOV CX,0502H
-		MOV DX,0D23H
-		INT 10H
-		
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,060AH
-		INT 10H
+    POP DX
+    POP BX
+    POP AX     ; to recover register
+	RET
+CONTINUE_ADMIN ENDP
+
+;====================================================================
+Llogin_BACK1 PROC			;a label help to jump back Admin Login
+    PUSH AX    ; store main procedure cursor
+
+	CALL Llogin
+
+    POP AX     ; to recover register
+	RET
+Llogin_BACK1 ENDP
+
+CONTINUE_ADMIN_A PROC		;a label help to loop Admin system
+    PUSH AX    ; store main procedure cursor
+
+	JMP CONTINUE_ADMIN
+
+    POP AX     ; to recover register
+	RET
+CONTINUE_ADMIN_A ENDP
+
+;====================================================================
 	
-		MOV AH,09H
-		LEA DX,HERE  		; to put the part of report later
-		INT 21H
-		
-		JMP MENU_ENDL
-		
-	;====================================================================
+LshowREPORT PROC			; if (selection == '1')
+    PUSH AX
+    PUSH BX
+    PUSH DX    ; store main procedure cursor
+
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,30H
+	MOV CX,0502H
+	MOV DX,0D23H
+	INT 10H
 	
-	; if(SELECTION == '2')  -->  Exit | Log out
-	LExit_Logout:
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,060AH
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,HERE  		; to put the part of report later
+	INT 21H
+		
+	JMP MENU_ENDL
+
+    POP DX
+    POP BX
+    POP AX     ; to recover register
+	RET
+LshowREPORT ENDP
+
+; if(SELECTION == '2')  -->  Exit | Log out
+LExit_Logout PROC
+    PUSH AX    ; store main procedure cursor
+
 	JMP LshowExit
-	
-	LshowExit:			; "EXIT  |  LOG-OUT        [2] >"
-		MOV AH,09H
-		LEA DX,ENSURE	; "ARE YOU SURE TO CONTINUE LOG-OUT "
-		INT 21H
-		
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,66H
-		MOV CX,0632H
-		MOV DX,0633H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		MOV SELECTION,AL ; input selection [y/n]
 
-		; if (selection == 'Y' || selection == 'y')
-		CMP SELECTION,'Y'
-		JE Llogin_BACK0   ;back to login page
-		CMP SELECTION,'y'
-		JE Llogin_BACK0
-		
-		; else if (selection == 'N' || selection == 'n')
-		CMP SELECTION,'N'
-		JE CONTINUE_ADMIN_0  ;continue with admin menu
-		CMP SELECTION,'n'    
-		JE CONTINUE_ADMIN_0
-		
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
-		; else
-		JMP LINVALIDSEC
+    POP AX     ; to recover register
+	RET
+LExit_Logout ENDP
 
-	;====================================================================
-	Llogin_BACK0:      		;a label help to jump back Admin Login
-		CALL LmenuICON
-		
-	CONTINUE_ADMIN_0:  		;a label help to loop Admin system
-		JMP CONTINUE_ADMIN_A
-	;====================================================================
-	
-		MOV AH,09H
-		LEA DX,NL
-		INT 21H
+LshowExit PROC			; "EXIT  |  LOG-OUT        [2] >"
+    PUSH AX
+    PUSH DX    ; store main procedure cursor
 
-	;invalid SELECTION 
-	LINVALIDSEC:
-		MOV AH,09H
-		LEA DX,INVALIDSEC
-		INT 21H
-		JMP MENU_ENDL
+	MOV AH,09H
+	LEA DX,ENSURE	; "ARE YOU SURE TO CONTINUE LOG-OUT "
+	INT 21H
 	
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,66H
+	MOV CX,0632H
+	MOV DX,0633H
+	INT 10H
+	
+	MOV AH,01H
+	INT 21H
+	MOV SELECTION,AL ; input selection [y/n]
+
+	; if (selection == 'Y' || selection == 'y')
+	CMP SELECTION,'Y'
+	JE Llogin_BACK0   ;back to login page
+	CMP SELECTION,'y'
+	JE Llogin_BACK0
+	
+	; else if (selection == 'N' || selection == 'n')
+	CMP SELECTION,'N'
+	JE CONTINUE_ADMIN_0  ;continue with admin menu
+	CMP SELECTION,'n'    
+	JE CONTINUE_ADMIN_0
+	
+	MOV AH,09H
+	LEA DX,NL
+	INT 21H
+	; else
+	JMP LINVALIDSEC
+
+    POP DX
+    POP AX     ; to recover register
+	RET
+LshowExit ENDP
+
+;====================================================================
+Llogin_BACK0 PROC      		;a label help to jump back Admin Login
+    PUSH AX    ; store main procedure cursor
+
+	CALL LmenuICON
+
+    POP AX     ; to recover register
+	RET
+Llogin_BACK0 ENDP
+
+CONTINUE_ADMIN_0 PROC  		;a label help to loop Admin system
+    PUSH AX    ; store main procedure cursor
+
+	JMP CONTINUE_ADMIN_A
+
+    POP AX     ; to recover register
+	RET
+CONTINUE_ADMIN_0 ENDP
+
+;====================================================================
+	
+LINVALIDSEC PROC
+    PUSH DX    ; store main procedure cursor
+
+	MOV AH,09H
+	LEA DX,INVALIDSEC
+	INT 21H
+	JMP MENU_ENDL
+
+    POP DX     ; to recover register
+	RET
+LINVALIDSEC ENDP
+
 ;============================================ CUSTOMER ORDER PART + VIEW MENU ========================================	
-	LWELC_MENU:
-		;background (WHOLE PART)
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,6EH
-		MOV CX,0000H
-		MOV DX,184FH
-		INT 10H
-		
-		;background (MENU FONT)
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,34H
-		MOV CX,0205H
-		MOV DX,022FH
-		INT 10H
-		
-		;fontground (WHOLE PART)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,00H
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,WELC_MENU
-		INT 21H
-		
-		; cin >> selection
-		CALL LCUST_SELECT ; CALL FUNCTION
-		
-		JMP LWELC_MENU
+LWELC_MENU PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX    ; store main procedure cursor
 
-	MENU_ENDL:
-    MOV AX, 4C00H
-    INT 21H
-MAIN ENDP  ; int main(){};a
+	;background (WHOLE PART)
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,184FH
+	INT 10H
+	
+	;background (MENU FONT)
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,34H
+	MOV CX,0205H
+	MOV DX,022FH
+	INT 10H
+	
+	;background (RETURN {R})
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,6CH
+	MOV CX,0D21H
+	MOV DX,0D2DH
+	INT 10H
+	
+	;fontground (WHOLE PART)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,00H
+	MOV DL,00H
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,WELC_MENU
+	INT 21H
+	
+	; cin >> selection
+	CALL LCUST_SELECT ; CALL FUNCTION
+	
+	JMP LWELC_MENU
+
+    POP DX
+    POP CX
+    POP BX
+    POP AX     ; to recover register
+	RET
+LWELC_MENU ENDP
+
 
 END MAIN
