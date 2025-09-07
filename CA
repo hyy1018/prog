@@ -102,17 +102,33 @@
 	;Secure Logout:
 	
 	;Admin Menu：Sales Report
-	SYSTEM      DB "===WELCOME TO ADMIN SYSTEM===$"
-	CHECKING    DB "    SALES REPORT CHECKING   [1] >$"
-	XCHECKING   DB "    EXIT  |  LOG-OUT        [2] >$"
-	ENSURE      DB "    ARE YOU SURE TO CONTINUE LOG-OUT (EXIT)? [Y/N]$"
-	SELECTION   DB ?
-	INVALIDSEC  DB "INVALID SELECTION!!! PLEASE RE-ENTER...$"
-	LEAVING     DB "    PRESS <ENTER> TO EXIT"
+	SYSTEM      		DB  "===WELCOME TO ADMIN SYSTEM===$"
+	CHECKING    		DB  "    SALES REPORT CHECKING   [1] >$"
+	XCHECKING   		DB  "    EXIT  |  LOG-OUT        [2] >$"
+	ENSURE      		DB  "    ARE YOU SURE TO CONTINUE LOG-OUT (EXIT)? [Y/N]$"
+	SELECTION   		DB  ?
+	INVALIDSEC  		DB  "INVALID SELECTION!!! PLEASE RE-ENTER...$"
+	LEAVING     		DB  "    PRESS <ENTER> TO EXIT"
 	
-	REMOVEINV   DB "	   PRESS <ENTER> TO RETURN$"
+	REMOVEINV		   	DB  "	   PRESS <ENTER> TO RETURN$"
 	
-	HERE DB "HERE IS REPORT$"
+	HERE 				DB  "HERE IS REPORT$"
+	
+	SALES_COUNT_1_A		DB  0    ; FOR BUN A WHICH IS CHEESE BUN
+	SALES_COUNT_1_B 	DB  0    ; FOR BUN B... 
+	SALES_COUNT_2_A 	DB  0    ; FOR CAKE A...
+	SALES_COUNT_2_B 	DB  0    ; FOR CAKE B...
+
+	PRESS_KEY_ENTER		DB	"PRESS <ENTER> TO EXIT$"
+
+
+	SALES_REPORT_TITLE 	DB  "=== SALES REPORT ===", 0AH, 0DH,"$"
+	SALES_ITEM_1_A 		DB  "Cheese bun Sold    : $"
+	SALES_ITEM_1_B 		DB  "Potato bun Sold    : $"
+	SALES_ITEM_2_A 		DB  "Chocolate cake Sold: $"
+	SALES_ITEM_2_B 		DB  "Banana cake Sold   : $"
+	TOTAL_SALES 		DB  "Total Sales        : $"
+	
 	;Check Order Status
 	
 	;Place Order
@@ -166,7 +182,8 @@
 	QUANTITY_PROD		DB	?                     ;21D ==> 15H
 	SELECT_PROD			DB	"  |    SELECTION :                                |", 0AH, 0DH,"$";0DH	
 	QTY_PROD			DB	"  |    QUANTITY  >>>                              |", 0AH, 0DH,"$";0EH
-	LIST_SELECT_INV		DB	"  |    INVALID CODE!!!...PLEASE RE-ENTER          |", 0AH, 0DH,"$" ;11H
+	LIST_SELECT_INV		DB	"  |                INVALID CODE!!!                |", 0AH, 0DH ;11H
+						DB	"  |           PRESS  <ENTER>  TO  RETURN          |", 0AH, 0DH,"$";0CH
 	
 	TOTAL_COST			DB	"  |    _______________________________________    |", 0AH, 0DH	 ;11H
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
@@ -319,6 +336,18 @@
 	
 	
 .CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX	
+	
+	CALL LmenuICON
+
+	MENU_ENDL:
+    MOV AX, 4C00H
+    INT 21H
+MAIN ENDP  ; int main(){};a
+
+
 LCUST_SELECT PROC
 		;background (SELECTION)
 		MOV AH,06H
@@ -502,6 +531,8 @@ LCUST_SELECT_1_A_BUY PROC
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
     
+	INC SALES_COUNT_1_A		;COUNTER++ WHEN LOOP LCUST_SELECT_1_A_BUY PROC
+	
 	MOV AL,NUM1				;to store the current price depends on the selection from user
     MOV CURRENT_PRICE,AL	;and based on the price from products
 	
@@ -652,6 +683,8 @@ LCUST_SELECT_1_B_BUY PROC
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE	
     
+	INC SALES_COUNT_1_B		;COUNTER++ WHEN LOOP LCUST_SELECT_1_B_BUY PROC
+	
 	MOV AL,NUM2				;to store the current price depends on the selection from user
     MOV CURRENT_PRICE,AL	;and based on the price from products
 	
@@ -912,7 +945,9 @@ LCUST_SELECT_2_A_BUY PROC
 	PUSH BX
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
-
+	
+	INC SALES_COUNT_2_A		;COUNTER++ FOR EACH LOOP LCUST_SELECT_2_A_BUY PROC
+	
 	MOV AL,NUM3				;to store the current price depends on the selection from user
     MOV CURRENT_PRICE,AL	;and based on the price from products
     
@@ -1055,6 +1090,8 @@ LCUST_SELECT_2_B_BUY PROC
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
 
+	INC SALES_COUNT_2_B		;COUNTER++ FOR EACH LOOP LCUST_SELECT_2_B_BUY PROC
+	
 	MOV AL,NUM4				;to store the current price depends on the selection from user
     MOV CURRENT_PRICE,AL	;and based on the price from products
     
@@ -1197,6 +1234,13 @@ LCUST_SELECT_INVALID PROC
     
 	PUSH DX  ; store main procedure cursor 
     
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,4FH
+	MOV CX,1107H
+	MOV DX,122DH
+	INT 10H
+	
     MOV AH,02H
     MOV BH,00H
     MOV DH,11H       
@@ -1344,7 +1388,7 @@ LTO_SEE_RECEIPT_1_A PROC
 		JMP RECEIPT_END_1_A
 		
 	EXIT_FROM_RECEIPT_1_A:
-		CALL MAIN
+		CALL RECEIPT_THANKQ
 		
 	RECEIPT_END_1_A:
 		POP SI
@@ -1470,7 +1514,7 @@ LTO_SEE_RECEIPT_1_B PROC
 		JMP RECEIPT_END_1_B
 		
 	EXIT_FROM_RECEIPT_1_B:
-		CALL MAIN
+		CALL RECEIPT_THANKQ
 		
 	RECEIPT_END_1_B:
 		POP SI
@@ -1487,7 +1531,21 @@ LTO_SEE_RECEIPT_2_A PROC
     PUSH CX
     PUSH DX
     PUSH SI    ; to store register to avoid the data lost
-
+	
+	;BACKGROUND SHOW RECEIPT
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,00H
+    MOV DL,00H
+    INT 10H
+	
     MOV AH,09H
     LEA DX,TO_SEE_RECEIPT_COCO_CAKE
     INT 21H
@@ -1582,7 +1640,7 @@ LTO_SEE_RECEIPT_2_A PROC
 		JMP RECEIPT_END_2_A
 		
 	EXIT_FROM_RECEIPT_2_A:
-		CALL MAIN
+		CALL RECEIPT_THANKQ
 		
 	RECEIPT_END_2_A:
 		POP SI
@@ -1708,7 +1766,7 @@ LTO_SEE_RECEIPT_2_B PROC
 		JMP RECEIPT_END_2_B
 		
 	EXIT_FROM_RECEIPT_2_B:
-		CALL MAIN
+		CALL RECEIPT_THANKQ
 		
 	RECEIPT_END_2_B:
 		POP SI
@@ -1719,6 +1777,43 @@ LTO_SEE_RECEIPT_2_B PROC
 	RET
 LTO_SEE_RECEIPT_2_B ENDP
 
+
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+RECEIPT_THANKQ PROC
+	LRECEIPT_THANKQ_RETURN:
+		;background
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,6EH
+		MOV CX,0000H
+		MOV DX,184FH
+		INT 10H
+		
+		;fontground
+		MOV AH,02H
+		MOV BX,00H
+		MOV DX,0000H
+		INT 10H
+		
+		MOV AH,09H
+		LEA DX,NO_EXIT_RECEIPT
+		INT 21H
+		
+		MOV AH,01H
+		INT 21H
+		
+		CMP AL,0DH
+		JE LRECEIPT_THANKQ
+		JMP LRECEIPT_THANKQ_RETURN		; ALWAYS LOOP EXPECT PRESS <Enter>  
+	
+	LRECEIPT_THANKQ:
+		CALL MAIN
+		JMP RECEIPT_THANKQ_PROC_ENDL
+		
+	RECEIPT_THANKQ_PROC_ENDL:
+		RET		;RETURN TO HOMEPAGE
+	
+RECEIPT_THANKQ ENDP
 
 ;===================================================================================================================================================
 ;===================================================================================================================================================
@@ -1765,16 +1860,7 @@ MENU_SHOPNAME PROC
 MENU_SHOPNAME ENDP
 
 
-MAIN PROC
-    MOV AX, @DATA
-    MOV DS, AX	
-	
-	CALL LmenuICON
 
-	MENU_ENDL:
-    MOV AX, 4C00H
-    INT 21H
-MAIN ENDP  ; int main(){};a
 
 LmenuICON PROC
     PUSH AX
@@ -2136,7 +2222,8 @@ CONTINUE_ADMIN PROC
 	
 ; if(SELECTION == '1')  -->  Sales report
 LSalesReport:
-	JMP LshowREPORT
+	CALL DISPLAY_SALES_REPORT		;=-------------------------------------------------------------------------------------=
+	JMP MENU_ENDL				
 	
 LINVALIDSECa:		; else if (selection == '0' || selection >= '3') 
 	;background
@@ -2195,38 +2282,6 @@ CONTINUE_ADMIN_A PROC		;a label help to loop Admin system
 	RET
 CONTINUE_ADMIN_A ENDP
 
-;====================================================================
-	
-LshowREPORT PROC			; if (selection == '1')
-    PUSH AX
-    PUSH BX
-    PUSH DX    ; store main procedure cursor
-
-	;background
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,30H
-	MOV CX,0502H
-	MOV DX,0D23H
-	INT 10H
-	
-	;fontground
-	MOV AH,02H
-	MOV BX,00
-	MOV DX,060AH
-	INT 10H
-	
-	MOV AH,09H
-	LEA DX,HERE  		; to put the part of report later
-	INT 21H
-		
-	JMP MENU_ENDL
-
-    POP DX
-    POP BX
-    POP AX     ; to recover register
-	RET
-LshowREPORT ENDP
 
 ; if(SELECTION == '2')  -->  Exit | Log out
 LExit_Logout PROC
@@ -2284,7 +2339,12 @@ LshowExit ENDP
 ;====================================================================
 Llogin_BACK0 PROC      		;a label help to jump back Admin Login
     PUSH AX    ; store main procedure cursor
-
+	
+	MOV [SALES_COUNT_1_A],0	;INITIALIZE COUNTER 1_A
+    MOV [SALES_COUNT_1_B],0	;INITIALIZE COUNTER 1_B
+    MOV [SALES_COUNT_2_A],0	;INITIALIZE COUNTER 2_a
+    MOV [SALES_COUNT_2_B],0	;INITIALIZE COUNTER 2_B
+	
 	CALL LmenuICON
 
     POP AX     ; to recover register
@@ -2368,5 +2428,163 @@ LWELC_MENU PROC
 	RET
 LWELC_MENU ENDP
 
+
+DISPLAY_SALES_REPORT PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    
+    ;BACKGRUND OF SALES REPORT 
+    MOV AX,0600H
+    MOV BH,6FH
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    ;fontground
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,01H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,SALES_REPORT_TITLE
+    INT 21H
+    
+    ;SHOW CHEESE BUN SALES
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,03H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,SALES_ITEM_1_A
+    INT 21H
+    
+	;COUNTER 
+    MOV DL,[SALES_COUNT_1_A]
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+	
+    ;SHOW POTATO BUN SALES 
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,04H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,SALES_ITEM_1_B
+    INT 21H
+
+    ;COUNTER
+    MOV DL,[SALES_COUNT_1_B]
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+    ;SHOW CHOCOLATE CAKE SALES
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,05H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,SALES_ITEM_2_A
+    INT 21H
+
+    ;COUNTER
+    MOV DL,[SALES_COUNT_2_A]
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+     ;SHOW BANANA CAKE SALES
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,06H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,SALES_ITEM_2_B
+    INT 21H
+
+    ;COUNTER
+    MOV DL,[SALES_COUNT_2_B]
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+    ;FONTGROUND TOTAL SALES
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,08H
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,TOTAL_SALES
+    INT 21H
+    
+    ;TOTAL COUNTER FROM 4 ITEM
+    MOV AL,[SALES_COUNT_1_A]
+    ADD AL,[SALES_COUNT_1_B]
+    ADD AL,[SALES_COUNT_2_A]
+    ADD AL,[SALES_COUNT_2_B]
+    
+    ;SHOW ONES DIGIT
+    MOV BL,10
+    DIV BL    
+    MOV CL,AL
+    MOV CH,AH
+    
+    CMP CL,0
+    JE SHOW_ONES_ONLY
+    
+    ;SHOW TENS DIGIT
+    MOV DL,CL
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+SHOW_ONES_ONLY:
+    MOV DL,CH
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0CH
+    MOV DL,10H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,PRESS_KEY_ENTER
+    INT 21H
+    
+    MOV AH,01H
+    INT 21H
+	CMP AL,0DH
+	JNE RETURN_SALES_REPORT
+	JMP SALES_REPORT_ENDL
+	
+	RETURN_SALES_REPORT:
+		CALL DISPLAY_SALES_REPORT
+		JMP MENU_ENDL
+	
+	SALES_REPORT_ENDL:
+		POP DX
+		POP CX
+		POP BX
+		POP AX
+    RET
+DISPLAY_SALES_REPORT ENDP
 
 END MAIN
