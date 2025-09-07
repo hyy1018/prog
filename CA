@@ -1,7 +1,7 @@
 .MODEL SMALL
 .STACK 100
 .DATA
-    ;Menu and submenu for customer
+    ;==================================;Menu and submenu for customer=========================================================
 	SHOPNAME			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
 						DB	"  |                                               |", 0AH, 0DH  ;01H	
 						DB  "  |  ==============One Bite Bakery==============  |", 0AH, 0DH  ;02H
@@ -49,16 +49,11 @@
 						DB	"                                                   ", 0AH, 0DH	 ;16H
 						DB	"                                                   ", 0AH, 0DH	 ;17H
 						DB	"                                                   ", 0AH, 0DH,"$";18H
+						
+	RETURN_BACK_MAIN 	DB	"RETURN >> {R}$"
 	
-	;Admin Login and logout module
-
-	INVALID				DB	"  |        INVALID username or password !!!       |", 0AH, 0DH	 ;11H	
-						DB	"  |                                               |", 0AH, 0DH	 ;12H
-	NL 				DB  0AH,0DH,"$"
-
 	
-	RETURN_BACK_MAIN DB	"RETURN >> {R}$"
-	
+	;====================================;Admin Login and logout module==================================================
 	STRFONT 			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
 						DB	"  |                                               |", 0AH, 0DH  ;01H	
 						DB  "  |   <<<<<{*** Welcome To Login Page ***}>>>>>   |", 0AH, 0DH  ;02H
@@ -92,17 +87,17 @@
 	
 	PASSWORD			DB	"  |            Password :                         |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH	 ;0CH
-						DB	"  |               <ENTER>  TO LOG IN              |", 0AH, 0DH,"$" ;0DH					
-	
-	;<ENTER> DB 0DH
-	
+						DB	"  |               <ENTER>  TO LOG IN              |", 0AH, 0DH,"$" ;0DH		
+
+	INVALID_STRFONT_PSW	DB	"  |       INVALID username or password !!!        |", 0AH, 0DH	 ;11H	
+						DB	"  |            PRESS <ENTER> TO RETRY             |", 0AH, 0DH	 ;12H
+	NL 					DB  0AH,0DH,"$"						
 	;Admin Login: 
-	TARUMT   	DB "tarumt$"; USERNAME
-	VERIFY  	DB "mrloh$" ; PSW(2)
-	
+	TARUMT   			DB "tarumt$"; USERNAME
+	VERIFY  			DB "mrloh$" ; PSW(2)
 	;Admin input username and password: 
-	USER     	DB 12 DUP("$")
-	PSW      	DB 12 DUP("$")  
+	USER     			DB 12 DUP("$")
+	PSW      			DB 12 DUP("$")  
 	
 	;Secure Logout:
 	
@@ -122,67 +117,205 @@
 	
 	;Place Order
 	;FONTPAGE			      ;05H					    			;48D = 30H       [DH]
-    WELC_MENU		DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
-					DB	"  |                                               |", 0AH, 0DH	 ;01H
-					DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
-					DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
-					DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
-					DB	"  |                                               |", 0AH, 0DH	 ;05H
-					DB	"  |    CATEGORY OF PRODUCTS :                     |", 0AH, 0DH	 ;06H
-					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
-					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
-					DB	"  |   |   {1}    BUN                          |   |", 0AH, 0DH	 ;09H
-					DB	"  |   |   {2}    CAKE                         |   |", 0AH, 0DH	 ;0AH
-					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
-					DB	"  |                                               |", 0AH, 0DH  ;0CH
-					DB	"  |    SELECTION :         ||    RETURN >> {R}    |", 0AH, 0DH	 ;0DH
-					DB	"  |                                               |", 0AH, 0DH	 ;0EH
-					DB	"  |                                               |", 0AH, 0DH	 ;0FH
-					DB	"  |                                               |", 0AH, 0DH	 ;10H
-					DB	"  |                                               |", 0AH, 0DH	 ;11H
-					DB	"  |                                               |", 0AH, 0DH	 ;12H
-					DB	"  |                                               |", 0AH, 0DH	 ;13H
-					DB	"  |                                               |", 0AH, 0DH	 ;14H
-					DB	"  |                                               |", 0AH, 0DH	 ;15H
-					DB	"  |                                               |", 0AH, 0DH	 ;16H
-					DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
-																						 ;18H
+	WELC_MENU			DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
+						DB	"  |                                               |", 0AH, 0DH	 ;01H
+						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
+						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
+						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
+						DB	"  |                                               |", 0AH, 0DH	 ;05H
+						DB	"  |    CATEGORY OF PRODUCTS :                     |", 0AH, 0DH	 ;06H
+						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+						DB	"  |   |   {1}    BUN                          |   |", 0AH, 0DH	 ;09H
+						DB	"  |   |   {2}    CAKE                         |   |", 0AH, 0DH	 ;0AH
+						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+						DB	"  |                                               |", 0AH, 0DH  ;0CH
+						DB	"  |    SELECTION :         ||    RETURN >> {R}    |", 0AH, 0DH	 ;0DH
+						DB	"  |                                               |", 0AH, 0DH	 ;0EH
+						DB	"  |                                               |", 0AH, 0DH	 ;0FH
+						DB	"  |                                               |", 0AH, 0DH	 ;10H
+						DB	"  |                                               |", 0AH, 0DH	 ;11H
+						DB	"  |                                               |", 0AH, 0DH	 ;12H
+						DB	"  |                                               |", 0AH, 0DH	 ;13H
+						DB	"  |                                               |", 0AH, 0DH	 ;14H
+						DB	"  |                                               |", 0AH, 0DH	 ;15H
+						DB	"  |                                               |", 0AH, 0DH	 ;16H
+						DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
+																							 ;18H
 																					 
-	LIST_SUBOPT1	DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
-					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
-					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
-					DB	"  |   |   {A}    CHEESE BUN   >>>   RM 2.00   |   |", 0AH, 0DH	 ;09H
-					DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
-					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
-					DB	"  |                                               |", 0AH, 0DH  ;0CH
-					DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
+	LIST_SUBOPT1		DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
+						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+						DB	"  |   |   {A}    CHEESE BUN   >>>   RM 2.00   |   |", 0AH, 0DH	 ;09H
+						DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
+						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+						DB	"  |                                               |", 0AH, 0DH  ;0CH
+						DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
 					
-	LIST_SUBOPT2	DB	"  |    CATEGORY OF PRODUCTS :  CAKE               |", 0AH, 0DH	 ;06H
-					DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
-					DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
-					DB	"  |   |   {A}    CHOCOLATE CAKE  >> RM 4.00   |   |", 0AH, 0DH	 ;09H
-					DB	"  |   |   {B}    BANANA CAKE     >> RM 5.00   |   |", 0AH, 0DH	 ;0AH
-					DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
-					DB	"  |                                               |", 0AH, 0DH  ;0CH
-					DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
-	
+	LIST_SUBOPT2		DB	"  |    CATEGORY OF PRODUCTS :  CAKE               |", 0AH, 0DH	 ;06H
+						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
+						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
+						DB	"  |   |   {A}    CHOCOLATE CAKE  >> RM 4.00   |   |", 0AH, 0DH	 ;09H
+						DB	"  |   |   {B}    BANANA CAKE     >> RM 5.00   |   |", 0AH, 0DH	 ;0AH
+						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
+						DB	"  |                                               |", 0AH, 0DH  ;0CH
+						DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
+						
 	;ACTION
-	CUST_SELECTION	DB	?				  ;|18D ==> 12H	
-	QUANTITY_PROD	DB	?                     ;21D ==> 15H
-	SELECT_PROD		DB	"  |    SELECTION :                                |", 0AH, 0DH,"$";0DH	
-	QTY_PROD		DB	"  |    QUANTITY  >>>                              |", 0AH, 0DH,"$";0EH
-	LIST_SELECT_INV	DB	"  |    INVALID CODE!!!...PLEASE RE-ENTER          |", 0AH, 0DH,"$" ;11H
+	CUST_SELECTION		DB	?				  ;|18D ==> 12H	
+	QUANTITY_PROD		DB	?                     ;21D ==> 15H
+	SELECT_PROD			DB	"  |    SELECTION :                                |", 0AH, 0DH,"$";0DH	
+	QTY_PROD			DB	"  |    QUANTITY  >>>                              |", 0AH, 0DH,"$";0EH
+	LIST_SELECT_INV		DB	"  |    INVALID CODE!!!...PLEASE RE-ENTER          |", 0AH, 0DH,"$" ;11H
 	
-	TOTAL_COST		DB	"  |    _______________________________________    |", 0AH, 0DH	 ;11H
-					DB	"  |                                               |", 0AH, 0DH	 ;12H
-					DB	"  |    TOTAL COST :                 RM            |", 0AH, 0DH,"$";13H
-						                                       ;41D==>29H
+	TOTAL_COST			DB	"  |    _______________________________________    |", 0AH, 0DH	 ;11H
+						DB	"  |                                               |", 0AH, 0DH	 ;12H
+						DB	"  |    TOTAL COST :                 RM            |", 0AH, 0DH  ;13H
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;14H
+						DB	"                                                   ", 0AH, 0DH	 ;15H
+						DB	"           PRESS <ENTER> TO SPEND MONEY >>>        ", 0AH, 0DH	 ;16H
+						DB	"                                                   ", 0AH, 0DH,"$";17H
+																							 ;18H
+																   ;41D==>29H
+	
+	TO_SEE_RECEIPT_CHEESE_BUN	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+								DB	"  |                                               |", 0AH, 0DH  ;01H	
+								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
+								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
+								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
+								DB  "  |                                               |", 0AH, 0DH  ;05H
+								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
+								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
+								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
+								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
+								DB	"  |                                               |", 0AH, 0DH  ;0AH
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+								DB	"  |                                               |", 0AH, 0DH	 ;0CH
+								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
+								DB	"  |   CHEESE  BUN                      x          |", 0AH, 0DH	 ;0EH	
+								DB	"  |   ( RM 2.00 / each )                          |", 0AH, 0DH	 ;0FH	
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
+								DB	"  |                                               |", 0AH, 0DH	 ;12H
+								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
+								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
+								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+								DB	"                                                   ", 0AH, 0DH	 ;16H
+								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+								DB	"                                                   ", 0AH, 0DH,"$";18H	
+	TO_SEE_RECEIPT_POTATO_BUN	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+								DB	"  |                                               |", 0AH, 0DH  ;01H	
+								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
+								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
+								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
+								DB  "  |                                               |", 0AH, 0DH  ;05H
+								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
+								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
+								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
+								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
+								DB	"  |                                               |", 0AH, 0DH  ;0AH
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+								DB	"  |                                               |", 0AH, 0DH	 ;0CH
+								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
+								DB	"  |   POTOTO  BUN                      x          |", 0AH, 0DH	 ;0EH	
+								DB	"  |   ( RM 3.00 / each )                          |", 0AH, 0DH	 ;0FH	
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
+								DB	"  |                                               |", 0AH, 0DH	 ;12H
+								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
+								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
+								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+								DB	"                                                   ", 0AH, 0DH	 ;16H
+								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+								DB	"                                                   ", 0AH, 0DH,"$";18H	
+	TO_SEE_RECEIPT_COCO_CAKE	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+								DB	"  |                                               |", 0AH, 0DH  ;01H	
+								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
+								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
+								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
+								DB  "  |                                               |", 0AH, 0DH  ;05H
+								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
+								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
+								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
+								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
+								DB	"  |                                               |", 0AH, 0DH  ;0AH
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+								DB	"  |                                               |", 0AH, 0DH	 ;0CH
+								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
+								DB	"  |   CHOCOLATE CAKE                   x          |", 0AH, 0DH	 ;0EH	
+								DB	"  |   ( RM 4.00 / each )                          |", 0AH, 0DH	 ;0FH	
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
+								DB	"  |                                               |", 0AH, 0DH	 ;12H
+								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
+								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
+								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+								DB	"                                                   ", 0AH, 0DH	 ;16H
+								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+								DB	"                                                   ", 0AH, 0DH,"$";18H	
+	TO_SEE_RECEIPT_BANANA_CAKE  DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+								DB	"  |                                               |", 0AH, 0DH  ;01H	
+								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
+								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
+								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
+								DB  "  |                                               |", 0AH, 0DH  ;05H
+								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
+								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
+								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
+								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
+								DB	"  |                                               |", 0AH, 0DH  ;0AH
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+								DB	"  |                                               |", 0AH, 0DH	 ;0CH
+								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
+								DB	"  |   BANANA  CAKE                     x          |", 0AH, 0DH	 ;0EH	
+								DB	"  |   ( RM 5.00 / each )                          |", 0AH, 0DH	 ;0FH	
+								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
+								DB	"  |                                               |", 0AH, 0DH	 ;12H
+								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
+								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
+								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+								DB	"                                                   ", 0AH, 0DH	 ;16H
+								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+								DB	"                                                   ", 0AH, 0DH,"$";18H	
+	
+	NO_EXIT_RECEIPT		DB	"                                                   ", 0AH, 0DH	 ;00H
+						DB	"                                                   ", 0AH, 0DH	 ;01H
+						DB	"                                                   ", 0AH, 0DH	 ;02H		
+						DB	"   _______________________________________________ ", 0AH, 0DH	 ;03H
+						DB	"  |                                               |", 0AH, 0DH  ;04H	
+						DB  "  |                 _    __   __                  |", 0AH, 0DH  ;05H
+						DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;06H
+						DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;07H
+						DB  "  |                                               |", 0AH, 0DH  ;08H
+						DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;09H
+						DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;0AH
+						DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;0BH
+						DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;0CH
+						DB	"  |                                               |", 0AH, 0DH  ;0DH
+						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0EH	
+						DB	"  |                                               |", 0AH, 0DH	 ;0FH
+						DB	"  |                                               |", 0AH, 0DH  ;10H
+						DB	"  |        THANKS FOR USING OUR SYSTEM !!!        |", 0AH, 0DH	 ;11H
+						DB	"  |             SEE YOUR NEXT TIME !!!            |", 0AH, 0DH  ;12H
+						DB	"  |                                               |", 0AH, 0DH  ;13H	
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;14H	
+						DB	"                                                   ", 0AH, 0DH	 ;15H	
+						DB	"           <ENTER>  TO  RETURN  HOMEPAGE           ", 0AH, 0DH	 ;16H
+						DB	"                                                   ", 0AH, 0DH	 ;17H	
+						DB	"                                                   ", 0AH, 0DH,"$";18H			
+
+	;RECEIPT_ITEM_COUNT DB "  |   ITEM COUNT                      ", 0AH, 0DH,"$"
+	;RECEIPT_COST       DB "  |   COST                         RM ", 0AH, 0DH,"$"
+	;RECEIPT_CHANGE     DB "  |   CHANGE                       RM ", 0AH, 0DH,"$"			
+					
 	;PRICE
-	NUM1	DB	2
-	NUM2	DB	3
-	NUM3	DB	4
-	NUM4	DB	5
-	TEN		DB	10
+	NUM1			DB	2
+	NUM2			DB	3
+	NUM3			DB	4
+	NUM4			DB	5
+	TEN				DB	10
+	CURRENT_PRICE 	DB 	0
 	
 	
 .CODE
@@ -212,10 +345,10 @@ LCUST_SELECT PROC
 		
 		SUB AL,30H
 		CMP AL,1
-		JMP LCUST_OPT_1
+		JE LCUST_OPT_1
 		
 		CMP AL,2
-		JMP LCUST_OPT_2
+		JE LCUST_OPT_2
 
 		JMP LCUST_OPT_INVALID
 		
@@ -369,6 +502,9 @@ LCUST_SELECT_1_A_BUY PROC
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
     
+	MOV AL,NUM1				;to store the current price depends on the selection from user
+    MOV CURRENT_PRICE,AL	;and based on the price from products
+	
     ;background (QTY)
     MOV AH,06H
     MOV AX,0600H
@@ -413,6 +549,14 @@ LCUST_SELECT_1_A_BUY PROC
     MUL CL		;AL = BL * 10   
     ADD AL,BH   ;10(BL)+BH
     MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
+	
+	;background (TOTAL_COST)
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,1100H
+    MOV DX,144FH
+    INT 10H
     
     ;cout << total_cost
     MOV AH,02H
@@ -428,7 +572,7 @@ LCUST_SELECT_1_A_BUY PROC
     ;=====CALCULATION OF COST=========
 	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
     MOV AL,QUANTITY_PROD 
-	MOV BL,NUM1		; STORE NUM1(2) --> [BL]
+	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
     MUL BL              
 	
 	;STORE REAL QUANTITY_PROD -> [SI]
@@ -471,6 +615,23 @@ LCUST_SELECT_1_A_BUY PROC
 		INT 21H
 		MOV DL,'0'
 		INT 21H
+		
+		;FONTGROUND <ENTER>
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,16H
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE GO_TO_RECEIPT_1A
+		
+		JMP DISPLAY_ONES_DIGIT_1_A_BUY
+		
+		GO_TO_RECEIPT_1A:
+			CALL LTO_SEE_RECEIPT_1_A
 
 		POP SI		
 		POP CX
@@ -491,6 +652,9 @@ LCUST_SELECT_1_B_BUY PROC
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE	
     
+	MOV AL,NUM2				;to store the current price depends on the selection from user
+    MOV CURRENT_PRICE,AL	;and based on the price from products
+	
     ;background (QTY)
     MOV AH,06H
     MOV AX,0600H
@@ -550,7 +714,7 @@ LCUST_SELECT_1_B_BUY PROC
     ;=====CALCULATION OF COST=========
 	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
     MOV AL,QUANTITY_PROD 
-	MOV BL,NUM2		; STORE NUM1(2) --> [BL]
+	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
     MUL BL              
 	
 	;STORE REAL QUANTITY_PROD -> [SI]
@@ -593,6 +757,23 @@ LCUST_SELECT_1_B_BUY PROC
 		INT 21H
 		MOV DL,'0'
 		INT 21H
+		
+		;FONTGROUND <ENTER>
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,16H
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE GO_TO_RECEIPT_1B
+		
+		JMP DISPLAY_ONES_DIGIT_1_B_BUY
+		
+		GO_TO_RECEIPT_1B:
+			CALL LTO_SEE_RECEIPT_1_B
 
 		POP SI		
 		POP CX
@@ -731,6 +912,9 @@ LCUST_SELECT_2_A_BUY PROC
 	PUSH BX
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
+
+	MOV AL,NUM3				;to store the current price depends on the selection from user
+    MOV CURRENT_PRICE,AL	;and based on the price from products
     
     ;background (QTY)
     MOV AH,06H
@@ -791,7 +975,7 @@ LCUST_SELECT_2_A_BUY PROC
     ;=====CALCULATION OF COST=========
 	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
     MOV AL,QUANTITY_PROD 
-	MOV BL,NUM3		; STORE NUM3(4) --> [BL]
+	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
     MUL BL
 
 	;STORE REAL QUANTITY_PROD -> [SI]
@@ -835,6 +1019,23 @@ LCUST_SELECT_2_A_BUY PROC
 		MOV DL,'0'
 		INT 21H
 		
+	   ;FONTGROUND <ENTER>
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,16H
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE GO_TO_RECEIPT_2A
+		
+		JMP DISPLAY_ONES_DIGIT_2_A_BUY
+		
+		GO_TO_RECEIPT_2A:
+			CALL LTO_SEE_RECEIPT_2_A
+		
 		POP SI
 		POP CX
 		POP BX
@@ -853,6 +1054,9 @@ LCUST_SELECT_2_B_BUY PROC
 	PUSH BX
     PUSH CX
     PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
+
+	MOV AL,NUM4				;to store the current price depends on the selection from user
+    MOV CURRENT_PRICE,AL	;and based on the price from products
     
     ;background (QTY)
     MOV AH,06H
@@ -913,7 +1117,7 @@ LCUST_SELECT_2_B_BUY PROC
     ;=====CALCULATION OF COST=========
 	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
     MOV AL,QUANTITY_PROD 
-	MOV BL,NUM4		; STORE NUM1(2) --> [BL]
+	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
     MUL BL              
 		
 	;STORE REAL QUANTITY_PROD -> [SI]
@@ -956,6 +1160,23 @@ LCUST_SELECT_2_B_BUY PROC
 		INT 21H
 		MOV DL,'0'
 		INT 21H
+		
+		;FONTGROUND <ENTER>
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,16H
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE GO_TO_RECEIPT_2B
+		
+		JMP DISPLAY_ONES_DIGIT_2_B_BUY
+		
+		GO_TO_RECEIPT_2B:
+			CALL LTO_SEE_RECEIPT_2_B
 		
 		POP SI		
 		POP CX
@@ -1005,6 +1226,498 @@ LCUST_SELECT_INVALID PROC
     RET		;RETURN TO PROCEDURE
 LCUST_SELECT_INVALID ENDP
 
+
+;==================================================================================================================================
+
+LTO_SEE_RECEIPT_1_A PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI    ; to store register to avoid the data lost	
+
+    ;BACKGROUND SHOW RECEIPT
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,00H
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,TO_SEE_RECEIPT_CHEESE_BUN
+    INT 21H
+
+    ;SHOW ITEM COUNT
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH
+    MOV DL,2AH
+    INT 10H
+    
+    MOV AL,QUANTITY_PROD
+    MOV AH,00H
+    MOV BL,10
+    DIV BL
+    MOV CL,AL
+    MOV CH,AH
+    
+    CMP CL,0
+    JE DISPLAY_ITEM_COUNT_ONES_1_A
+    MOV DL,CL
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+	DISPLAY_ITEM_COUNT_ONES_1_A:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		;SHOW TOTAL COST
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,10H
+		MOV DL,27H
+		INT 10H
+		
+		;======CALC OF TOTAL COST ========
+		MOV AL,QUANTITY_PROD
+		MOV AH,00H
+		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
+		MUL BL
+		MOV BL,10
+		DIV BL
+		MOV CL,AL
+		MOV CH,AH
+		
+		CMP CL,0
+		JE DISPLAY_COST_ONES_1_A
+		MOV DL,CL
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+	DISPLAY_COST_ONES_1_A:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,15H
+		MOV DL,1DH
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		
+		CMP AL,'Y'
+		JE RETURN_TO_MENU_1_A
+		CMP AL,'y'
+		JE RETURN_TO_MENU_1_A
+		CMP AL,'N'
+		JE EXIT_FROM_RECEIPT_1_A
+		CMP AL,'n'
+		JE EXIT_FROM_RECEIPT_1_A
+		
+		JMP LTO_SEE_RECEIPT_1_A  
+		
+	RETURN_TO_MENU_1_A:
+		CALL LWELC_MENU
+		JMP RECEIPT_END_1_A
+		
+	EXIT_FROM_RECEIPT_1_A:
+		CALL MAIN
+		
+	RECEIPT_END_1_A:
+		POP SI
+		POP DX
+		POP CX
+		POP BX
+		POP AX     ; to recover register
+	RET
+LTO_SEE_RECEIPT_1_A ENDP
+
+LTO_SEE_RECEIPT_1_B PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI    ; to store register to avoid the data lost
+    
+    ;BACKGROUND SHOW RECEIPT
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,00H
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,TO_SEE_RECEIPT_POTATO_BUN
+    INT 21H
+
+    ;SHOW ITEM COUNT
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH
+    MOV DL,2AH
+    INT 10H
+    
+    MOV AL,QUANTITY_PROD
+    MOV AH,00H
+    MOV BL,10
+    DIV BL
+    MOV CL,AL
+    MOV CH,AH
+    
+    CMP CL,0
+    JE DISPLAY_ITEM_COUNT_ONES_1_B
+    MOV DL,CL
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+	DISPLAY_ITEM_COUNT_ONES_1_B:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		;SHOW TOTAL COST
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,10H
+		MOV DL,27H
+		INT 10H
+		
+		;======CALC OF TOTAL COST ========
+		MOV AL,QUANTITY_PROD
+		MOV AH,00H
+		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
+		MUL BL
+		MOV BL,10
+		DIV BL
+		MOV CL,AL
+		MOV CH,AH
+		
+		CMP CL,0
+		JE DISPLAY_COST_ONES_1_B
+		MOV DL,CL
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+	DISPLAY_COST_ONES_1_B:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,15H
+		MOV DL,1DH
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		
+		CMP AL,'Y'
+		JE RETURN_TO_MENU_1_B
+		CMP AL,'y'
+		JE RETURN_TO_MENU_1_B
+		CMP AL,'N'
+		JE EXIT_FROM_RECEIPT_1_B
+		CMP AL,'n'
+		JE EXIT_FROM_RECEIPT_1_B
+		
+		JMP LTO_SEE_RECEIPT_1_B  
+		
+	RETURN_TO_MENU_1_B:
+		CALL LWELC_MENU
+		JMP RECEIPT_END_1_B
+		
+	EXIT_FROM_RECEIPT_1_B:
+		CALL MAIN
+		
+	RECEIPT_END_1_B:
+		POP SI
+		POP DX
+		POP CX
+		POP BX
+		POP AX     ; to recover register
+	RET
+LTO_SEE_RECEIPT_1_B ENDP
+
+LTO_SEE_RECEIPT_2_A PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI    ; to store register to avoid the data lost
+
+    MOV AH,09H
+    LEA DX,TO_SEE_RECEIPT_COCO_CAKE
+    INT 21H
+	    
+    ;SHOW ITEM COUNT
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH
+    MOV DL,2AH
+    INT 10H
+    
+    MOV AL,QUANTITY_PROD
+    MOV AH,00H
+    MOV BL,10
+    DIV BL
+    MOV CL,AL
+    MOV CH,AH
+    
+    CMP CL,0
+    JE DISPLAY_ITEM_COUNT_ONES_2_A
+    MOV DL,CL
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+	DISPLAY_ITEM_COUNT_ONES_2_A:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		;SHOW TOTAL COST
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,10H
+		MOV DL,27H
+		INT 10H
+		
+		;======CALC OF TOTAL COST ========
+		MOV AL,QUANTITY_PROD
+		MOV AH,00H
+		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
+		MUL BL
+		MOV BL,10
+		DIV BL
+		MOV CL,AL
+		MOV CH,AH
+		
+		CMP CL,0
+		JE DISPLAY_COST_ONES_2_A
+		MOV DL,CL
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+	DISPLAY_COST_ONES_2_A:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,15H
+		MOV DL,1DH
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		
+		CMP AL,'Y'
+		JE RETURN_TO_MENU_2_A
+		CMP AL,'y'
+		JE RETURN_TO_MENU_2_A
+		CMP AL,'N'
+		JE EXIT_FROM_RECEIPT_2_A
+		CMP AL,'n'
+		JE EXIT_FROM_RECEIPT_2_A
+		
+		JMP LTO_SEE_RECEIPT_2_A  
+		
+	RETURN_TO_MENU_2_A:
+		CALL LWELC_MENU
+		JMP RECEIPT_END_2_A
+		
+	EXIT_FROM_RECEIPT_2_A:
+		CALL MAIN
+		
+	RECEIPT_END_2_A:
+		POP SI
+		POP DX
+		POP CX
+		POP BX
+		POP AX     ; to recover register
+	RET
+LTO_SEE_RECEIPT_2_A ENDP
+
+LTO_SEE_RECEIPT_2_B PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI    ; to store register to avoid the data lost
+    
+    ;BACKGROUND SHOW RECEIPT
+    MOV AH,06H
+    MOV AX,0600H
+    MOV BH,6EH
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,00H
+    MOV DL,00H
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,TO_SEE_RECEIPT_BANANA_CAKE
+    INT 21H
+
+    ;SHOW ITEM COUNT
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH
+    MOV DL,2AH
+    INT 10H
+    
+    MOV AL,QUANTITY_PROD
+    MOV AH,00H
+    MOV BL,10
+    DIV BL
+    MOV CL,AL
+    MOV CH,AH
+    
+    CMP CL,0
+    JE DISPLAY_ITEM_COUNT_ONES_2_B
+    MOV DL,CL
+    ADD DL,30H
+    MOV AH,02H
+    INT 21H
+    
+	DISPLAY_ITEM_COUNT_ONES_2_B:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		;SHOW TOTAL COST
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,10H
+		MOV DL,27H
+		INT 10H
+		
+		;======CALC OF TOTAL COST ========
+		MOV AL,QUANTITY_PROD
+		MOV AH,00H
+		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
+		MUL BL
+		MOV BL,10
+		DIV BL
+		MOV CL,AL
+		MOV CH,AH
+		
+		CMP CL,0
+		JE DISPLAY_COST_ONES_2_B
+		MOV DL,CL
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+	DISPLAY_COST_ONES_2_B:
+		MOV DL,CH
+		ADD DL,30H
+		MOV AH,02H
+		INT 21H
+		
+		MOV DL,'.'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		MOV DL,'0'
+		INT 21H
+		
+		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,15H
+		MOV DL,1DH
+		INT 10H
+		
+		MOV AH,01H
+		INT 21H
+		
+		CMP AL,'Y'
+		JE RETURN_TO_MENU_2_B
+		CMP AL,'y'
+		JE RETURN_TO_MENU_2_B
+		CMP AL,'N'
+		JE EXIT_FROM_RECEIPT_2_B
+		CMP AL,'n'
+		JE EXIT_FROM_RECEIPT_2_B
+		
+		JMP LTO_SEE_RECEIPT_2_B  
+		
+	RETURN_TO_MENU_2_B:
+		CALL LWELC_MENU
+		JMP RECEIPT_END_2_B
+		
+	EXIT_FROM_RECEIPT_2_B:
+		CALL MAIN
+		
+	RECEIPT_END_2_B:
+		POP SI
+		POP DX
+		POP CX
+		POP BX
+		POP AX     ; to recover register
+	RET
+LTO_SEE_RECEIPT_2_B ENDP
 
 
 ;===================================================================================================================================================
@@ -1085,23 +1798,33 @@ LmenuICON PROC
 	JE Llogin				; else if (selection == '2')
 	CMP AL,'3'
 	JE LMENU_THANKS			; else if (selection == '3')
+	CMP AL,'1'
+	JNE IF_INVALID_CODE				; if (selection != '1')
+	CMP AL,'2'
+	JNE IF_INVALID_CODE				; else if (selection != '2')
+	CMP AL,'3'
+	JNE IF_INVALID_CODE				; else if (selection != '3')
+	JMP LIF_YES_CONTINUE	
 	
-	;background
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,4FH
-	MOV CX,1006H
-	MOV DX,112EH
-	INT 10H
-	;fontground
-	MOV AH,02H
-	MOV BX,00
-	MOV DX,1000H
-	INT 10H
+	IF_INVALID_CODE:	
+		;background
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,4FH
+		MOV CX,1006H
+		MOV DX,112EH
+		INT 10H
+		;fontground
+		MOV AH,02H
+		MOV BX,00
+		MOV DX,1000H
+		INT 10H
+		
+		MOV AH,09H
+		LEA DX,SHOPNAME_INVALID
+		INT 21H
 	
-	MOV AH,09H
-	LEA DX,SHOPNAME_INVALID
-	INT 21H
+	LIF_YES_CONTINUE:	
 	MOV AH,01H
 	INT 21H
 	MOV SELECTION,AL
@@ -1285,20 +2008,20 @@ LINVALID:
 		
 	MOV AH,06H
 	MOV AX,0600H
-	MOV BH,34H
-	MOV CX,0C05H
-	MOV DX,0C27H
+	MOV BH,4FH
+	MOV CX,1109H
+	MOV DX,122BH
 	INT 10H
 	
 	;fontground
 	MOV AH,02H
 	MOV BX,00
-	MOV DH,0CH
-	MOV DL,07H
+	MOV DH,11H
+	MOV DL,00H
 	INT 10H
 	
 	MOV AH,09H
-	LEA DX,INVALID
+	LEA DX,INVALID_STRFONT_PSW
 	INT 21H	
 		
 	MOV AH,01H
