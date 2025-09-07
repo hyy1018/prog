@@ -63,18 +63,18 @@
 						DB	"  |                                               |", 0AH, 0DH  ;01H	
 						DB  "  |   <<<<<{*** Welcome To Login Page ***}>>>>>   |", 0AH, 0DH  ;02H
 						DB  "  |                                               |", 0AH, 0DH  ;03H
-						DB  "  |                WELCOME    STAFF               |", 0AH, 0DH  ;04H
+						DB  "  |                WELCOME   STAFF                |", 0AH, 0DH  ;04H
 						DB  "  |    PLEASE  LOGIN  TO  ACCESS  YOUR  ACCOUNT   |", 0AH, 0DH  ;05H
 						DB  "  |                                               |", 0AH, 0DH  ;06H
-						DB  "  |      ___________________________________      |", 0AH, 0DH  ;07H
-						DB  "  |     |   _____________________________   |     |", 0AH, 0DH  ;08H
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;09H
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH  ;0AH
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0BH	
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0CH
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0DH	
-						DB	"  |     |  |_____________________________|  |     |", 0AH, 0DH	 ;0EH	
-						DB	"  |     |___________________________________|     |", 0AH, 0DH	 ;0FH	
+						DB  "  |                                               |", 0AH, 0DH  ;07H
+						DB  "  |         _____________________________         |", 0AH, 0DH  ;08H
+						DB	"  |        |                             |        |", 0AH, 0DH	 ;09H
+						DB	"  |        |                             |        |", 0AH, 0DH  ;0AH
+						DB	"  |        |                             |        |", 0AH, 0DH	 ;0BH	
+						DB	"  |        |                             |        |", 0AH, 0DH	 ;0CH
+						DB	"  |        |                             |        |", 0AH, 0DH	 ;0DH	
+						DB	"  |        |_____________________________|        |", 0AH, 0DH	 ;0EH	
+						DB	"  |                                               |", 0AH, 0DH	 ;0FH	
 						DB	"  |                                               |", 0AH, 0DH	 ;10H	
 						DB	"  |                                               |", 0AH, 0DH	 ;11H	
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
@@ -85,11 +85,14 @@
 						DB	"  |                                               |", 0AH, 0DH	 ;17H
 						DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
 						
-	USERNAME       		DB  "  |     |  |   Username :                |  |     |", 0AH, 0DH,"$" ;0AH
+	STRFONT_LOGIN_R		DB	"  |                               RETURN  {R}     |", 0AH, 0DH,"$"	 ;15H					
+						
+	USERNAME       		DB  "  |            Username :                         |", 0AH, 0DH ;0AH
+						DB	"  |            Password :                         |", 0AH, 0DH,"$"	 ;0BH
 	
-	PASSWORD			DB	"  |     |  |   Password :                |  |     |", 0AH, 0DH	 ;0BH
-						DB	"  |     |  |                             |  |     |", 0AH, 0DH	 ;0CH
-						DB	"  |     |  |      <ENTER>  TO LOG IN     |  |     |", 0AH, 0DH,"$" ;0DH					
+	PASSWORD			DB	"  |            Password :                         |", 0AH, 0DH	 ;0BH
+						DB	"  |                                               |", 0AH, 0DH	 ;0CH
+						DB	"  |               <ENTER>  TO LOG IN              |", 0AH, 0DH,"$" ;0DH					
 	
 	;<ENTER> DB 0DH
 	
@@ -1150,23 +1153,38 @@ Llogin PROC
 	MOV AH,09H
 	LEA DX,STRFONT
 	INT 21H
+	
+	;fontground for "RETURN  {R} "
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6CH
+	MOV CX,1404H
+	MOV DX,142CH
+	INT 10H
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,1400H
+	INT 10H
+	MOV AH,09H
+	LEA DX,STRFONT_LOGIN_R
+	INT 21H
 		
 	;background WHITE SIDE
 	MOV AH,06H
 	MOV AX,0600H
 	MOV BH,7AH
-	MOV CX,0304H
-	MOV DX,0A28H
+	MOV CX,0708H
+	MOV DX,0F2CH
 	INT 10H
 	
 	;background BLUE FRAME
 	MOV AH,06H
 	MOV AX,0600H
 	MOV BH,1AH
-	MOV CX,0406H
-	MOV DX,0926H
+	MOV CX,080AH
+	MOV DX,0E2AH
 	INT 10H
-	
+
 	;fontground for "Username :"
 	MOV AH,02H
 	MOV BX,00
@@ -1178,11 +1196,12 @@ Llogin PROC
 	LEA DX,USERNAME
 	INT 21H
 	
+	L_INPUT_USERNAME_CONTINUE:
 	;fontground for input username
 	MOV AH,02H
 	MOV BX,00
 	MOV DH,0AH
-	MOV DL,17H
+	MOV DL,1DH
 	INT 10H
 		
 	LEA SI,TARUMT    ; store(MOV) username --> SI
@@ -1190,17 +1209,30 @@ Llogin PROC
 	
 ;compare ADMIN username
 Luser_ADMIN:         ; Admin password part 
+
+	
 	MOV AH,01H
 	INT 21H
 	MOV BL,AL  
 	MOV DL,[SI]  	 ; ARRAY for store PSW
+
+	CMP DL,'R'				;
+	JE L_RETURN_WELC_MENU	;	RETURN HOMEPAGE IF 
+	CMP BL,'R'				;	"R" EXIST
+	JE L_RETURN_WELC_MENU	;
+	
 	CMP DL,'$'			;---
 	JE LPSW_ENTER		;\\\\
 	CMP BL,[SI]			;\\\\\
 	JNE LINVALID		;=====> compare user input with TARUMT
 	INC SI				;|||||
-	JMP Luser_ADMIN		;||||
+	JMP Luser_ADMIN		;||||	
 	JMP CONTINUE_ADMIN	;---	
+
+
+	L_RETURN_WELC_MENU:
+		CALL MAIN
+		JMP L_INPUT_USERNAME_CONTINUE
 	
 ;fontground for "Password :"
 LPSW_ENTER:
@@ -1223,7 +1255,7 @@ LPSW_ENTER:
 	MOV AH,02H
 	MOV BX,00
 	MOV DH,0BH
-	MOV DL,17H
+	MOV DL,1DH
 	INT 10H
 	LEA SI,VERIFY 	; store PSW in SI
 		
@@ -1232,6 +1264,12 @@ Lpassword_ADMIN:
 	INT 21H
 	MOV BL,AL
 	MOV DL,[SI]  
+	
+	CMP DL,'R'				;
+	JE L_RETURN_WELC_MENU	;	RETURN HOMEPAGE IF 
+	CMP BL,'R'				;	"R" EXIST
+	JE L_RETURN_WELC_MENU	;
+	
 	CMP DL,'$'			;---
 	JE LcheckPSW		;\\\\
 	CMP BL,[SI]			;\\\\\
@@ -1281,15 +1319,7 @@ LcheckPSW:
 	MOV DX,0D28H
 	INT 10H
 		
-	MOV AH,02H
-	MOV BX,00
-	MOV DH,0DH
-	MOV DL,0FH
-	INT 10H
 		
-	MOV AH,09H
-	LEA DX,WAITING		; show "Just a moment..."
-	INT 21H
 	JMP CONTINUE_ADMIN	
 
     POP SI
