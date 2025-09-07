@@ -1,0 +1,1349 @@
+#include<iostream> 
+#include<iomanip>
+#include<ctime>
+#include<string>
+#include<cctype>
+#define discount 0.20
+#define charge 0.06
+#define tax 0.06
+
+using namespace std;
+
+// use for int main
+char menuchoice;
+
+// use for time
+int day, month, year;
+
+// use for order
+char accessory, itembuy, addon_order;
+double priceitem = 0;
+string itemname;
+string inputqty;
+
+// use for addon order
+char A_accessory, A_itembuy;
+double A_priceitem = 0;
+string A_itemname;
+string A_inputqty;
+
+// use for invoice
+int qty = 0, A_qty = 0, AA_qty;
+double total = 0, discountrate = 0, afterdiscount = 0, chargerate = 0, taxrate = 0, final = 0;
+double A_total = 0, A_discountrate = 0, A_afterdiscount = 0, A_chargerate = 0, A_taxrate = 0, A_final = 0;
+double AA_total = 0;
+char payment;
+string payment_method;
+double amount = 0, change = 0;
+
+// use for customer service
+char cust_choice;
+
+// use for warranty
+string cust_name, cust_phone, warranty_product, warranty_reason;
+string input_reason;
+int choice_reason;
+string inputdate, inputmonth, inputyear;
+int W_date, W_month, W_year;
+char confirm_warranty;
+
+// use for refund
+string cust_R_name, cust_R_phone, refund_product, refund_reason;
+string input_R_reason;
+int choice_R_reason;
+char confirm_refund;
+double refundprice;
+
+// use for report
+int staff_id;
+int staff_ids[] = { 123457, 987654, 555555 };
+int refundnum = 0;
+int custnum = 0;
+int warrantynum = 0;
+int invoicenum = 0;
+
+string continue_key;
+
+void menu();
+void time();
+void identity_price_name();
+void identity_payment();
+void identity_warranty_reason();
+void identity_refund_reason();
+void identity_warranty_date();
+void compare_warranty_date();
+
+void order_menu();
+void addon_order_menu();
+
+void invoice();
+void receipt();
+
+void customer_service();
+void refund();
+void warranty();
+void receipt_warranty();
+void receipt_refund();
+
+void report();
+
+void phone_menu();
+void computer_menu();
+
+void clear_screen()
+{
+	system("cls");
+}
+
+void time()  // use for identity current time
+{
+	time_t now = time(0);
+	tm ltm;
+
+	localtime_s(&ltm, &now);
+
+	day = ltm.tm_mday;
+	month = ltm.tm_mon + 1;
+	year = 1900 + ltm.tm_year;
+}
+
+void phone_menu()  // phone menu
+{
+	cout << "USB Cable :" << endl;
+	cout << "-----------" << endl;
+	cout << "A. XIAOMI Fast Charge USB-C Cable RM 50.99" << endl;
+	cout << "Pros: Reversible plug, easy to use." << endl;
+	cout << "      Fast data transfer and charging." << endl;
+	cout << "Cons: Requires compatible devices to support fast charging." << endl;
+	cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "B. XIAOMI Normal USB-C Cable RM 25.99" << endl;
+	cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
+	cout << "      More affordable, offering great value for basic charging." << endl;
+	cout << "Cons: Limited to standard charging." << endl;
+	cout << "      May not support higher power output for power-hungry devices." << endl;
+	cout << endl;
+	cout << "Lightning Cable :" << endl;
+	cout << "-----------------" << endl;
+	cout << "C. XIAOMI Fast Charge Lightning Cable RM 60.99" << endl;
+	cout << "Pros: Support fast charging with USB PD." << endl;
+	cout << "      Efficient charging, can charge up 50% in about 30 minutes." << endl;
+	cout << "Cons: May cause battery damage." << endl;
+	cout << "      More expensive than normal Lightning cable." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "D. XIAOMI Normal Lightning Cable RM 30.99" << endl;
+	cout << "Pros: Protect battery well, won't be damage to battery." << endl;
+	cout << "      Affordable, offering great value for basic charging and syncing needs." << endl;
+	cout << "Cons: Slower charging speed compared to fast charge cables." << endl;
+	cout << "      Do not support fast charging for iPhone." << endl;
+	cout << endl;
+	cout << "Bluetooth Earbuds :" << endl;
+	cout << "-------------------" << endl;
+	cout << "E. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
+	cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+	cout << "      Small and lightweight, easy to handle and carry around." << endl;
+	cout << "Cons: Due to small size, easily misplaced." << endl;
+	cout << "      Limited battery life, needs to be charged regularly." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "F. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
+	cout << "Pros: Stable fit, suitable for sports and active use." << endl;
+	cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
+	cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
+	cout << "      Heavier, user might feel uncomfortable during extended use." << endl;
+	cout << endl;
+}
+
+void computer_menu()  // computer menu
+{
+	cout << "USB Flash Drive :" << endl;
+	cout << "-----------------" << endl;
+	cout << "A. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
+	cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
+	cout << "      Compact and portable, small size easy to carry around." << endl;
+	cout << "Cons: Limited storage, only 16GB of storage may not be enough for those who need to store large file." << endl;
+	cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "B. Kingston USB Flash Drive 64GB RM 30.99" << endl;
+	cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
+	cout << "      Durable design, robust materials provide better protection from physical impact." << endl;
+	cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
+	cout << "      Low speed especially for very large file transfer and store." << endl;
+	cout << endl;
+	cout << "External Hard Drive :" << endl;
+	cout << "---------------------" << endl;
+	cout << "C. WD 1TB External Hard Drive RM 250.99" << endl;
+	cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
+	cout << "      Reliable brand, WD is known for producing durable and high-quality products." << endl;
+	cout << "Cons: Higher price, generally more expensive than a 512GB hard drive." << endl;
+	cout << "      Not compatible with Mac, some MacBook models may not be supported." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "D. Seagate 512GB External Hard Drive RM 180.99" << endl;
+	cout << "Pros: More affordable, cheaper and suitable for budget-conscious users." << endl;
+	cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
+	cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
+	cout << "      May require additional storage, might need another external drive for extra space." << endl;
+	cout << endl;
+	cout << "Mouse :" << endl;
+	cout << "-------" << endl;
+	cout << "E. XIAOAMI Wireless Mouse RM 20.99" << endl;
+	cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
+	cout << "      Small and lightweight, easy to handle and carry around." << endl;
+	cout << "Cons: Battery dependency, requires battery replacement." << endl;
+	cout << "      May experience lag or disconnects due to wireless interference." << endl;
+	cout << setw(100) << setfill('-') << "" << endl;
+	cout << "F. XIAOAMI Wired Mouse RM 30.99" << endl;
+	cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
+	cout << "      No battery needed, always powered through cable." << endl;
+	cout << "Cons: Limited mobility, the cable may restrict movement and can get tangled." << endl;
+	cout << "      Less portable, the cable may be inconvenient for travel or carrying around." << endl;
+	cout << endl;
+}
+
+void identity_price_name()  // identify item price and name 
+{
+	switch (accessory)
+	{
+	case 'A': case 'a':
+
+		switch (itembuy)
+		{
+		case 'A': case'a':
+			itemname = "XIAOMI Fast Charge USB-C Cable";
+			priceitem = 50.99;
+			break;
+		case 'B': case'b':
+			itemname = "XIAOMI Normal USB-C Cable";
+			priceitem = 25.99;
+			break;
+		case 'C': case'c':
+			itemname = "XIAOMI Fast Charge Lightning Cable";
+			priceitem = 60.99;
+			break;
+		case 'D': case'd':
+			itemname = "XIAOMI Normal Lightning Cable";
+			priceitem = 30.99;
+			break;
+		case 'E': case'e':
+			itemname = "XIAOMI TWS(True Wireless Stereo) Bluetooth Earbuds";
+			priceitem = 40.99;
+			break;
+		case 'F': case'f':
+			itemname = "XIAOMI Neckband Bluetooth Earphone";
+			priceitem = 50.99;
+			break;
+		}
+		break;
+	case 'B':case'b':
+		switch (itembuy)
+		{
+		case 'A': case'a':
+			itemname = "SanDisk USB Flash Drive 16GB";
+			priceitem = 25.99;
+			break;
+		case 'B': case'b':
+			itemname = "Kingston USB Flash Drive 64GB";
+			priceitem = 30.99;
+			break;
+		case 'C': case'c':
+			itemname = "WD 1TB External Hard Drive";
+			priceitem = 250.99;
+			break;
+		case 'D': case'd':
+			itemname = "Seagate 512GB External Hard Drive";
+			priceitem = 180.99;
+			break;
+		case 'E': case'e':
+			itemname = "XIAOAMI Wireless Mouse";
+			priceitem = 20.99;
+			break;
+		case 'F': case'f':
+			itemname = "XIAOAMI Wired Mouse";
+			priceitem = 30.99;
+		}
+	}
+}
+
+void identity_addon_price_name()  // identify item price and name for add on menu (only can add on once)
+{
+	switch (A_accessory)
+	{
+	case 'A': case 'a':
+
+		switch (A_itembuy)
+		{
+		case 'A': case'a':
+			A_itemname = "XIAOMI Fast Charge USB-C Cable";
+			A_priceitem = 50.99;
+			break;
+		case 'B': case'b':
+			A_itemname = "XIAOMI Normal USB-C Cable";
+			A_priceitem = 25.99;
+			break;
+		case 'C': case'c':
+			A_itemname = "XIAOMI Fast Charge Lightning Cable";
+			A_priceitem = 60.99;
+			break;
+		case 'D': case'd':
+			A_itemname = "XIAOMI Normal Lightning Cable";
+			A_priceitem = 30.99;
+			break;
+		case 'E': case'e':
+			A_itemname = "XIAOMI TWS(True Wireless Stereo) Bluetooth Earbuds";
+			A_priceitem = 40.99;
+			break;
+		case 'F': case'f':
+			A_itemname = "XIAOMI Neckband Bluetooth Earphone";
+			A_priceitem = 50.99;
+			break;
+		}
+		break;
+	case 'B':case'b':
+		switch (A_itembuy)
+		{
+		case 'A': case'a':
+			A_itemname = "SanDisk USB Flash Drive 16GB";
+			A_priceitem = 25.99;
+			break;
+		case 'B': case'b':
+			A_itemname = "Kingston USB Flash Drive 64GB";
+			A_priceitem = 30.99;
+			break;
+		case 'C': case'c':
+			A_itemname = "WD 1TB External Hard Drive";
+			A_priceitem = 250.99;
+			break;
+		case 'D': case'd':
+			A_itemname = "Seagate 512GB External Hard Drive";
+			A_priceitem = 180.99;
+			break;
+		case 'E': case'e':
+			A_itemname = "XIAOAMI Wireless Mouse";
+			A_priceitem = 20.99;
+			break;
+		case 'F': case'f':
+			A_itemname = "XIAOAMI Wired Mouse";
+			A_priceitem = 30.99;
+		}
+	}
+}
+
+void identity_payment() // identity payment method
+{
+	switch (payment)
+	{
+	case 'A': case 'a':
+		payment_method = "E - Wallet";
+		break;
+	case 'B': case 'b':
+		payment_method = "Credit Card";
+		break;
+	case 'C': case 'c':
+		payment_method = "Debit Card";
+		break;
+	case 'D': case 'd':
+		payment_method = "Cash";
+		break;
+	}
+}
+
+void identity_warranty_reason()  // identity warranty reason
+{
+	switch (choice_reason)
+	{
+	case 1:
+		warranty_reason = "Manufacturing defect.";
+		break;
+	case 2:
+		warranty_reason = "Hardware failure.";
+		break;
+	case 3:
+		warranty_reason = "Software issue.";
+		break;
+	case 4:
+		warranty_reason = "Improper usage.";
+		break;
+	case 5:
+		warranty_reason = "Normal wear and tear.";
+		break;
+	case 6:
+		warranty_reason = "External factor.";
+		break;
+	case 7:
+		cin.ignore();
+		cout << "Please describe your reason :";
+		getline(cin, warranty_reason);
+		break;
+	}
+}
+
+void identity_warranty_date()   // identity warranty date, month, year
+{
+	while (W_month < 1 || W_month >12)   // month only can between 1 - 12
+	{
+		cout << "Invalid month..." << endl;
+		cout << "Please enter again :";
+		cin >> W_month;
+	}
+	switch (W_month)  // depend the month, this will check the entered date is valid or not
+	{
+	case 1: case 3: case 5: case 7: case 8: case 10: case 12:   // 1,3,5,7,8,10,12 month the largest date is 31
+		while (W_date < 1 || W_date >31)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 4: case 6: case 9: case 11:    // 4,6,9,11 month the largest date is 30
+		while (W_date < 1 || W_date >30)
+		{
+			cout << "Invalid date..." << endl;
+			cout << "Please enter again :";
+			cin >> W_date;
+		}
+		break;
+	case 2:    // check whether is leap year or not
+		if ((W_year % 4 == 0 && W_year % 100 != 0) || W_year % 400 == 0)
+		{
+			while (W_date < 1 || W_date >29)   // if leap year, the largerst date is 29
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+		else
+		{
+			while (W_date < 1 || W_date >28)
+			{
+				cout << "Invalid date..." << endl;
+				cout << "Please enter again :";
+				cin >> W_date;
+			}
+		}
+
+	}
+}
+
+void compare_warranty_date()  // compare warranty date valid or expired
+{
+	time();
+	identity_warranty_date();
+	if (W_year < year ||
+		(W_year == year && W_month < month) ||
+		(W_year == year && W_month == month && W_date < day))
+	{
+		cout << endl;
+		cout << "Warranty has expired..." << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
+}
+
+void identity_refund_reason()  // identity refund reason
+{
+	switch (choice_R_reason)
+	{
+	case 1:
+		refund_reason = "Product is not working.";
+		break;
+	case 2:
+		refund_reason = "Received the wrong model or color.";
+		break;
+	case 3:
+		refund_reason = "Physical damage found upon opening.";
+		break;
+	case 4:
+		refund_reason = "Battery issue.";
+		break;
+	case 5:
+		refund_reason = "Item is not compatible with my device.";
+		break;
+	case 6:
+		refund_reason = "Wrong quantity received.";
+		break;
+	case 7:
+		cin.ignore();
+		cout << "Please describe your reason :";
+		getline(cin, refund_reason);
+		break;
+	}
+}
+
+void addon_order_menu()  // add on order menu
+{
+	clear_screen();
+	time();
+	identity_addon_price_name();
+	cout << endl;
+	cout << "Welcome CSG Gadget Shop!!!" << endl;
+	cout << endl;
+	cout << "Please choose an accessory. (A-PHONE / B-COMPUTER) :";
+	cin >> A_accessory;
+
+	while (A_accessory != 'A' && A_accessory != 'a' && A_accessory != 'B' && A_accessory != 'b')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> A_accessory;
+	}
+	if (A_accessory == 'A' || A_accessory == 'a')
+	{
+		phone_menu();
+		cout << "Enter your choice :";
+		cin >> A_itembuy;
+
+		while (A_itembuy != 'A' && A_itembuy != 'a' && A_itembuy != 'B' && A_itembuy != 'b' && A_itembuy != 'C' && A_itembuy != 'c' && A_itembuy != 'D' && A_itembuy != 'd' && A_itembuy != 'E' && A_itembuy != 'e' && A_itembuy != 'F' && A_itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> A_itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> A_inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < A_inputqty.length())
+			{
+				if (isdigit(A_inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		A_qty = 0;
+		int j = 0;
+
+		while (j < A_inputqty.length())
+		{
+			A_qty = A_qty * 10 + (A_inputqty[j] - '0');
+			j++;
+		}
+	}
+
+	else if (A_accessory == 'B' || A_accessory == 'b')
+	{
+		computer_menu();
+		cout << "Enter your choice :";
+		cin >> A_itembuy;
+
+		while (A_itembuy != 'A' && A_itembuy != 'a' && A_itembuy != 'B' && A_itembuy != 'b' && A_itembuy != 'C' && A_itembuy != 'c' && A_itembuy != 'D' && A_itembuy != 'd' && A_itembuy != 'E' && A_itembuy != 'e' && A_itembuy != 'F' && A_itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> A_itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> A_inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < A_inputqty.length())
+			{
+				if (isdigit(A_inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		A_qty = 0;
+		int j = 0;
+
+		while (j < A_inputqty.length())
+		{
+			A_qty = A_qty * 10 + (A_inputqty[j] - '0');
+			j++;
+		}
+	}
+	identity_addon_price_name();
+	A_total = A_priceitem * A_qty;
+	cout << "Your choice is " << A_itembuy << "and the price per pax is RM " << fixed << setprecision(2) << A_priceitem << endl;
+	cout << "The total of " << A_itembuy << "." << A_itemname << " is RM " << fixed << setprecision(2) << A_priceitem << "x" << A_qty << " : RM" << fixed << setprecision(2) << A_total << endl;
+
+	identity_payment();
+	cout << endl;
+	cout << "Thank you !!!" << endl;
+	cout << "Proceeding to invoice..." << endl;
+	cout << endl;
+	invoice();
+	cout << "Select payment method (A:E-Wallet / B:Credit Card / C:Debit Card / D:Cash) :";
+	cin >> payment;
+	while (payment != 'A' && payment != 'a' && payment != 'B' && payment != 'b' && payment != 'C' && payment != 'c' && payment != 'D' && payment != 'd')
+	{
+		cout << "Invalid payment..." << endl;
+		cout << "Please choose again payment method : ";
+		cin >> payment;
+	}
+	receipt();
+}
+
+void order_menu()   // order menu
+{
+	clear_screen();
+	time();
+	cout << "Welcome CSG Gadget Shop!!!" << endl;
+	cout << "Please choose an accessory. (A-PHONE / B-COMPUTER) :";
+	cin >> accessory;
+
+	while (accessory != 'A' && accessory != 'a' && accessory != 'B' && accessory != 'b')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> accessory;
+	}
+	if (accessory == 'A' || accessory == 'a')
+	{
+		phone_menu();
+		cout << "Enter your choice :";
+		cin >> itembuy;
+
+		while (itembuy != 'A' && itembuy != 'a' && itembuy != 'B' && itembuy != 'b' && itembuy != 'C' && itembuy != 'c' && itembuy != 'D' && itembuy != 'd' && itembuy != 'E' && itembuy != 'e' && itembuy != 'F' && itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < inputqty.length())
+			{
+				if (isdigit(inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		qty = 0;
+		int j = 0;
+
+		while (j < inputqty.length())
+		{
+			qty = qty * 10 + (inputqty[j] - '0');
+			j++;
+		}
+	}
+	else if (accessory == 'B' || accessory == 'b')
+	{
+		computer_menu();
+		cout << "Enter your choice :";
+		cin >> itembuy;
+
+		while (itembuy != 'A' && itembuy != 'a' && itembuy != 'B' && itembuy != 'b' && itembuy != 'C' && itembuy != 'c' && itembuy != 'D' && itembuy != 'd' && itembuy != 'E' && itembuy != 'e' && itembuy != 'F' && itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < inputqty.length())
+			{
+				if (isdigit(inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		qty = 0;
+		int j = 0;
+
+		while (j < inputqty.length())
+		{
+			qty = qty * 10 + (inputqty[j] - '0');
+			j++;
+		}
+	}
+	identity_price_name();
+	total = priceitem * qty;
+	cout << "Your choice is " << itembuy << "." << itemname << " and the price per pax is RM " << fixed << setprecision(2) << priceitem << endl;
+	cout << "The total of " << itembuy << "." << itemname << " is RM " << fixed << setprecision(2) << priceitem << "x" << qty << " : RM" << fixed << setprecision(2) << total << endl;
+	cout << "Would you like to add on something ? You only can add on once!!! (Y/N) :";
+	cin >> addon_order;
+
+	while (addon_order != 'Y' && addon_order != 'y' && addon_order != 'N' && addon_order != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> addon_order;
+	}
+	if (addon_order == 'Y' || addon_order == 'y')
+	{
+		addon_order_menu();
+	}
+	else if (addon_order == 'N' || addon_order == 'n')
+	{
+		identity_payment();
+		cout << endl;
+		cout << "Thank you !!!" << endl;
+		cout << "Proceeding to invoice..." << endl;
+		cout << endl;
+		invoice();
+		cout << "Select payment method (A:E-Wallet / B:Credit Card / C:Debit Card / D:Cash) :";
+		cin >> payment;
+		while (payment != 'A' && payment != 'a' && payment != 'B' && payment != 'b' && payment != 'C' && payment != 'c' && payment != 'D' && payment != 'd')
+		{
+			cout << "Invalid payment..." << endl;
+			cout << "Please choose again payment method  : ";
+			cin >> payment;
+		}
+		receipt();
+	}
+}
+
+void invoice()  // invoice
+{
+	clear_screen();
+	time();
+	identity_price_name();
+	total = priceitem * qty;
+	cout << endl;
+	cout << setw(57) << setfill(' ') << "     CSG Gadget Shop" << endl;
+	cout << setw(67) << setfill(' ') << "====================================" << endl;
+	cout << setw(57) << setfill(' ') << "     Tel: 012-3456789" << endl;
+
+	cout << endl;
+	cout << "Invoice No: " << invoicenum + 1 << setw(70) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << endl;
+	cout << endl;
+	cout << left << setw(30) << setfill(' ') << "Quantity" << left << setw(52) << setfill(' ') << "Item" << left << setw(35) << setfill(' ') << "Price(RM)" << endl;
+	cout << "-------------------------------------------------------------------------------------------- " << endl;
+	cout << right << setw(4) << setfill(' ') << qty << setw(13) << "" << left << setw(62) << itemname << right << setw(10) << setfill(' ') << fixed << setprecision(2) << total << endl;
+
+	if (addon_order == 'N' || addon_order == 'n')
+	{
+		if (total >= 100.00)
+		{
+			cout << endl;
+			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
+			cout << endl;
+			discountrate = total * discount;
+			afterdiscount = total - discountrate;
+			chargerate = total * charge;
+			taxrate = total * tax;
+			final = afterdiscount + chargerate + taxrate;
+		}
+		else
+		{
+			chargerate = total * charge;
+			taxrate = total * tax;
+			final = total + chargerate + taxrate;
+		}
+		cout << "Subtotal" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << total << endl;
+		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << discountrate << endl;
+		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << chargerate << endl;
+		cout << "Tax (6%)" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << taxrate << endl;
+		cout << endl;
+		cout << "Total items" << setw(73) << setfill(' ') << qty << endl;
+		cout << "Net Total" << setw(77) << setfill(' ') << "RM " << fixed << setprecision(2) << final << endl;
+	}
+	else if (addon_order == 'Y' || addon_order == 'y')
+	{
+		A_total = A_priceitem * A_qty;
+		AA_total = total + A_total;
+		AA_qty = qty + A_qty;
+
+		cout << right << setw(4) << setfill(' ') << A_qty << setw(13) << "" << left << setw(62) << A_itemname << right << setw(10) << setfill(' ') << fixed << setprecision(2) << A_total << endl;
+
+		if (AA_total >= 100.00)
+		{
+			cout << endl;
+			cout << "Congratulations for get 20% discount since you spend over RM 100.00 !!" << endl;
+			cout << endl;
+
+			A_discountrate = AA_total * discount;
+			A_afterdiscount = AA_total - A_discountrate;
+			A_chargerate = A_afterdiscount * charge;
+			A_taxrate = A_afterdiscount * tax;
+			A_final = A_afterdiscount + A_chargerate + A_taxrate;
+		}
+		else
+		{
+			A_discountrate = 0.0;
+			A_afterdiscount = AA_total;
+			A_chargerate = AA_total * charge;
+			A_taxrate = AA_total * tax;
+			A_final = AA_total + A_chargerate + A_taxrate;
+		}
+		cout << "Subtotal" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_total << endl;
+		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << A_discountrate << endl;
+		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << A_chargerate << endl;
+		cout << "Tax (6%)" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << A_taxrate << endl;
+		cout << endl;
+		cout << "Total items" << setw(74) << setfill(' ') << AA_qty << endl;
+		cout << "Net Total" << setw(77) << setfill(' ') << "RM " << fixed << setprecision(2) << A_final << endl;
+	}
+}
+
+void receipt() // receipt after invoice
+{
+	identity_payment();
+	time();
+	identity_price_name();
+	invoice();
+	cout << endl;
+	cout << endl;
+	cout << left << setw(83) << setfill(' ') << "Payment Method" << left << setw(77) << setfill(' ') << payment_method << endl;
+	cout << left << setw(83) << "Paid Amount" << "RM ";
+	cin >> amount;
+	cout << left << setw(83) << "Payment Amount" << "RM " << fixed << setprecision(2) << amount << endl;
+	if (addon_order == 'Y' || addon_order == 'y')
+	{
+		while (amount < A_final)
+		{
+			cout << endl;
+			cout << "Pay again..." << endl;
+			cout << "New Paid Amount : ";
+			cin >> amount;
+			cout << endl;
+		}
+		change = amount - A_final;
+	}
+	else if (addon_order == 'N' || addon_order == 'n')
+	{
+		while (amount < final)
+		{
+			cout << endl;
+			cout << "Pay again..." << endl;
+			cout << "New Paid Amount : ";
+			cin >> amount;
+			cout << endl;
+		}
+		change = amount - final;
+	}
+	cout << left << setw(83) << "Change" << "RM " << fixed << setprecision(2) << change << endl;
+	invoicenum++;
+	custnum++;
+}
+
+void customer_service()  // proceed warranty/refund (additional function)
+{
+	cout << "================";
+	cout << endl;
+	cout << "Customer Service";
+	cout << endl;
+	cout << "================";
+	cout << endl;
+	cout << "Would you like to refund or claim warranty? (R-refund/W-warranty) : ";
+	cin >> cust_choice;
+	while (cust_choice != 'R' && cust_choice != 'r' && cust_choice != 'W' && cust_choice != 'w')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> cust_choice;
+	}
+	if (cust_choice == 'R' || cust_choice == 'r')
+	{
+		cout << endl;
+		cout << "Proceeding to refund process." << endl;
+		cout << endl;
+		refund();
+	}
+	else if (cust_choice == 'W' || cust_choice == 'w')
+	{
+		cout << endl;
+		cout << "Proceeding to warranty process." << endl;
+		cout << endl;
+		warranty();
+	}
+}
+
+void refund()  // proceed refund
+{
+	time();
+	cout << "Enter your name :";
+	cin.ignore();
+	getline(cin, cust_R_name);
+
+	// to check input is digit or not
+	bool phonedigit;
+
+	do
+	{
+		cout << "Enter phone number without - : ";
+		cin >> cust_R_phone;
+
+		phonedigit = true;
+		for (int i = 0; i < cust_R_phone.length(); i++)
+		{
+			if (!isdigit(cust_R_phone[i]))
+			{
+				phonedigit = false;
+			}
+		}
+
+		if (!phonedigit)
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!phonedigit);
+
+	cout << "Enter name of product you want to refund : ";
+	cin.ignore();
+	getline(cin, refund_product);
+
+	cout << "Enter price of product :";
+	cin >> refundprice;
+	cout << endl;
+
+	cout << "Please select a reason for refund request:" << endl;
+	cout << endl;
+	cout << "1. Product is not working." << endl;
+	cout << "2. Received the wrong model or color." << endl;
+	cout << "3. Physical damage found upon opening." << endl;
+	cout << "4. Battery issue." << endl;
+	cout << "5. Item is not compatible with my device." << endl;
+	cout << "6. Wrong quantity received." << endl;
+	cout << "7. Other." << endl;
+
+	// to check input is digit or not
+	bool valid_reason;
+
+	do {
+		cout << "Enter the number of your reason (1-7): ";
+		cin >> input_R_reason;
+
+		valid_reason = true;
+
+		for (int i = 0; i < input_R_reason.length(); i++)
+		{
+			if (!isdigit(input_R_reason[i])) valid_reason = false;
+		}
+
+		if (valid_reason)
+		{
+			choice_R_reason = 0;
+			for (int i = 0; i < input_R_reason.length(); i++)
+			{
+				choice_R_reason = choice_R_reason * 10 + (input_R_reason[i] - '0');
+			}
+
+			if (choice_R_reason < 1 || choice_R_reason > 7) valid_reason = false;
+		}
+
+		if (!valid_reason)
+		{
+			cout << "Invalid choice. Please enter a number between 1 and 7." << endl;
+		}
+
+	} while (!valid_reason);
+
+	identity_refund_reason();
+
+	clear_screen();
+	cout << endl;
+	cout << "-------- Refund Request Confirmation --------" << endl;
+	cout << "Name             :" << cust_R_name << endl;
+	cout << "Phone number     :" << cust_R_phone << endl;
+	cout << "Product          :" << refund_product << endl;
+	cout << "Price            :RM" << fixed << setprecision(2) << refundprice << endl;
+	cout << "Refund reason    :" << refund_reason << endl;
+	cout << endl;
+	cout << "Please confirm your information is correct (Y/N) :";
+	cin >> confirm_refund;
+	cout << endl;
+
+	while (confirm_refund != 'Y' && confirm_refund != 'y' && confirm_refund != 'N' && confirm_refund != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> confirm_refund;
+	}
+
+	if (confirm_refund == 'Y' || confirm_refund == 'y')
+	{
+		cout << "Your refund request is done !" << endl;
+		cout << "Any issue please contact our hotline (0123456789)" << endl;
+		cout << "Here is your receipt !!!" << endl;
+		receipt_refund();
+	}
+
+	else if (confirm_refund == 'N' || confirm_refund == 'n')
+	{
+		cout << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
+}
+
+void receipt_refund()  // receipt for refund
+{
+	clear_screen();
+	time();
+	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
+	cout << setw(40) << setfill(' ') << "---------------------" << endl;
+	cout << "Invoice No :" << invoicenum + 1 << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Product    :" << refund_product << endl;
+	cout << "Reason     :" << refund_reason << endl;
+	cout << endl;
+	cout << "Your refund request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+	cout << endl;
+	refundnum++;
+	invoicenum++;
+}
+
+void warranty()  // proceed warranty
+{
+	time();
+	cout << "Enter your name :";
+	cin.ignore();
+	getline(cin, cust_name);
+
+	// to check input is digit or not
+	bool phonedigit;
+
+	do
+	{
+		cout << "Enter phone number without - : ";
+		cin >> cust_phone;
+
+		phonedigit = true;
+		for (int i = 0; i < cust_phone.length(); i++)
+		{
+			if (!isdigit(cust_phone[i]))
+			{
+				phonedigit = false;
+			}
+		}
+
+		if (!phonedigit)
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!phonedigit);
+
+	cout << "Enter name of product you want to claim warranty : ";
+	cin.ignore();
+	getline(cin, warranty_product);
+	cout << endl;
+
+	cout << "Please select a reason for warranty request:" << endl;
+	cout << endl;
+	cout << "1. Manufacturing defect." << endl;
+	cout << "2. Hardware failure." << endl;
+	cout << "3. Software issue." << endl;
+	cout << "4. Improper usage." << endl;
+	cout << "5. Normal wear and tear." << endl;
+	cout << "6. External factor." << endl;
+	cout << "7. Other." << endl;
+	cout << endl;
+
+	// to check input is digit or not
+	bool valid_reason;
+
+	do
+	{
+		cout << "Enter the number of your reason (1-7): ";
+		cin >> input_reason;
+
+		valid_reason = true;
+
+		for (int i = 0; i < input_reason.length(); i++)
+		{
+			if (!isdigit(input_reason[i])) valid_reason = false;
+		}
+
+		if (valid_reason)
+		{
+			choice_reason = input_reason[0] - '0';
+			if (choice_reason < 1 || choice_reason > 7) valid_reason = false;
+		}
+
+		if (!valid_reason)
+		{
+			cout << "Invalid choice. Please enter a number between 1 and 7." << endl;
+		}
+
+	} while (!valid_reason);
+
+	identity_warranty_reason();
+
+	// to check input is digit or not
+	bool digit;
+
+	do {
+		cout << "Please enter warranty expire date (YYYY MM DD, separated by space): ";
+		cin >> inputyear >> inputmonth >> inputdate;
+
+		digit = true;
+
+		for (int i = 0; i < inputyear.length(); i++)
+		{
+			if (!isdigit(inputyear[i])) digit = false;
+		}
+
+		for (int i = 0; i < inputmonth.length(); i++)
+		{
+			if (!isdigit(inputmonth[i])) digit = false;
+		}
+
+		for (int i = 0; i < inputdate.length(); i++)
+		{
+			if (!isdigit(inputdate[i])) digit = false;
+		}
+
+		if (!digit)
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!digit);
+
+	W_year = 0;
+	for (int i = 0; i < inputyear.length(); i++)
+	{
+		W_year = W_year * 10 + (inputyear[i] - '0');
+	}
+
+	W_month = 0;
+	for (int i = 0; i < inputmonth.length(); i++)
+	{
+		W_month = W_month * 10 + (inputmonth[i] - '0');
+	}
+
+	W_date = 0;
+	for (int i = 0; i < inputdate.length(); i++)
+	{
+		W_date = W_date * 10 + (inputdate[i] - '0');
+	}
+
+	identity_warranty_date();
+	compare_warranty_date();
+
+	clear_screen();
+	cout << "-------- Warranty Request Confirmation --------" << endl;
+	cout << "Name             :" << cust_name << endl;
+	cout << "Phone number     :" << cust_phone << endl;
+	cout << "Product          :" << warranty_product << endl;
+	cout << "Warranty reason  :" << warranty_reason << endl;
+	cout << "Warranty expired :" << W_date << " / " << W_month << " / " << W_year << endl;
+	cout << endl;
+	cout << "Please confirm your information is correct (Y/N) :";
+	cin >> confirm_warranty;
+	cout << endl;
+
+	while (confirm_warranty != 'Y' && confirm_warranty != 'y' && confirm_warranty != 'N' && confirm_warranty != 'n')
+	{
+		cout << "Invalid choice..." << endl;
+		cout << "Please enter again : ";
+		cin >> confirm_warranty;
+	}
+
+	if (confirm_warranty == 'Y' || confirm_warranty == 'y')
+	{
+		cout << "Your warranty request is done !" << endl;
+		cout << "Any issue please contact our hotline (0123456789)" << endl;
+		cout << "Here is your receipt !!!" << endl;
+		receipt_warranty();
+		cout << "Thank you !!!" << endl;
+		cout << "Have a nice day !!!" << endl;
+	}
+	else if (confirm_warranty == 'N' || confirm_warranty == 'n')
+	{
+		cout << endl;
+		cout << "Back to main page..." << endl;
+		cout << endl;
+		menu();
+	}
+}
+
+void receipt_warranty()  // receipt for warranty
+{
+	cout << endl;
+	cout << endl;
+	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
+	cout << setw(40) << setfill(' ') << "---------------------" << endl;
+	cout << "Invoice No :" << invoicenum + 1 << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Item   :" << warranty_product << endl;
+	cout << "Reason :" << warranty_reason << endl;
+	cout << endl;
+	cout << "Your warranty request result will be notified within 3 days." << endl;
+	cout << "Don't forget to check WhatsApp for the update!" << endl;
+	cout << endl;
+	warrantynum++;
+	invoicenum++;
+}
+
+void report()  // daily report
+{
+	for (int i = 1; i <= 3; i++)
+	{
+		cout << "Hello, please enter your ID : ";
+		cin >> staff_id;
+
+		// to check correct staff id
+		bool valid = false;
+
+		for (int j = 0; j < 3; j++)
+		{
+			if (staff_id == staff_ids[j])
+			{
+				valid = true;
+			}
+		}
+
+		if (valid)
+		{
+			cout << endl;
+			cout << endl;
+			cout << "            Daily Report" << endl;
+			cout << "-----------------------------------" << endl;
+			cout << day << "/" << month << "/" << year << endl;
+			cout << "Today total customer : " << invoicenum << endl;
+			cout << "Today total sales    : " << custnum << endl;
+			cout << "Today total warranty : " << warrantynum << endl;
+			cout << "Today total refund   : " << refundnum << endl;
+			i += 2;
+		}
+		else
+		{
+			cout << "Invalid ID..." << endl;
+			cout << endl;
+
+			if (i == 3)
+			{
+				cout << "Enter too many times!!!" << endl;
+				cout << "Back to main menu!!!" << endl;
+				cout << endl;
+			}
+		}
+	}
+}
+
+
+void menu()  // main menu
+{
+	do {
+		//clear_screen();
+		cout << right << setw(79) << "CSG Gadget Shop" << endl;
+		cout << setw(83) << "LOT 1851-A, Jalan KPB 6," << endl;
+		cout << setw(86) << "KAWASAN PERINDUSTRIAN BELAKONG" << endl;
+		cout << setw(86) << "43300 SERI KEMBANGAN, SELANGOR" << endl;
+		cout << setw(83) << "(MID VALLEY SHOPPING MALL)" << endl;
+		cout << setw(83) << "Hotline support : 0123456789" << endl;
+		cout << setw(90) << "" << endl;
+		cout << "\n[-Welcome to CSG Gadget Shop-]" << endl;
+		cout << "Please choose an option:" << endl;
+		cout << "A. Menu" << endl;
+		cout << "B. Customer service" << endl;
+		cout << "C. Report" << endl;
+		cout << "D. Exit" << endl;
+		cout << "Enter your choice: ";
+		cin >> menuchoice;
+
+		switch (menuchoice)
+		{
+		case 'A': case 'a':
+			clear_screen();
+			order_menu();
+			cout << endl;
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			cout << endl;
+			break;
+		case 'B': case 'b':
+			cout << endl;
+			clear_screen();
+			customer_service();
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			cout << endl;
+			break;
+		case 'C': case 'c':
+			clear_screen();
+			cout << endl;
+			report();
+			break;
+		case 'D': case 'd':
+			cout << endl;
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			break;
+		default:
+			cout << "Invalid choice. Please try again." << endl;
+			cout << endl;
+			break;
+		}
+	} while (menuchoice != 'D' && menuchoice != 'd');
+}
+
+int main()
+{
+	time();
+
+	menu();
+
+	return 0;
+}
