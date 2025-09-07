@@ -90,7 +90,7 @@ void report();
 void phone_menu();
 void computer_menu();
 
-void clear_screen()
+void clear_screen() // use for clear screen
 {
 	system("cls");
 }
