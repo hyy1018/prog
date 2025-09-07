@@ -478,8 +478,6 @@ void addon_order_menu()  // add on order menu
 	time();
 	identity_addon_price_name();
 	cout << endl;
-	cout << "Welcome CSG Gadget Shop!!!" << endl;
-	cout << endl;
 	cout << "Please choose an accessory. (A-PHONE / B-COMPUTER) :";
 	cin >> A_accessory;
 
@@ -627,6 +625,7 @@ void order_menu()   // order menu
 	if (accessory == 'A' || accessory == 'a')
 	{
 		phone_menu();
+
 		cout << "Enter your choice :";
 		cin >> itembuy;
 
@@ -797,6 +796,8 @@ void invoice()  // invoice
 			taxrate = total * tax;
 			final = total + chargerate + taxrate;
 		}
+		cout << endl;
+		cout << endl;
 		cout << "Subtotal" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << total << endl;
 		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << discountrate << endl;
 		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << chargerate << endl;
@@ -833,6 +834,8 @@ void invoice()  // invoice
 			A_taxrate = AA_total * tax;
 			A_final = AA_total + A_chargerate + A_taxrate;
 		}
+		cout << endl;
+		cout << endl;
 		cout << "Subtotal" << setw(78) << setfill(' ') << "RM " << fixed << setprecision(2) << AA_total << endl;
 		cout << "Discount" << setw(78) << setfill(' ') << "-RM " << fixed << setprecision(2) << A_discountrate << endl;
 		cout << "Service Charge (6%)" << setw(67) << setfill(' ') << "RM " << fixed << setprecision(2) << A_chargerate << endl;
@@ -882,6 +885,7 @@ void receipt() // receipt after invoice
 	cout << left << setw(83) << "Change" << "RM " << fixed << setprecision(2) << change << endl;
 	invoicenum++;
 	custnum++;
+	cout << endl;
 }
 
 void customer_service()  // proceed warranty/refund (additional function)
@@ -1038,7 +1042,6 @@ void refund()  // proceed refund
 
 void receipt_refund()  // receipt for refund
 {
-	clear_screen();
 	time();
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
@@ -1309,27 +1312,36 @@ void menu()  // main menu
 			clear_screen();
 			order_menu();
 			cout << endl;
+			cout << endl;
 			cout << "Thanks for using our system !!!" << endl;
 			cout << "Have a nice day!!!" << endl;
+			cout << endl;
 			cout << endl;
 			break;
 		case 'B': case 'b':
-			cout << endl;
 			clear_screen();
 			customer_service();
+			cout << endl;
+			cout << endl;
 			cout << "Thanks for using our system !!!" << endl;
 			cout << "Have a nice day!!!" << endl;
+			cout << endl;
 			cout << endl;
 			break;
 		case 'C': case 'c':
 			clear_screen();
-			cout << endl;
 			report();
-			break;
-		case 'D': case 'd':
+			cout << endl;
 			cout << endl;
 			cout << "Thanks for using our system !!!" << endl;
 			cout << "Have a nice day!!!" << endl;
+			cout << endl;
+			cout << endl;
+			break;
+		case 'D': case 'd':
+			cout << "Thanks for using our system !!!" << endl;
+			cout << "Have a nice day!!!" << endl;
+			cout << endl;
 			break;
 		default:
 			cout << "Invalid choice. Please try again." << endl;
