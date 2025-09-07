@@ -2,6 +2,7 @@
 #include<iomanip>
 #include<ctime>
 #include<string>
+#include<cctype>
 #define discount 0.20
 #define charge 0.06
 #define tax 0.06
@@ -18,11 +19,13 @@ int day, month, year;
 char accessory, itembuy, addon_order;
 double priceitem = 0;
 string itemname;
+string inputqty;
 
 // use for addon order
 char A_accessory, A_itembuy; 
 double A_priceitem = 0; 
 string A_itemname; 
+string A_inputqty;
 
 // use for invoice
 int qty = 0, A_qty = 0, AA_qty;
@@ -37,14 +40,17 @@ double amount = 0, change = 0;
 char cust_choice;
 
 // use for warranty
-string cust_name, warranty_product, warranty_reason;
-int cust_phone, choice_reason;
+string cust_name, cust_phone, warranty_product, warranty_reason;
+string input_reason;
+int choice_reason;
+string inputdate, inputmonth, inputyear;
 int W_date, W_month, W_year;
 char confirm_warranty;
 
 // use for refund
-string cust_R_name, refund_product, refund_reason;
-int cust_R_phone, choice_R_reason;
+string cust_R_name, cust_R_phone, refund_product, refund_reason;
+string input_R_reason;
+int choice_R_reason;
 char confirm_refund;
 double refundprice;
 
@@ -59,6 +65,7 @@ int invoicenum = 0;
 void menu();
 void time();
 void identity_price_name();
+void identity_payment();
 void identity_warranty_reason();
 void identity_refund_reason();
 void identity_warranty_date();
@@ -385,14 +392,14 @@ void addon_order_menu()  // add on order menu
 		cout << "-----------" << endl;
 		cout << "A. XIAOMI Fast Charge USB-C Cable RM 50.99" << endl;
 		cout << "Pros: Reversible plug, easy to use." << endl;
-		cout << "      Fast date transfer and charging." << endl;
+		cout << "      Fast data transfer and charging." << endl;
 		cout << "Cons: Requires compatible devices to support fast charging." << endl;
 		cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. XIAOMI Normal USB-C Cable RM 25.99" << endl;
 		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
 		cout << "      More affordable, offering great value for basic charging." << endl;
-		cout << "Cons: Limited to standard cahrging." << endl;
+		cout << "Cons: Limited to standard charging." << endl;
 		cout << "      May not support higher power output for power-hungry devices." << endl;
 		cout << endl;
 		cout << "Lightning Cable :" << endl;
@@ -413,34 +420,76 @@ void addon_order_menu()  // add on order menu
 		cout << "-------------------" << endl;
 		cout << "E. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-		cout << "      Small and lightweight, easy handle and carry out." << endl;
-		cout << "Cons: Due to small size, esaily misplaced." << endl;
+		cout << "      Small and lightweight, easy to handle and carry around." << endl;
+		cout << "Cons: Due to small size, easily misplaced." << endl;
 		cout << "      Limited battery life, needs to be charged regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
 		cout << "Pros: Stable fit, suitable for sports and active use." << endl;
 		cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
 		cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
-		cout << "      More heavier, user might feel cumbersome during extended use." << endl;
+		cout << "      Heavier, user might feel uncomfortable during extended use." << endl;
 		cout << endl;
 		cout << "Enter your choice :";
 		cin >> A_itembuy;
-		cout << "Quantity :";
-		cin >> A_qty;
+
+		while (A_itembuy != 'A' && A_itembuy != 'a' && A_itembuy != 'B' && A_itembuy != 'b' && A_itembuy != 'C' && A_itembuy != 'c' && A_itembuy != 'D' && A_itembuy != 'd' && A_itembuy != 'E' && A_itembuy != 'e' && A_itembuy != 'F' && A_itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> A_itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> A_inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < A_inputqty.length())
+			{
+				if (isdigit(A_inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		A_qty = 0;
+		int j = 0;
+
+		while (j < A_inputqty.length())
+		{
+			A_qty = A_qty * 10 + (A_inputqty[j] - '0');
+			j++;
+		}
 	}
+
 	else if (A_accessory == 'B' || A_accessory == 'b')
 	{
 		cout << "USB Flash Drive :" << endl;
 		cout << "-----------------" << endl;
 		cout << "A. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
 		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
-		cout << "      Compact and portable, small size easy to carry aroung." << endl;
-		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
+		cout << "      Compact and portable, small size easy to carry around." << endl;
+		cout << "Cons: Limited storage, only 16GB of storage may not be enough for those who need to store large file." << endl;
 		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. Kingston USB Flash Drive 64GB RM 30.99" << endl;
 		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
-		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
+		cout << "      Durable design, robust materials provide better protection from physical impact." << endl;
 		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
 		cout << "      Low speed especially for very large file transfer and store." << endl;
 		cout << endl;
@@ -448,34 +497,75 @@ void addon_order_menu()  // add on order menu
 		cout << "---------------------" << endl;
 		cout << "C. WD 1TB External Hard Drive RM 250.99" << endl;
 		cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
-		cout << "      Reliable brand, WD is know for producing durable and high quality product." << endl;
-		cout << "Cons: Higher price, generally more expensive then 512GB hard drive." << endl;
-		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
+		cout << "      Reliable brand, WD is known for producing durable and high-quality products." << endl;
+		cout << "Cons: Higher price, generally more expensive than a 512GB hard drive." << endl;
+		cout << "      Not compatible with Mac, some MacBook models may not be supported." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "D. Seagate 512GB External Hard Drive RM 180.99" << endl;
-		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
+		cout << "Pros: More affordable, cheaper and suitable for budget-conscious users." << endl;
 		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
 		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
-		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
+		cout << "      May require additional storage, might need another external drive for extra space." << endl;
 		cout << endl;
 		cout << "Mouse :" << endl;
 		cout << "-------" << endl;
 		cout << "E. XIAOAMI Wireless Mouse RM 20.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "      Small and lightweight, easy to handle and carry around." << endl;
 		cout << "Cons: Battery dependency, requires battery replacement." << endl;
-		cout << "      May experience lag or disconeects due to wireless interference." << endl;
+		cout << "      May experience lag or disconnects due to wireless interference." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOAMI Wired Mouse RM 30.99" << endl;
 		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
 		cout << "      No battery needed, always powered through cable." << endl;
-		cout << "Cons: Limited Mobility ,cable may restricts movement and can get tangled." << endl;
-		cout << "      Less portable, cable may inconvenient for travel or carry out." << endl;
+		cout << "Cons: Limited mobility, the cable may restrict movement and can get tangled." << endl;
+		cout << "      Less portable, the cable may be inconvenient for travel or carrying around." << endl;
 		cout << endl;
 		cout << "Enter your choice :";
 		cin >> A_itembuy;
-		cout << "Quantity :";
-		cin >> A_qty;
+
+		while (A_itembuy != 'A' && A_itembuy != 'a' && A_itembuy != 'B' && A_itembuy != 'b' && A_itembuy != 'C' && A_itembuy != 'c' && A_itembuy != 'D' && A_itembuy != 'd' && A_itembuy != 'E' && A_itembuy != 'e' && A_itembuy != 'F' && A_itembuy != 'f')
+		{
+			cout << "Invalid choice..." << endl;
+			cout << "Please enter again : ";
+			cin >> A_itembuy;
+		}
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> A_inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < A_inputqty.length())
+			{
+				if (isdigit(A_inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		A_qty = 0;
+		int j = 0;
+
+		while (j < A_inputqty.length())
+		{
+			A_qty = A_qty * 10 + (A_inputqty[j] - '0');
+			j++;
+		}
 	}
 	identity_addon_price_name();
 	A_total = A_priceitem * A_qty;
@@ -518,14 +608,14 @@ void order_menu()   // order menu
 		cout << "-----------" << endl;
 		cout << "A. XIAOMI Fast Charge USB-C Cable RM 50.99" << endl;
 		cout << "Pros: Reversible plug, easy to use." << endl;
-		cout << "      Fast date transfer and charging." << endl;
+		cout << "      Fast data transfer and charging." << endl;
 		cout << "Cons: Requires compatible devices to support fast charging." << endl;
 		cout << "      Shorter lifespan if used with non-fast charging devices regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. XIAOMI Normal USB-C Cable RM 25.99" << endl;
 		cout << "Pros: Durable, built to withstand daily wear and tear." << endl;
 		cout << "      More affordable, offering great value for basic charging." << endl;
-		cout << "Cons: Limited to standard cahrging." << endl;
+		cout << "Cons: Limited to standard charging." << endl;
 		cout << "      May not support higher power output for power-hungry devices." << endl;
 		cout << endl;
 		cout << "Lightning Cable :" << endl;
@@ -546,25 +636,61 @@ void order_menu()   // order menu
 		cout << "-------------------" << endl;
 		cout << "E. XIAOMI TWS (True Wireless Stereo) Bluetooth Earbuds RM 30.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-		cout << "      Small and lightweight, easy handle and carry out." << endl;
-		cout << "Cons: Due to small size, esaily misplaced." << endl;
+		cout << "      Small and lightweight, easy to handle and carry around." << endl;
+		cout << "Cons: Due to small size, easily misplaced." << endl;
 		cout << "      Limited battery life, needs to be charged regularly." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOMI Neckband Bluetooth Earphone RM 50.99" << endl;
 		cout << "Pros: Stable fit, suitable for sports and active use." << endl;
 		cout << "      Better sound quality, Large battery and space provide clearer sound." << endl;
 		cout << "Cons: Not fully wireless, neckband still connects with earbuds." << endl;
-		cout << "      More heavier, user might feel cumbersome during extended use." << endl;
+		cout << "      Heavier, user might feel uncomfortable during extended use." << endl;
+		cout << endl;
 		cout << "Enter your choice :";
 		cin >> itembuy;
+
 		while (itembuy != 'A' && itembuy != 'a' && itembuy != 'B' && itembuy != 'b' && itembuy != 'C' && itembuy != 'c' && itembuy != 'D' && itembuy != 'd' && itembuy != 'E' && itembuy != 'e' && itembuy != 'F' && itembuy != 'f')
 		{
 			cout << "Invalid choice..." << endl;
 			cout << "Please enter again : ";
 			cin >> itembuy;
 		}
-		cout << "Quantity x";
-		cin >> qty;
+
+		// to check input is digit or not
+		bool digit;
+
+		do
+		{
+			cout << "Quantity x";
+			cin >> inputqty;
+
+			int i = 0;
+			digit = true;
+
+			while (i < inputqty.length())
+			{
+				if (isdigit(inputqty[i]) == 0)
+				{
+					digit = false;
+				}
+				i++;
+			}
+
+			if (!digit)
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		qty = 0;
+		int j = 0;
+
+		while (j < inputqty.length())
+		{
+			qty = qty * 10 + (inputqty[j] - '0');
+			j++;
+		}
 	}
 	else if (accessory == 'B' || accessory == 'b')
 	{
@@ -572,13 +698,13 @@ void order_menu()   // order menu
 		cout << "-----------------" << endl;
 		cout << "A. SanDisk USB Flash Drive 16GB RM 25.99" << endl;
 		cout << "Pros: Affordable, with 16GB storage, this flash drive is budget-friendly." << endl;
-		cout << "      Compact and portable, small size easy to carry aroung." << endl;
-		cout << "Cons: Limited storage, only 16GB of storage may not enough for who need store large file." << endl;
+		cout << "      Compact and portable, small size easy to carry around." << endl;
+		cout << "Cons: Limited storage, only 16GB of storage may not be enough for those who need to store large file." << endl;
 		cout << "      Plastic build, the plastic casing may be more prone to damage from physical impacts." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "B. Kingston USB Flash Drive 64GB RM 30.99" << endl;
 		cout << "Pros: Large storage capacity, can store and transfer larger file." << endl;
-		cout << "      Durable design, robust moterials provide better protection from physical impact." << endl;
+		cout << "      Durable design, robust materials provide better protection from physical impact." << endl;
 		cout << "Cons: More expensive, may not worth the value for who only need store small file." << endl;
 		cout << "      Low speed especially for very large file transfer and store." << endl;
 		cout << endl;
@@ -586,29 +712,29 @@ void order_menu()   // order menu
 		cout << "---------------------" << endl;
 		cout << "C. WD 1TB External Hard Drive RM 250.99" << endl;
 		cout << "Pros: Large storage capacity, perfect for who need storage for videos, photos and games." << endl;
-		cout << "      Reliable brand, WD is know for producing durable and high quality product." << endl;
-		cout << "Cons: Higher price, generally more expensive then 512GB hard drive." << endl;
-		cout << "      Not compatibility with Mac, some models from MacBook may not compatible." << endl;
+		cout << "      Reliable brand, WD is known for producing durable and high-quality products." << endl;
+		cout << "Cons: Higher price, generally more expensive than a 512GB hard drive." << endl;
+		cout << "      Not compatible with Mac, some MacBook models may not be supported." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "D. Seagate 512GB External Hard Drive RM 180.99" << endl;
-		cout << "Pros: More affordabl, more chepater and suitable for budget-conscious users." << endl;
+		cout << "Pros: More affordable, cheaper and suitable for budget-conscious users." << endl;
 		cout << "      Lower Power consumption, less power usage and good for ultrabooks and everyday use." << endl;
 		cout << "Cons: Limited Storage Space, may not enough for large games and multimedia files." << endl;
-		cout << "      May require addtional storage, might need external drive again for extra space." << endl;
+		cout << "      May require additional storage, might need another external drive for extra space." << endl;
 		cout << endl;
 		cout << "Mouse :" << endl;
 		cout << "-------" << endl;
 		cout << "E. XIAOAMI Wireless Mouse RM 20.99" << endl;
 		cout << "Pros: Completely wireless, providing full freedom of movement." << endl;
-		cout << "      Small and lightweight, easy handle and carry out." << endl;
+		cout << "      Small and lightweight, easy to handle and carry around." << endl;
 		cout << "Cons: Battery dependency, requires battery replacement." << endl;
-		cout << "      May experience lag or disconeects due to wireless interference." << endl;
+		cout << "      May experience lag or disconnects due to wireless interference." << endl;
 		cout << setw(100) << setfill('-') << "" << endl;
 		cout << "F. XIAOAMI Wired Mouse RM 30.99" << endl;
 		cout << "Pros: Stable connection, no delay or lagging since it's directly connected." << endl;
 		cout << "      No battery needed, always powered through cable." << endl;
-		cout << "Cons: Limited Mobility ,cable may restricts movement and can get tangled." << endl;
-		cout << "      Less portable, cable may inconvenient for travel or carry out." << endl;
+		cout << "Cons: Limited mobility, the cable may restrict movement and can get tangled." << endl;
+		cout << "      Less portable, the cable may be inconvenient for travel or carrying around." << endl;
 		cout << endl;
 		cout << "Enter your choice :";
 		cin >> itembuy;
@@ -619,8 +745,42 @@ void order_menu()   // order menu
 			cout << "Please enter again : ";
 			cin >> itembuy;
 		}
-		cout << "Quantity x";
-		cin >> qty;
+		
+		// to check input is digit or not
+		bool digit; 
+
+		do 
+		{
+			cout << "Quantity x";
+			cin >> inputqty; 
+
+			int i = 0;
+			digit = true;
+
+			while (i < inputqty.length())
+			{
+				if (isdigit(inputqty[i]) == 0)
+				{ 
+					digit = false;               
+				}
+				i++;
+			}
+
+			if (!digit) 
+			{
+				cout << "Invalid input, please enter a number." << endl;
+			}
+
+		} while (!digit);
+
+		qty = 0;
+		int j = 0;
+
+		while (j < inputqty.length()) 
+		{
+			qty = qty * 10 + (inputqty[j] - '0'); 
+			j++;
+		}
 	}
 	identity_price_name();
 	total = priceitem * qty;
@@ -760,7 +920,7 @@ void receipt() // receipt after invoice
 		{
 			cout << endl;
 			cout << "Pay again..." << endl;
-			cout << "New Paid Amount : ";
+			cout << "New Paid Amount : " ;
 			cin >> amount;
 			cout << endl;
 		}
@@ -816,8 +976,29 @@ void refund()  // proceed refund
 	cin.ignore();
 	getline(cin, cust_R_name);
 
-	cout << "Enter phone number without - :";
-	cin >> cust_R_phone;
+	// to check input is digit or not
+	bool phonedigit;
+
+	do
+	{
+		cout << "Enter phone number without - : ";
+		cin >> cust_R_phone;
+
+		phonedigit = true;
+		for (int i = 0; i < cust_R_phone.length(); i++)
+		{
+			if (!isdigit(cust_R_phone[i]))
+			{
+				phonedigit = false;
+			}
+		}
+
+		if (!phonedigit)
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!phonedigit);
 
 	cout << "Enter name of product you want to refund : ";
 	cin.ignore();
@@ -826,6 +1007,7 @@ void refund()  // proceed refund
 	cout << "Enter price of product :";
 	cin >> refundprice;
 	cout << endl;
+
 	cout << "Please select a reason for refund request:" << endl;
 	cout << endl;
 	cout << "1. Product is not working." << endl;
@@ -835,17 +1017,41 @@ void refund()  // proceed refund
 	cout << "5. Item is not compatible with my device." << endl;
 	cout << "6. Wrong quantity received." << endl;
 	cout << "7. Other." << endl;
-	cout << "Enter the number of your reason (1-7): ";
-	cin >> choice_R_reason;
 
-	while (choice_R_reason < 1 || choice_R_reason > 7)
-	{
-		cout << "Invalid choice..." << endl;
-		cout << "Please enter again :";
-		cin >> choice_R_reason;
-	}
+	// to check input is digit or not
+	bool valid_reason;
+
+	do {
+		cout << "Enter the number of your reason (1-7): ";
+		cin >> input_R_reason;
+
+		valid_reason = true;
+
+		for (int i = 0; i < input_R_reason.length(); i++) 
+		{
+			if (!isdigit(input_R_reason[i])) valid_reason = false;
+		}
+
+		if (valid_reason) 
+		{
+			choice_R_reason = 0;
+			for (int i = 0; i < input_R_reason.length(); i++) 
+			{
+				choice_R_reason = choice_R_reason * 10 + (input_R_reason[i] - '0');
+			}
+
+			if (choice_R_reason < 1 || choice_R_reason > 7) valid_reason = false;
+		}
+
+		if (!valid_reason) 
+		{
+			cout << "Invalid choice. Please enter a number between 1 and 7." << endl;
+		}
+
+	} while (!valid_reason);
 
 	identity_refund_reason();
+
 	cout << endl;
 	cout << "-------- Refund Request Confirmation --------" << endl;
 	cout << "Name             :" << cust_R_name << endl;
@@ -887,7 +1093,7 @@ void receipt_refund()  // receipt for refund
 	time();
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
-	cout << "Invoice No :" << invoicenum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No :" << invoicenum +1 << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Product    :" << refund_product << endl;
 	cout << "Reason     :" << refund_reason << endl;
 	cout << endl;
@@ -905,13 +1111,35 @@ void warranty()  // proceed warranty
 	cin.ignore();
 	getline(cin, cust_name);
 
-	cout << "Enter phone number without - :";
-	cin >> cust_phone;
+	// to check input is digit or not
+	bool phonedigit;
+
+	do 
+	{
+		cout << "Enter phone number without - : ";
+		cin >> cust_phone;
+
+		phonedigit = true;
+		for (int i = 0; i < cust_phone.length(); i++) 
+		{
+			if (!isdigit(cust_phone[i]))
+			{
+				phonedigit = false;
+			}
+		}
+
+		if (!phonedigit) 
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!phonedigit);
 
 	cout << "Enter name of product you want to claim warranty : ";
 	cin.ignore();
 	getline(cin, warranty_product);
 	cout << endl;
+
 	cout << "Please select a reason for warranty request:" << endl;
 	cout << endl;
 	cout << "1. Manufacturing defect." << endl;
@@ -921,22 +1149,86 @@ void warranty()  // proceed warranty
 	cout << "5. Normal wear and tear." << endl;
 	cout << "6. External factor." << endl;
 	cout << "7. Other." << endl;
-	cout << "Enter the number of your reason (1-7): ";
-	cin >> choice_reason;
 	cout << endl;
 
-	while (choice_reason < 1 || choice_reason > 7)
+	// to check input is digit or not
+	bool valid_reason;
+
+	do 
 	{
-		cout << "Invalid choice..." << endl;
-		cout << "Please enter again : ";
-		cin >> choice_reason;
-	}
+		cout << "Enter the number of your reason (1-7): ";
+		cin >> input_reason;
+
+		valid_reason = true;
+
+		for (int i = 0; i < input_reason.length(); i++) 
+		{
+			if (!isdigit(input_reason[i])) valid_reason = false;
+		}
+
+		if (valid_reason) 
+		{
+			choice_reason = input_reason[0] - '0';  
+			if (choice_reason < 1 || choice_reason > 7) valid_reason = false;
+		}
+
+		if (!valid_reason) 
+		{
+			cout << "Invalid choice. Please enter a number between 1 and 7." << endl;
+		}
+
+	} while (!valid_reason);
 
 	identity_warranty_reason();
 
-	cout << "Please enter warranty expire date (YYYY MM DD , seperated by space) : ";
-	cin >> W_year >> W_month >> W_date;
-	cout << endl;
+	// to check input is digit or not
+	bool digit;
+
+	do {
+		cout << "Please enter warranty expire date (YYYY MM DD, separated by space): ";
+		cin >> inputyear >> inputmonth >> inputdate;
+
+		digit = true;
+
+		for (int i = 0; i < inputyear.length(); i++) 
+		{
+			if (!isdigit(inputyear[i])) digit = false;
+		}
+
+		for (int i = 0; i < inputmonth.length(); i++)
+		{
+			if (!isdigit(inputmonth[i])) digit = false;
+		}
+
+		for (int i = 0; i < inputdate.length(); i++) 
+		{
+			if (!isdigit(inputdate[i])) digit = false;
+		}
+
+		if (!digit) 
+		{
+			cout << "Invalid input, please enter numbers only." << endl;
+		}
+
+	} while (!digit);
+
+	W_year = 0;
+	for (int i = 0; i < inputyear.length(); i++) 
+	{
+		W_year = W_year * 10 + (inputyear[i] - '0');
+	}
+
+	W_month = 0;
+	for (int i = 0; i < inputmonth.length(); i++)
+	{
+		W_month = W_month * 10 + (inputmonth[i] - '0');
+	}
+
+	W_date = 0;
+	for (int i = 0; i < inputdate.length(); i++) 
+	{
+		W_date = W_date * 10 + (inputdate[i] - '0');
+	}
 
 	identity_warranty_date();
 	compare_warranty_date();
@@ -983,7 +1275,7 @@ void receipt_warranty()  // receipt for warranty
 	cout << endl;
 	cout << setw(40) << setfill(' ') << "Receipt       " << endl;
 	cout << setw(40) << setfill(' ') << "---------------------" << endl;
-	cout << "Invoice No :" << invoicenum << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
+	cout << "Invoice No :" << invoicenum + 1 << setw(40) << setfill(' ') << day << "/" << month << "/" << year << endl;
 	cout << "Item   :" << warranty_product << endl;
 	cout << "Reason :" << warranty_reason << endl;
 	cout << endl;
@@ -1001,6 +1293,7 @@ void report()  // daily report
 		cout << "Hello, please enter your ID : ";
 		cin >> staff_id;
 
+		// to check correct staff id
 		bool valid = false;  
 
 		for (int j = 0; j < 3; j++)  
@@ -1054,8 +1347,8 @@ void menu()  // main menu
 		cout << "Please choose an option:" << endl;
 		cout << "A. Menu" << endl;
 		cout << "B. Customer service" << endl;
-		cout << "C. Report." << endl;
-		cout << "D. Exit." << endl;
+		cout << "C. Report" << endl;
+		cout << "D. Exit" << endl;
 		cout << "Enter your choice: ";
 		cin >> menuchoice;
 
