@@ -1,7 +1,23 @@
 .MODEL SMALL
-.STACK 100
+.STACK 100H
+
 .DATA
-    ;==================================;Menu and submenu for customer=========================================================
+	SALES_COUNT_1_A		DB  0    ; FOR BUN A WHICH IS CHEESE BUN
+	SALES_COUNT_1_B 	DB  0    ; FOR BUN B... 
+	SALES_COUNT_2_A 	DB  0    ; FOR CAKE A...
+	SALES_COUNT_2_B 	DB  0    ; FOR CAKE B...
+
+	PRESS_KEY_ENTER		DB	"PRESS <ENTER> TO EXIT$"
+
+
+	SALES_REPORT_TITLE 	DB  "=== SALES REPORT ===", 0AH, 0DH,"$"
+	SALES_ITEM_1_A 		DB  "Cheese bun Sold    : $"
+	SALES_ITEM_1_B 		DB  "Potato bun Sold    : $"
+	SALES_ITEM_2_A 		DB  "Chocolate cake Sold: $"
+	SALES_ITEM_2_B 		DB  "Banana cake Sold   : $"
+	TOTAL_SALES 		DB  "Total Sales        : $"
+	
+        ;==================================;Menu and submenu for customer=========================================================
 	SHOPNAME			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
 						DB	"  |                                               |", 0AH, 0DH  ;01H	
 						DB  "  |  ==============One Bite Bakery==============  |", 0AH, 0DH  ;02H
@@ -102,38 +118,52 @@
 	;Secure Logout:
 	
 	;Admin Menu：Sales Report
-	SYSTEM      		DB  "===WELCOME TO ADMIN SYSTEM===$"
-	CHECKING    		DB  "    SALES REPORT CHECKING   [1] >$"
-	XCHECKING   		DB  "    EXIT  |  LOG-OUT        [2] >$"
-	ENSURE      		DB  "    ARE YOU SURE TO CONTINUE LOG-OUT (EXIT)? [Y/N]$"
-	SELECTION   		DB  ?
-	INVALIDSEC  		DB  "INVALID SELECTION!!! PLEASE RE-ENTER...$"
-	LEAVING     		DB  "    PRESS <ENTER> TO EXIT"
+	SYSTEM      DB "===WELCOME TO ADMIN SYSTEM===$"
+	CHECKING    DB "    SALES REPORT CHECKING   [1] >$"
+	XCHECKING   DB "    EXIT  |  LOG-OUT        [2] >$"
+	ENSURE      DB "    ARE YOU SURE TO CONTINUE LOG-OUT (EXIT)? [Y/N]$"
+	SELECTION   DB ?
+	INVALIDSEC  DB "INVALID SELECTION!!! PLEASE RE-ENTER...$"
+	LEAVING     DB "    PRESS <ENTER> TO EXIT"
 	
-	REMOVEINV		   	DB  "	   PRESS <ENTER> TO RETURN$"
+	REMOVEINV   DB "	   PRESS <ENTER> TO RETURN$"
 	
-	HERE 				DB  "HERE IS REPORT$"
+	HERE DB "HERE IS REPORT$"
 	
-	SALES_COUNT_1_A		DB  0    ; FOR BUN A WHICH IS CHEESE BUN
-	SALES_COUNT_1_B 	DB  0    ; FOR BUN B... 
-	SALES_COUNT_2_A 	DB  0    ; FOR CAKE A...
-	SALES_COUNT_2_B 	DB  0    ; FOR CAKE B...
-
-	PRESS_KEY_ENTER		DB	"PRESS <ENTER> TO EXIT$"
-
-
-	SALES_REPORT_TITLE 	DB  "=== SALES REPORT ===", 0AH, 0DH,"$"
-	SALES_ITEM_1_A 		DB  "Cheese bun Sold    : $"
-	SALES_ITEM_1_B 		DB  "Potato bun Sold    : $"
-	SALES_ITEM_2_A 		DB  "Chocolate cake Sold: $"
-	SALES_ITEM_2_B 		DB  "Banana cake Sold   : $"
-	TOTAL_SALES 		DB  "Total Sales        : $"
 	
-	;Check Order Status
 	
-	;Place Order
-	;FONTPAGE			      ;05H					    			;48D = 30H       [DH]
-	WELC_MENU			DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
+	
+	
+	
+	
+	;PRODUCT INFO										$
+    PROD_1_A_MSG 		DB "CHEESE BUN  [RM 2.00]       $"
+    PROD_1_B_MSG 		DB "POTATO BUN  [RM 3.00]       $"
+    PROD_2_A_MSG 		DB "CHOCOLATE CAKE  [RM 4.00]   $"
+    PROD_2_B_MSG 		DB "BANANA CAKE [RM 5.00]       $"
+	MULTIPLY_SYMBOL		DB "    x $"
+	
+	QTY_PROD_MSG		DB	"  | _____________________________________________ |", 0AH, 0DH
+						DB	"  | ********************************************* |", 0AH, 0DH
+						DB	"  |                                               |", 0AH, 0DH
+						DB	"  |       Enter quantity (01-99) :    $"
+    PROD_CURRENT_PRICE  DB	"  |                                               |", 0AH, 0DH
+						DB  "  |       Current total cost : RM  $"
+    ENTER_CONFIRM     	DB  "  |                                               |", 0AH, 0DH
+						DB	"  |       Press <ENTER> to confirm payment..      |", 0AH, 0DH,"$"
+    
+    INVALID_INPUT   	DB "Invalid input!!! Try again...",0AH,0DH,"$"
+    
+    SELECTED_CATEGORY  	DB ?
+    SELECTED_PROD 		DB ?
+    QTY_OF_PROD     	DB ?    ;  55
+    PRICE_OF_PROD      	DB ?    ;   4
+    TOTAL_COST      	DW ?    ; 220
+    
+    PRESS_TO_EXIT      	DB "Press any key to exit...$"
+    PRICE_DECIMAL_POINT DB ".00$"
+	
+	WELC_TO_MSG			DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
 						DB	"  |                                               |", 0AH, 0DH	 ;01H
 						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
 						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
@@ -158,7 +188,6 @@
 						DB	"  |                                               |", 0AH, 0DH	 ;16H
 						DB	"  |_______________________________________________|", 0AH, 0DH,"$";17H
 																							 ;18H
-																					 
 	LIST_SUBOPT1		DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
 						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
 						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
@@ -166,135 +195,59 @@
 						DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
-						DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
+						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH,"$";0DH
 					
-	LIST_SUBOPT2		DB	"  |    CATEGORY OF PRODUCTS :  CAKE               |", 0AH, 0DH	 ;06H
+	LIST_SUBOPT2AB		DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
+						DB	"  |                                               |", 0AH, 0DH	 ;01H
+						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
+						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
+						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
+						DB	"  |                                               |", 0AH, 0DH	 ;05H
+						DB	"  |    CATEGORY OF PRODUCTS :  CAKE               |", 0AH, 0DH	 ;06H
 						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
 						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
 						DB	"  |   |   {A}    CHOCOLATE CAKE  >> RM 4.00   |   |", 0AH, 0DH	 ;09H
 						DB	"  |   |   {B}    BANANA CAKE     >> RM 5.00   |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
-						DB	"  |    CONTINUE <ENTER>    ||    RETURN >> {R}    |", 0AH, 0DH,"$";0DH
-						
+						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH,"$";0DH																					 
 	;ACTION
 	CUST_SELECTION		DB	?				  ;|18D ==> 12H	
-	QUANTITY_PROD		DB	?                     ;21D ==> 15H
-	SELECT_PROD			DB	"  |    SELECTION :                                |", 0AH, 0DH,"$";0DH	
-	QTY_PROD			DB	"  |    QUANTITY  >>>                              |", 0AH, 0DH,"$";0EH
+ 
 	LIST_SELECT_INV		DB	"  |                INVALID CODE!!!                |", 0AH, 0DH ;11H
 						DB	"  |           PRESS  <ENTER>  TO  RETURN          |", 0AH, 0DH,"$";0CH
-	
-	TOTAL_COST			DB	"  |    _______________________________________    |", 0AH, 0DH	 ;11H
+
+	TO_SEE_RECEIPT		DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
+						DB	"  |                                               |", 0AH, 0DH  ;01H	
+						DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
+						DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
+						DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
+						DB  "  |                                               |", 0AH, 0DH  ;05H
+						DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
+						DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
+						DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
+						DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
+						DB	"  |                                               |", 0AH, 0DH  ;0AH
+						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+						DB	"  |                                               |", 0AH, 0DH	 ;0CH
+						DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
+						DB	"  |                                               |", 0AH, 0DH	 ;0EH	<-
+						DB	"  |                                               |", 0AH, 0DH	 ;0FH	
+						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+						DB	"  |                                               |", 0AH, 0DH	 ;11H	<-
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
-						DB	"  |    TOTAL COST :                 RM            |", 0AH, 0DH  ;13H
-						DB	"  |_______________________________________________|", 0AH, 0DH	 ;14H
-						DB	"                                                   ", 0AH, 0DH	 ;15H
-						DB	"           PRESS <ENTER> TO SPEND MONEY >>>        ", 0AH, 0DH	 ;16H
-						DB	"                                                   ", 0AH, 0DH,"$";17H
-																							 ;18H
-																   ;41D==>29H
-	
-	TO_SEE_RECEIPT_CHEESE_BUN	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
-								DB	"  |                                               |", 0AH, 0DH  ;01H	
-								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
-								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
-								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
-								DB  "  |                                               |", 0AH, 0DH  ;05H
-								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
-								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
-								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
-								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
-								DB	"  |                                               |", 0AH, 0DH  ;0AH
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
-								DB	"  |                                               |", 0AH, 0DH	 ;0CH
-								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
-								DB	"  |   CHEESE  BUN                      x          |", 0AH, 0DH	 ;0EH	
-								DB	"  |   ( RM 2.00 / each )                          |", 0AH, 0DH	 ;0FH	
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
-								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
-								DB	"  |                                               |", 0AH, 0DH	 ;12H
-								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
-								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
-								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-								DB	"                                                   ", 0AH, 0DH	 ;16H
-								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-								DB	"                                                   ", 0AH, 0DH,"$";18H	
-	TO_SEE_RECEIPT_POTATO_BUN	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
-								DB	"  |                                               |", 0AH, 0DH  ;01H	
-								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
-								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
-								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
-								DB  "  |                                               |", 0AH, 0DH  ;05H
-								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
-								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
-								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
-								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
-								DB	"  |                                               |", 0AH, 0DH  ;0AH
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
-								DB	"  |                                               |", 0AH, 0DH	 ;0CH
-								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
-								DB	"  |   POTOTO  BUN                      x          |", 0AH, 0DH	 ;0EH	
-								DB	"  |   ( RM 3.00 / each )                          |", 0AH, 0DH	 ;0FH	
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
-								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
-								DB	"  |                                               |", 0AH, 0DH	 ;12H
-								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
-								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
-								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-								DB	"                                                   ", 0AH, 0DH	 ;16H
-								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-								DB	"                                                   ", 0AH, 0DH,"$";18H	
-	TO_SEE_RECEIPT_COCO_CAKE	DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
-								DB	"  |                                               |", 0AH, 0DH  ;01H	
-								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
-								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
-								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
-								DB  "  |                                               |", 0AH, 0DH  ;05H
-								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
-								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
-								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
-								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
-								DB	"  |                                               |", 0AH, 0DH  ;0AH
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
-								DB	"  |                                               |", 0AH, 0DH	 ;0CH
-								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
-								DB	"  |   CHOCOLATE CAKE                   x          |", 0AH, 0DH	 ;0EH	
-								DB	"  |   ( RM 4.00 / each )                          |", 0AH, 0DH	 ;0FH	
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
-								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
-								DB	"  |                                               |", 0AH, 0DH	 ;12H
-								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
-								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
-								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-								DB	"                                                   ", 0AH, 0DH	 ;16H
-								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-								DB	"                                                   ", 0AH, 0DH,"$";18H	
-	TO_SEE_RECEIPT_BANANA_CAKE  DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
-								DB	"  |                                               |", 0AH, 0DH  ;01H	
-								DB  "  |                 _    __   __                  |", 0AH, 0DH  ;02H
-								DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;03H
-								DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;04H
-								DB  "  |                                               |", 0AH, 0DH  ;05H
-								DB  "  |               One Bite Bakery                 |", 0AH, 0DH  ;06H
-								DB  "  |         999. PERSIARAN SUBANG PERMAI          |", 0AH, 0DH  ;07H
-								DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
-								DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
-								DB	"  |                                               |", 0AH, 0DH  ;0AH
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
-								DB	"  |                                               |", 0AH, 0DH	 ;0CH
-								DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
-								DB	"  |   BANANA  CAKE                     x          |", 0AH, 0DH	 ;0EH	
-								DB	"  |   ( RM 5.00 / each )                          |", 0AH, 0DH	 ;0FH	
-								DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
-								DB	"  |   TOTAL COST                   RM             |", 0AH, 0DH	 ;11H	
-								DB	"  |                                               |", 0AH, 0DH	 ;12H
-								DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
-								DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
-								DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-								DB	"                                                   ", 0AH, 0DH	 ;16H
-								DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-								DB	"                                                   ", 0AH, 0DH,"$";18H	
+						DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
+						DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+						DB	"                                                   ", 0AH, 0DH	 ;16H
+						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+						DB	"                                                   ", 0AH, 0DH,"$";18H	
+						
+	    ;RECEIPT PART
+    
+    PROD_LABEL   		DB "  |   $"
+    QTY_LABEL  			DB "  |   $"
+    TOTAL_COST_LABEL    DB "  |   TOTAL COST                   RM  $"
 	
 	NO_EXIT_RECEIPT		DB	"                                                   ", 0AH, 0DH	 ;00H
 						DB	"                                                   ", 0AH, 0DH	 ;01H
@@ -321,1464 +274,118 @@
 						DB	"           <ENTER>  TO  RETURN  HOMEPAGE           ", 0AH, 0DH	 ;16H
 						DB	"                                                   ", 0AH, 0DH	 ;17H	
 						DB	"                                                   ", 0AH, 0DH,"$";18H			
+	
 
-	;RECEIPT_ITEM_COUNT DB "  |   ITEM COUNT                      ", 0AH, 0DH,"$"
-	;RECEIPT_COST       DB "  |   COST                         RM ", 0AH, 0DH,"$"
-	;RECEIPT_CHANGE     DB "  |   CHANGE                       RM ", 0AH, 0DH,"$"			
-					
-	;PRICE
-	NUM1			DB	2
-	NUM2			DB	3
-	NUM3			DB	4
-	NUM4			DB	5
-	TEN				DB	10
-	CURRENT_PRICE 	DB 	0
-	
-	
 .CODE
 MAIN PROC
-    MOV AX, @DATA
-    MOV DS, AX	
-	
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    CALL TO_CLEAR_SCREEN
 	CALL LmenuICON
 
 	MENU_ENDL:
-    MOV AX, 4C00H
+    MOV AX,4C00H
     INT 21H
-MAIN ENDP  ; int main(){};a
+MAIN ENDP
 
+MENU_SHOPNAME PROC
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,184FH
+	INT 10H
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0000
+	INT 10H
+	
+	;=========== MAIN MENU OPTION ===========
+	;shopname + icon + ENTSR SELECTION
+	MOV AH,09H
+	LEA DX,SHOPNAME
+	INT 21H
+	RET		;RETURN TO PROCEDURE
+MENU_SHOPNAME ENDP
+LmenuICON PROC
+    PUSH AX
+    PUSH BX
+    PUSH DX    ; store main procedure cursor
 
-LCUST_SELECT PROC
-		;background (SELECTION)
+	CALL MENU_SHOPNAME 		;CALL FUNCTION SHOW SHOPNAME
+		
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,0D1DH
+	INT 10H
+		
+	MOV AH,01H
+	INT 21H
+	MOV MENU_SELECTION,AL	; cmp SELECTION
+		
+	CMP AL,'1'
+	JE L_WELC_MENU_CUST_SELECT	; if (selection == '1')
+	CMP AL,'2'
+	JE Llogin_PHASE				; else if (selection == '2')
+	CMP AL,'3'
+	JE LMENU_THANKS			; else if (selection == '3')
+	CMP AL,'1'
+	JNE IF_INVALID_CODE				; if (selection != '1')
+	CMP AL,'2'
+	JNE IF_INVALID_CODE				; else if (selection != '2')
+	CMP AL,'3'
+	JNE IF_INVALID_CODE				; else if (selection != '3')
+	JMP LIF_YES_CONTINUE	
+	
+	Llogin_PHASE:
+	CALL Llogin
+	JMP LmenuICON_ENDL
+	
+	IF_INVALID_CODE:	
+		;background
 		MOV AH,06H
 		MOV AX,0600H
-		MOV BH,3EH
-		MOV CX,0D12H
-		MOV DX,0D14H
+		MOV BH,4FH
+		MOV CX,1006H
+		MOV DX,112EH
 		INT 10H
 		;fontground
 		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0DH
-		MOV DL,13H
+		MOV BX,00
+		MOV DX,1000H
 		INT 10H
-
-		MOV AH,01H
+		
+		MOV AH,09H
+		LEA DX,SHOPNAME_INVALID
 		INT 21H
-		MOV CUST_SELECTION,AL
 	
-		CMP AL,'r'
-		JE LCUST_SELECT_RETURN
-		CMP AL,'R'
-		JE LCUST_SELECT_RETURN
+	LIF_YES_CONTINUE:	
+	MOV AH,01H
+	INT 21H
+	MOV SELECTION,AL
+	CMP AL,0DH
+	JE	RETURN_LmenuICON
+	CALL LmenuICON
+	
+	RETURN_LmenuICON:
+		CALL LmenuICON
 		
-		SUB AL,30H
-		CMP AL,1
-		JE LCUST_OPT_1
-		
-		CMP AL,2
-		JE LCUST_OPT_2
-
-		JMP LCUST_OPT_INVALID
-		
-	LCUST_SELECT_RETURN:
-		CALL MAIN
+	L_WELC_MENU_CUST_SELECT:
+		CALL LWELC_MENU		
 		JMP MENU_ENDL
-
-	LCUST_OPT_1:
-		CALL LCUST_SELECT_1				;	CALL PROCEDURE
-		JMP MENU_ENDL
-	
-	LCUST_OPT_2:
-		CALL LCUST_SELECT_2			;	CALL PROCEDURE
-		JMP MENU_ENDL
-	
-	LCUST_OPT_INVALID:
-		CALL LCUST_SELECT_INVALID
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH					; <ENTER> TO CONTINUE
-		JE BACK_MENU
-	
-	BACK_MENU:
-		JMP LWELC_MENU
-	
-	RET     ;RETURN TO PROCEDURE
-	
-LCUST_SELECT ENDP
-
-
-;=========================================================================================================
-;+++++++++++++++++++++++++++++++++++( FOR OPT 1 A & B )+++++++++++++++++++++++++++++++++++++++++++++++++++
-LCUST_SELECT_1 PROC
-    PUSH DX	; store main procedure cursor 
-    
-	LCUST_SELECT_1_DISPLAY:
-		;background (MENU FONT)
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,6EH
-		MOV CX,0600H
-		MOV DX,0D38H
-		INT 10H
 		
-		;background (RETURN {R})
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,6CH
-		MOV CX,0D21H
-		MOV DX,0D2DH
-		INT 10H
-		
-		;fontground (LIST_SUBOPT1 PART)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,06H 
-		MOV DL,00H       
-		INT 10H
-		
-		; show LIST_SUBOPT1
-		MOV AH,09H
-		LEA DX,LIST_SUBOPT1
-		INT 21H
-		
-		;background to hide input
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,66H
-		MOV CX,0E00H
-		MOV DX,0E01H
-		INT 10H
-		;fontground for hide input
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0EH
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		MOV CUST_SELECTION,AL
-		CMP AL,0DH
-		JE LCUST_SELECT_1_CONTINUE
-		CMP AL,'r'
-		JE LCUST_SELECT_1_RETURN
-		CMP AL,'R'
-		JE LCUST_SELECT_1_RETURN
-		JMP LCUST_SELECT_1_DISPLAY		; jmp back LCUST_SELECT_1_DISPLAY
-	
-	LCUST_SELECT_1_RETURN:
-		POP DX 		;to recover LWELC_MENU:           
-		JMP LWELC_MENU          
-
-
-	LCUST_SELECT_1_CONTINUE:
-		;fontground (SELECTION A OR B)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0DH
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,SELECT_PROD
-		INT 21H
-
-		;fontground (SELECTION A OR B)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0DH
-		MOV DL,13H
-		INT 10H
-		
-		; SELECTION A OR B
-		MOV AH,01H
-		INT 21H
-		MOV CUST_SELECTION,AL
-		CMP AL,'A'
-		JE LCUST_SELECT_1_A
-		CMP AL,'a'
-		JE LCUST_SELECT_1_A
-		CMP AL,'B'
-		JE LCUST_SELECT_1_B
-		CMP AL,'b'
-		JE LCUST_SELECT_1_B
-		JMP LCUST_SELECT_1_CONTINUE		; jmp back LCUST_SELECT_1_CONTINUE
-	
-	LCUST_SELECT_1_A:
-		CALL LCUST_SELECT_1_A_BUY
-		JMP LCUST_SELECT_1_COST
-	
-	LCUST_SELECT_1_B:
-		CALL LCUST_SELECT_1_B_BUY
-		JMP LCUST_SELECT_1_COST
-
-
-	LCUST_SELECT_1_COST:
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE        
-LCUST_SELECT_1 ENDP
-
-
-LCUST_SELECT_1_A_BUY PROC
-    PUSH DX	
-    PUSH BX
-    PUSH CX
-    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
-    
-	INC SALES_COUNT_1_A		;COUNTER++ WHEN LOOP LCUST_SELECT_1_A_BUY PROC
-	
-	MOV AL,NUM1				;to store the current price depends on the selection from user
-    MOV CURRENT_PRICE,AL	;and based on the price from products
-	
-    ;background (QTY)
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0E00H
-    MOV DX,0E2FH
-    INT 10H
-    
-    ;fontground (QTY)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,QTY_PROD
-    INT 21H
-    
-    ;cin >> quantity 
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH     
-    MOV DL,17H
-    INT 10H
-    
-    ;QTY TENS DIGIT IF QTY >= 10
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BL,AL      
-    
-    ;QTY ONES DIGIT ONLY
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BH,AL 
-    
-    ;REAL QTY = 10(BL)+BH
-	MOV AL,BL
-	MOV CL,10
-    MUL CL		;AL = BL * 10   
-    ADD AL,BH   ;10(BL)+BH
-    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
-	
-	;background (TOTAL_COST)
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,1100H
-    MOV DX,144FH
-    INT 10H
-    
-    ;cout << total_cost
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,11H     
-    MOV DL,00H
-    INT 10H    
-    
-    MOV AH,09H
-    LEA DX,TOTAL_COST
-    INT 21H
-    
-    ;=====CALCULATION OF COST=========
-	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
-    MOV AL,QUANTITY_PROD 
-	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
-    MUL BL              
-	
-	;STORE REAL QUANTITY_PROD -> [SI]
-	MOV SI,AX
-    
-    ;DEVIDE TENS & ONES TO AVOID COMBINE
-    MOV BL,10
-    DIV BL      ; AL -> TENS | AH -> ONES
-
-    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
-    MOV CH,AH             
-    
-    ;fontground (cost)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,13H
-    MOV DL,29H
-    INT 10H    
-    
-    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
-    CMP CL,0         
-    JE DISPLAY_ONES_DIGIT_1_A_BUY
-    
-    ;IF NOT (INVALID)
-    MOV AH,02H 
-    MOV DL,CL
-    ADD DL,30H
-    INT 21H
-
-	DISPLAY_ONES_DIGIT_1_A_BUY:
-		MOV AH,02H       
-		MOV DL,CH
-		ADD DL,30H
-		INT 21H
-		
-		;DECIMAL POINT
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND <ENTER>
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,16H
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		JE GO_TO_RECEIPT_1A
-		
-		JMP DISPLAY_ONES_DIGIT_1_A_BUY
-		
-		GO_TO_RECEIPT_1A:
-			CALL LTO_SEE_RECEIPT_1_A
-
-		POP SI		
-		POP CX
-		POP BX
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE 
-LCUST_SELECT_1_A_BUY ENDP
-
-
-LCUST_SELECT_1_B_BUY PROC
-    PUSH DX	; store main procedure cursor 
-	PUSH BX
-    PUSH CX
-    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE	
-    
-	INC SALES_COUNT_1_B		;COUNTER++ WHEN LOOP LCUST_SELECT_1_B_BUY PROC
-	
-	MOV AL,NUM2				;to store the current price depends on the selection from user
-    MOV CURRENT_PRICE,AL	;and based on the price from products
-	
-    ;background (QTY)
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0E00H
-    MOV DX,0E2FH
-    INT 10H
-    
-    ;fontground (QTY)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,QTY_PROD
-    INT 21H
-    
-    ;cin >> quantity 
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH     
-    MOV DL,17H
-    INT 10H
-    
-    ;QTY TENS DIGIT IF QTY >= 10
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BL,AL      
-    
-    ;QTY ONES DIGIT ONLY
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BH,AL 
-    
-    ;REAL QTY = 10(BL)+BH
-	MOV AL,BL
-	MOV CL,10
-    MUL CL		;AL = BL * 10   
-    ADD AL,BH   ;10(BL)+BH
-    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
-    
-    ;cout << total_cost
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,11H     
-    MOV DL,00H
-    INT 10H    
-    
-    MOV AH,09H
-    LEA DX,TOTAL_COST
-    INT 21H
-    
-    ;=====CALCULATION OF COST=========
-	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
-    MOV AL,QUANTITY_PROD 
-	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
-    MUL BL              
-	
-	;STORE REAL QUANTITY_PROD -> [SI]
-	MOV SI,AX
-    
-    ;DEVIDE TENS & ONES TO AVOID COMBINE
-    MOV BL,10
-    DIV BL      ; AL -> TENS | AH -> ONES
-
-    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
-    MOV CH,AH             
-    
-    ;fontground (cost)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,13H
-    MOV DL,29H
-    INT 10H    
-    
-    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
-    CMP CL,0         
-    JE DISPLAY_ONES_DIGIT_1_B_BUY
-    
-    ;IF NOT (INVALID)
-    MOV AH,02H 
-    MOV DL,CL
-    ADD DL,30H
-    INT 21H
-
-	DISPLAY_ONES_DIGIT_1_B_BUY:
-		MOV AH,02H       
-		MOV DL,CH
-		ADD DL,30H
-		INT 21H
-		
-		;DECIMAL POINT
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND <ENTER>
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,16H
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		JE GO_TO_RECEIPT_1B
-		
-		JMP DISPLAY_ONES_DIGIT_1_B_BUY
-		
-		GO_TO_RECEIPT_1B:
-			CALL LTO_SEE_RECEIPT_1_B
-
-		POP SI		
-		POP CX
-		POP BX
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE 
-LCUST_SELECT_1_B_BUY ENDP
-;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;=========================================================================================================
-
-
-;=========================================================================================================
-;+++++++++++++++++++++++++++++++++++( FOR OPT 2 A & B )+++++++++++++++++++++++++++++++++++++++++++++++++++
-LCUST_SELECT_2 PROC
-    PUSH DX	; store main procedure cursor 
-    
-	LCUST_SELECT_2_DISPLAY:
-		;background (MENU FONT)
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,6EH
-		MOV CX,0600H
-		MOV DX,0D38H
-		INT 10H
-		
-		;background (RETURN {R})
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,6CH
-		MOV CX,0D21H
-		MOV DX,0D2DH
-		INT 10H
-		
-		;fontground (LIST_SUBOPT2 PART)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,06H 
-		MOV DL,00H       
-		INT 10H
-		
-		; show LIST_SUBOPT1
-		MOV AH,09H
-		LEA DX,LIST_SUBOPT2
-		INT 21H
-		
-		;background to hide input
-		MOV AH,06H
-		MOV AL,00H
-		MOV BH,66H
-		MOV CX,0E00H
-		MOV DX,0E01H
-		INT 10H
-		;fontground for hide input
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0EH
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		MOV CUST_SELECTION,AL
-		CMP AL,0DH
-		JE LCUST_SELECT_2_CONTINUE
-		CMP AL,'r'
-		JE LCUST_SELECT_2_RETURN
-		CMP AL,'R'
-		JE LCUST_SELECT_2_RETURN
-		JMP LCUST_SELECT_2_DISPLAY		; jmp back LCUST_SELECT_2_DISPLAY
-	
-	LCUST_SELECT_2_RETURN:
-		POP DX 		;to recover LWELC_MENU:           
-		JMP LWELC_MENU          
-
-
-	LCUST_SELECT_2_CONTINUE:
-		;fontground (SELECTION A OR B)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0DH
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,SELECT_PROD
-		INT 21H
-
-		;fontground (SELECTION A OR B)
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,0DH
-		MOV DL,13H
-		INT 10H
-		
-		; SELECTION A OR B
-		MOV AH,01H
-		INT 21H
-		MOV CUST_SELECTION,AL
-		CMP AL,'A'
-		JE LCUST_SELECT_2_A
-		CMP AL,'a'
-		JE LCUST_SELECT_2_A
-		CMP AL,'B'
-		JE LCUST_SELECT_2_B
-		CMP AL,'b'
-		JE LCUST_SELECT_2_B
-		JMP LCUST_SELECT_2_CONTINUE		; jmp back LCUST_SELECT_2_CONTINUE
-	
-	LCUST_SELECT_2_A:
-		CALL LCUST_SELECT_2_A_BUY
-		JMP LCUST_SELECT_2_COST
-	
-	LCUST_SELECT_2_B:
-		CALL LCUST_SELECT_2_B_BUY
-		JMP LCUST_SELECT_2_COST
-
-
-	LCUST_SELECT_2_COST:
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE        
-LCUST_SELECT_2 ENDP
-
-
-LCUST_SELECT_2_A_BUY PROC
-    PUSH DX	; store main procedure cursor 
-	PUSH BX
-    PUSH CX
-    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
-	
-	INC SALES_COUNT_2_A		;COUNTER++ FOR EACH LOOP LCUST_SELECT_2_A_BUY PROC
-	
-	MOV AL,NUM3				;to store the current price depends on the selection from user
-    MOV CURRENT_PRICE,AL	;and based on the price from products
-    
-    ;background (QTY)
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0E00H
-    MOV DX,0E2FH
-    INT 10H
-    
-    ;fontground (QTY)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,QTY_PROD
-    INT 21H
-    
-    ;cin >> quantity 
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH     
-    MOV DL,17H
-    INT 10H
-    
-    ;QTY TENS DIGIT IF QTY >= 10
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BL,AL      
-    
-    ;QTY ONES DIGIT ONLY
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BH,AL 
-    
-    ;REAL QTY = 10(BL)+BH
-	MOV AL,BL
-	MOV CL,10
-    MUL CL		;AL = BL * 10   
-    ADD AL,BH   ;10(BL)+BH
-    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
-    
-    ;cout << total_cost
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,11H     
-    MOV DL,00H
-    INT 10H    
-    
-    MOV AH,09H
-    LEA DX,TOTAL_COST
-    INT 21H
-    
-    ;=====CALCULATION OF COST=========
-	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
-    MOV AL,QUANTITY_PROD 
-	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
-    MUL BL
-
-	;STORE REAL QUANTITY_PROD -> [SI]
-	MOV SI,AX	
-    
-    ;DEVIDE TENS & ONES TO AVOID COMBINE
-    MOV BL,10
-    DIV BL      ; AL -> TENS | AH -> ONES
-
-    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
-    MOV CH,AH             
-    
-    ;fontground (cost)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,13H
-    MOV DL,29H
-    INT 10H    
-    
-    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
-    CMP CL,0         
-    JE DISPLAY_ONES_DIGIT_2_A_BUY
-    
-    ;IF NOT (INVALID)
-    MOV AH,02H 
-    MOV DL,CL
-    ADD DL,30H
-    INT 21H
-
-	DISPLAY_ONES_DIGIT_2_A_BUY:
-		MOV AH,02H       
-		MOV DL,CH
-		ADD DL,30H
-		INT 21H
-		
-		;DECIMAL POINT
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-	   ;FONTGROUND <ENTER>
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,16H
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		JE GO_TO_RECEIPT_2A
-		
-		JMP DISPLAY_ONES_DIGIT_2_A_BUY
-		
-		GO_TO_RECEIPT_2A:
-			CALL LTO_SEE_RECEIPT_2_A
-		
-		POP SI
-		POP CX
-		POP BX
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE 
-LCUST_SELECT_2_A_BUY ENDP
-
-
-LCUST_SELECT_2_B_BUY PROC
-    PUSH DX	; store main procedure cursor 
-	PUSH BX
-    PUSH CX
-    PUSH SI    ; SI REGISTER ACT AS A TEMPORALY STORAGE
-
-	INC SALES_COUNT_2_B		;COUNTER++ FOR EACH LOOP LCUST_SELECT_2_B_BUY PROC
-	
-	MOV AL,NUM4				;to store the current price depends on the selection from user
-    MOV CURRENT_PRICE,AL	;and based on the price from products
-    
-    ;background (QTY)
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0E00H
-    MOV DX,0E2FH
-    INT 10H
-    
-    ;fontground (QTY)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,QTY_PROD
-    INT 21H
-    
-    ;cin >> quantity 
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0EH     
-    MOV DL,17H
-    INT 10H
-    
-    ;QTY TENS DIGIT IF QTY >= 10
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BL,AL      
-    
-    ;QTY ONES DIGIT ONLY
-    MOV AH,01H
-    INT 21H
-    SUB AL,30H
-    MOV BH,AL 
-    
-    ;REAL QTY = 10(BL)+BH
-	MOV AL,BL
-	MOV CL,10
-    MUL CL		;AL = BL * 10   
-    ADD AL,BH   ;10(BL)+BH
-    MOV QUANTITY_PROD,AL  ;NOW STORE REAL QTY TO CALC
-    
-    ;cout << total_cost
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,11H     
-    MOV DL,00H
-    INT 10H    
-    
-    MOV AH,09H
-    LEA DX,TOTAL_COST
-    INT 21H
-    
-    ;=====CALCULATION OF COST=========
-	MOV AH,0 		;INITIALIZIE AH  --> SO AX=AL
-    MOV AL,QUANTITY_PROD 
-	MOV BL,CURRENT_PRICE		; STORE CURRENT_PRICE --> [BL]
-    MUL BL              
-		
-	;STORE REAL QUANTITY_PROD -> [SI]
-	MOV SI,AX
-    
-    ;DEVIDE TENS & ONES TO AVOID COMBINE
-    MOV BL,10
-    DIV BL      ; AL -> TENS | AH -> ONES
-
-    MOV CL,AL   ;USE CX AFTER PUSH IT IN STACK          
-    MOV CH,AH             
-    
-    ;fontground (cost)
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,13H
-    MOV DL,29H
-    INT 10H    
-    
-    ;DISPLAY TEN'S DIGIT (4 STATEMEMT)
-    CMP CL,0         
-    JE DISPLAY_ONES_DIGIT_2_B_BUY
-    
-    ;IF NOT (INVALID)
-    MOV AH,02H 
-    MOV DL,CL
-    ADD DL,30H
-    INT 21H
-
-	DISPLAY_ONES_DIGIT_2_B_BUY:
-		MOV AH,02H       
-		MOV DL,CH
-		ADD DL,30H
-		INT 21H
-		
-		;DECIMAL POINT
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND <ENTER>
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,16H
-		MOV DL,00H
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		CMP AL,0DH
-		JE GO_TO_RECEIPT_2B
-		
-		JMP DISPLAY_ONES_DIGIT_2_B_BUY
-		
-		GO_TO_RECEIPT_2B:
-			CALL LTO_SEE_RECEIPT_2_B
-		
-		POP SI		
-		POP CX
-		POP BX
-		POP DX		;to recover LWELC_MENU:
-		MOV AH, 02H
-		MOV BH, 00H
-		MOV DH, 0DH
-		MOV DL, 13H
-		INT 10H
-		RET            ;RETURN TO PROCEDURE 
-LCUST_SELECT_2_B_BUY ENDP
-;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-;=========================================================================================================
-
-
-LCUST_SELECT_INVALID PROC
-    
-	PUSH DX  ; store main procedure cursor 
-    
-	MOV AH,06H
-	MOV AL,00H
-	MOV BH,4FH
-	MOV CX,1107H
-	MOV DX,122DH
-	INT 10H
-	
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,11H       
-    MOV DL,00H       
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,LIST_SELECT_INV
-    INT 21H
-    
-    POP DX	; take out the main procedure cursor
-	
-	; to recover the LCUST_SELECT PROC
-    MOV AH,06H
-    MOV AL,00H  
-    MOV BH,3EH       
-    MOV CX,0D12H     
-    MOV DX,0D14H     
-    INT 10H
-
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0DH        
-    MOV DL,13H   
-    INT 10H
-    
-    RET		;RETURN TO PROCEDURE
-LCUST_SELECT_INVALID ENDP
-
-
-;==================================================================================================================================
-
-LTO_SEE_RECEIPT_1_A PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX
-    PUSH SI    ; to store register to avoid the data lost	
-
-    ;BACKGROUND SHOW RECEIPT
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0000H
-    MOV DX,184FH
-    INT 10H
-    
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,00H
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,TO_SEE_RECEIPT_CHEESE_BUN
-    INT 21H
-
-    ;SHOW ITEM COUNT
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0DH
-    MOV DL,2AH
-    INT 10H
-    
-    MOV AL,QUANTITY_PROD
-    MOV AH,00H
-    MOV BL,10
-    DIV BL
-    MOV CL,AL
-    MOV CH,AH
-    
-    CMP CL,0
-    JE DISPLAY_ITEM_COUNT_ONES_1_A
-    MOV DL,CL
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-	DISPLAY_ITEM_COUNT_ONES_1_A:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		;SHOW TOTAL COST
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,10H
-		MOV DL,27H
-		INT 10H
-		
-		;======CALC OF TOTAL COST ========
-		MOV AL,QUANTITY_PROD
-		MOV AH,00H
-		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
-		MUL BL
-		MOV BL,10
-		DIV BL
-		MOV CL,AL
-		MOV CH,AH
-		
-		CMP CL,0
-		JE DISPLAY_COST_ONES_1_A
-		MOV DL,CL
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-	DISPLAY_COST_ONES_1_A:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,15H
-		MOV DL,1DH
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		
-		CMP AL,'Y'
-		JE RETURN_TO_MENU_1_A
-		CMP AL,'y'
-		JE RETURN_TO_MENU_1_A
-		CMP AL,'N'
-		JE EXIT_FROM_RECEIPT_1_A
-		CMP AL,'n'
-		JE EXIT_FROM_RECEIPT_1_A
-		
-		JMP LTO_SEE_RECEIPT_1_A  
-		
-	RETURN_TO_MENU_1_A:
-		CALL LWELC_MENU
-		JMP RECEIPT_END_1_A
-		
-	EXIT_FROM_RECEIPT_1_A:
-		CALL RECEIPT_THANKQ
-		
-	RECEIPT_END_1_A:
-		POP SI
-		POP DX
-		POP CX
-		POP BX
-		POP AX     ; to recover register
+	LMENU_THANKS:
+		CALL MENU_THANKS_PROCEDURE
+		JMP MENU_ENDL 
+	LmenuICON_ENDL:
+    POP DX
+    POP BX
+    POP AX     ; to recover register
 	RET
-LTO_SEE_RECEIPT_1_A ENDP
-
-LTO_SEE_RECEIPT_1_B PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX
-    PUSH SI    ; to store register to avoid the data lost
-    
-    ;BACKGROUND SHOW RECEIPT
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0000H
-    MOV DX,184FH
-    INT 10H
-    
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,00H
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,TO_SEE_RECEIPT_POTATO_BUN
-    INT 21H
-
-    ;SHOW ITEM COUNT
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0DH
-    MOV DL,2AH
-    INT 10H
-    
-    MOV AL,QUANTITY_PROD
-    MOV AH,00H
-    MOV BL,10
-    DIV BL
-    MOV CL,AL
-    MOV CH,AH
-    
-    CMP CL,0
-    JE DISPLAY_ITEM_COUNT_ONES_1_B
-    MOV DL,CL
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-	DISPLAY_ITEM_COUNT_ONES_1_B:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		;SHOW TOTAL COST
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,10H
-		MOV DL,27H
-		INT 10H
-		
-		;======CALC OF TOTAL COST ========
-		MOV AL,QUANTITY_PROD
-		MOV AH,00H
-		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
-		MUL BL
-		MOV BL,10
-		DIV BL
-		MOV CL,AL
-		MOV CH,AH
-		
-		CMP CL,0
-		JE DISPLAY_COST_ONES_1_B
-		MOV DL,CL
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-	DISPLAY_COST_ONES_1_B:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,15H
-		MOV DL,1DH
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		
-		CMP AL,'Y'
-		JE RETURN_TO_MENU_1_B
-		CMP AL,'y'
-		JE RETURN_TO_MENU_1_B
-		CMP AL,'N'
-		JE EXIT_FROM_RECEIPT_1_B
-		CMP AL,'n'
-		JE EXIT_FROM_RECEIPT_1_B
-		
-		JMP LTO_SEE_RECEIPT_1_B  
-		
-	RETURN_TO_MENU_1_B:
-		CALL LWELC_MENU
-		JMP RECEIPT_END_1_B
-		
-	EXIT_FROM_RECEIPT_1_B:
-		CALL RECEIPT_THANKQ
-		
-	RECEIPT_END_1_B:
-		POP SI
-		POP DX
-		POP CX
-		POP BX
-		POP AX     ; to recover register
-	RET
-LTO_SEE_RECEIPT_1_B ENDP
-
-LTO_SEE_RECEIPT_2_A PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX
-    PUSH SI    ; to store register to avoid the data lost
-	
-	;BACKGROUND SHOW RECEIPT
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0000H
-    MOV DX,184FH
-    INT 10H
-    
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,00H
-    MOV DL,00H
-    INT 10H
-	
-    MOV AH,09H
-    LEA DX,TO_SEE_RECEIPT_COCO_CAKE
-    INT 21H
-	    
-    ;SHOW ITEM COUNT
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0DH
-    MOV DL,2AH
-    INT 10H
-    
-    MOV AL,QUANTITY_PROD
-    MOV AH,00H
-    MOV BL,10
-    DIV BL
-    MOV CL,AL
-    MOV CH,AH
-    
-    CMP CL,0
-    JE DISPLAY_ITEM_COUNT_ONES_2_A
-    MOV DL,CL
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-	DISPLAY_ITEM_COUNT_ONES_2_A:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		;SHOW TOTAL COST
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,10H
-		MOV DL,27H
-		INT 10H
-		
-		;======CALC OF TOTAL COST ========
-		MOV AL,QUANTITY_PROD
-		MOV AH,00H
-		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
-		MUL BL
-		MOV BL,10
-		DIV BL
-		MOV CL,AL
-		MOV CH,AH
-		
-		CMP CL,0
-		JE DISPLAY_COST_ONES_2_A
-		MOV DL,CL
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-	DISPLAY_COST_ONES_2_A:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,15H
-		MOV DL,1DH
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		
-		CMP AL,'Y'
-		JE RETURN_TO_MENU_2_A
-		CMP AL,'y'
-		JE RETURN_TO_MENU_2_A
-		CMP AL,'N'
-		JE EXIT_FROM_RECEIPT_2_A
-		CMP AL,'n'
-		JE EXIT_FROM_RECEIPT_2_A
-		
-		JMP LTO_SEE_RECEIPT_2_A  
-		
-	RETURN_TO_MENU_2_A:
-		CALL LWELC_MENU
-		JMP RECEIPT_END_2_A
-		
-	EXIT_FROM_RECEIPT_2_A:
-		CALL RECEIPT_THANKQ
-		
-	RECEIPT_END_2_A:
-		POP SI
-		POP DX
-		POP CX
-		POP BX
-		POP AX     ; to recover register
-	RET
-LTO_SEE_RECEIPT_2_A ENDP
-
-LTO_SEE_RECEIPT_2_B PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX
-    PUSH SI    ; to store register to avoid the data lost
-    
-    ;BACKGROUND SHOW RECEIPT
-    MOV AH,06H
-    MOV AX,0600H
-    MOV BH,6EH
-    MOV CX,0000H
-    MOV DX,184FH
-    INT 10H
-    
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,00H
-    MOV DL,00H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,TO_SEE_RECEIPT_BANANA_CAKE
-    INT 21H
-
-    ;SHOW ITEM COUNT
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0DH
-    MOV DL,2AH
-    INT 10H
-    
-    MOV AL,QUANTITY_PROD
-    MOV AH,00H
-    MOV BL,10
-    DIV BL
-    MOV CL,AL
-    MOV CH,AH
-    
-    CMP CL,0
-    JE DISPLAY_ITEM_COUNT_ONES_2_B
-    MOV DL,CL
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-	DISPLAY_ITEM_COUNT_ONES_2_B:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		;SHOW TOTAL COST
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,10H
-		MOV DL,27H
-		INT 10H
-		
-		;======CALC OF TOTAL COST ========
-		MOV AL,QUANTITY_PROD
-		MOV AH,00H
-		MOV BL,CURRENT_PRICE  ; CURRENT_PRICE，from user selection
-		MUL BL
-		MOV BL,10
-		DIV BL
-		MOV CL,AL
-		MOV CH,AH
-		
-		CMP CL,0
-		JE DISPLAY_COST_ONES_2_B
-		MOV DL,CL
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-	DISPLAY_COST_ONES_2_B:
-		MOV DL,CH
-		ADD DL,30H
-		MOV AH,02H
-		INT 21H
-		
-		MOV DL,'.'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		MOV DL,'0'
-		INT 21H
-		
-		;FONTGROUND TAKE NEW ORDER OR SHOW PAYMENT
-		MOV AH,02H
-		MOV BH,00H
-		MOV DH,15H
-		MOV DL,1DH
-		INT 10H
-		
-		MOV AH,01H
-		INT 21H
-		
-		CMP AL,'Y'
-		JE RETURN_TO_MENU_2_B
-		CMP AL,'y'
-		JE RETURN_TO_MENU_2_B
-		CMP AL,'N'
-		JE EXIT_FROM_RECEIPT_2_B
-		CMP AL,'n'
-		JE EXIT_FROM_RECEIPT_2_B
-		
-		JMP LTO_SEE_RECEIPT_2_B  
-		
-	RETURN_TO_MENU_2_B:
-		CALL LWELC_MENU
-		JMP RECEIPT_END_2_B
-		
-	EXIT_FROM_RECEIPT_2_B:
-		CALL RECEIPT_THANKQ
-		
-	RECEIPT_END_2_B:
-		POP SI
-		POP DX
-		POP CX
-		POP BX
-		POP AX     ; to recover register
-	RET
-LTO_SEE_RECEIPT_2_B ENDP
-
-
-;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+LmenuICON ENDP
 RECEIPT_THANKQ PROC
 	LRECEIPT_THANKQ_RETURN:
 		;background
@@ -1814,14 +421,6 @@ RECEIPT_THANKQ PROC
 		RET		;RETURN TO HOMEPAGE
 	
 RECEIPT_THANKQ ENDP
-
-;===================================================================================================================================================
-;===================================================================================================================================================
-;=========================================++++++++++++++++++++++++++++++++++++++++++++++++++++++====================================================
-;===================================================================================================================================================
-;===================================================================================================================================================
-;===================================================================================================================================================
-
 MENU_THANKS_PROCEDURE PROC
 	;fontground
 	MOV AH,02H
@@ -1835,9 +434,426 @@ MENU_THANKS_PROCEDURE PROC
 	INT 21H
 	RET		;RETURN TO PROCEDURE
 MENU_THANKS_PROCEDURE ENDP
+;---------------------------------------------------------------------
+;----------------------------------------------------------------------;---------------------------------------------------------------------
+;----------------------------------------------------------------------
+;---------------------------------------------------------------------
+;----------------------------------------------------------------------
+;BACKGROUND & FONTGROUND OF ORDER MENU PART
+BG_WELC_TO_MSG PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX		;STORE REGISTER
+	
+	;background (WHOLE PART)
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,184FH
+	INT 10H
+	
+	;background (MENU FONT)
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,34H
+	MOV CX,0205H
+	MOV DX,022FH
+	INT 10H
+	
+	;background (RETURN {R})
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,6CH
+	MOV CX,0D21H
+	MOV DX,0D2DH
+	INT 10H
+	
+	;fontground (WHOLE PART)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,00H
+	MOV DL,00H
+	INT 10H
+	
+	MOV AH,09H
+    LEA DX,WELC_TO_MSG
+    INT 21H
+	
+	POP DX		;RECOVERY
+	POP CX
+	POP BX
+	POP AX
+	RET
+BG_WELC_TO_MSG ENDP
 
 
-MENU_SHOPNAME PROC
+LCUST_SELECT_INVALID PROC
+    PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX    ; store REGISTER
+    
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,4FH
+	MOV CX,1107H
+	MOV DX,122DH
+	INT 10H
+	
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,11H       
+    MOV DL,00H       
+    INT 10H
+    
+    MOV AH,09H
+    LEA DX,LIST_SELECT_INV
+    INT 21H
+	
+	; to recover the LCUST_SELECT PROC
+    MOV AH,06H
+    MOV AL,00H  
+    MOV BH,3EH       
+    MOV CX,0D12H     
+    MOV DX,0D14H     
+    INT 10H
+
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0DH        
+    MOV DL,13H   
+    INT 10H
+    
+	POP DX
+    POP CX
+    POP BX
+    POP AX     	; to recover register
+    RET		;RETURN TO LCUST_SELECT PROC
+LCUST_SELECT_INVALID ENDP
+
+LWELC_MENU PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	CALL BG_WELC_TO_MSG
+    
+	LSELECT_GROUP:		
+		;background (SELECTION)
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,3EH
+		MOV CX,0D12H
+		MOV DX,0D14H
+		INT 10H
+		;fontground
+		MOV AH,02H
+		MOV BH,00H
+		MOV DH,0DH
+		MOV DL,13H
+		INT 10H
+
+		MOV AH,01H
+		INT 21H
+		MOV CUST_SELECTION,AL
+	
+		CMP AL,'r'
+		JE LCUST_SELECT_RETURN
+		CMP AL,'R'
+		JE LCUST_SELECT_RETURN
+		CMP AL,'1'
+		JE LVALID_GROUP
+		CMP AL,'2'
+		JE LVALID_GROUP
+		JMP LCUST_OPT_INVALID
+
+		LCUST_SELECT_RETURN:
+			CALL MAIN
+		
+		LCUST_OPT_INVALID:
+			CALL LCUST_SELECT_INVALID
+			MOV AH,01H
+			INT 21H
+			CMP AL,0DH					; <ENTER> TO CONTINUE
+			JE BACK_MENU
+			JNE LCUST_OPT_INVALID
+		; X JMP LCUST_SELECT_ENDL BECAUSE ONLY RECEIVE <ENTER> , NO ANY INVALID SELECTION
+		
+		BACK_MENU:
+			CALL LWELC_MENU				;A SELECTION HELP TO RETURN TO LWELC_MENU PROC BEFORE RET
+		
+		;================================ CALC ==============================================
+		
+		LVALID_GROUP:
+			MOV [SELECTED_CATEGORY],AL
+			CALL SHOW_NL
+		LSELECT_PROD:
+			CMP AL,'1'            
+			CALL LSHOW_LIST_SUBOPT1
+			JMP LSELECT_PROD_CONTINUE
+			CMP AL,'2'   
+			CALL LSHOW_LIST_SUBOPT2
+			JMP LSELECT_PROD_CONTINUE
+			
+			
+			
+		LSELECT_PROD_CONTINUE:
+			;background to hide input
+			MOV AH,06H
+			MOV AL,00H
+			MOV BH,66H
+			MOV CX,0E00H
+			MOV DX,0E01H
+			INT 10H
+			;fontground for hide input
+			MOV AH,02H
+			MOV BH,00H
+			MOV DH,0EH
+			MOV DL,00H
+			INT 10H
+			
+			MOV AH,01H
+			INT 21H
+			CMP AL,'a'
+			JE LVALID_PROD
+			CMP AL,'A'
+			JE LVALID_PROD
+			CMP AL,'b'
+			JE LVALID_PROD
+			CMP AL,'B'
+			JE LVALID_PROD
+			
+		LVALID_PROD_INVALID:	
+			CALL LCUST_SELECT_INVALID
+			MOV AH,01H
+			INT 21H
+			CMP AL,0DH					; <ENTER> TO CONTINUE
+			JE LSELECT_PROD
+			JNE LVALID_PROD_INVALID		; LOOP WHEN NOT EXIST <ENTER>
+		
+		LVALID_PROD:
+			MOV [SELECTED_PROD],AL
+			
+			CALL SHOW_NL
+			
+			MOV AL,[SELECTED_CATEGORY]
+			CMP AL,'1'
+			JE LPROD_G1
+			CMP AL,'2'
+			JE LPROD_G2
+		
+	LPROD_G1:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'
+		JE LSET_PROD_1_A
+		CMP AL,'a'
+		JE LSET_PROD_1_A
+		CMP AL,'B'
+		JE LSET_PROD_1_B
+		CMP AL,'b'
+		JE LSET_PROD_1_B
+		JMP LPROD_G1
+		
+	LSET_PROD_1_A:
+		MOV [PRICE_OF_PROD],2	;	CHEESE BUN RM 2.00
+		JMP L_TO_GET_QTY
+		
+	LSET_PROD_1_B:
+		MOV [PRICE_OF_PROD],3	;	POTATO BUN RM 3.00
+		JMP L_TO_GET_QTY
+		
+	LPROD_G2:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'
+		JE LSET_PROD_2_A
+		CMP AL,'a'
+		JE LSET_PROD_2_A
+		CMP AL,'B'
+		JE LSET_PROD_2_B
+		CMP AL,'b'
+		JE LSET_PROD_2_B
+		JMP LPROD_G2
+		
+	LSET_PROD_2_A:
+		MOV [PRICE_OF_PROD],4	;	CHOCOLATE CAKE RM 4.00
+		JMP L_TO_GET_QTY
+		
+	LSET_PROD_2_B:
+		MOV [PRICE_OF_PROD],5	;	BANAN CAKE RM 5.00
+		JMP L_TO_GET_QTY
+		
+	L_TO_GET_QTY:;FROM USER
+		LEA DX,QTY_PROD_MSG
+		MOV AH,09H
+		INT 21H
+		
+		CALL GET_TWO_DIGIT_INPUT
+		MOV [QTY_OF_PROD],AL
+		
+		CALL SHOW_NL
+		
+		;CALC
+		MOV AL,[QTY_OF_PROD]
+		MOV BL,[PRICE_OF_PROD]
+		CALL MUL_8_BIT_MAX_255
+		
+		;SHOW COST
+		CALL DISPLAY_PROD_CURRENT_PRICE
+		
+		;PRESS <ENTER>
+		CALL SHOW_NL
+		MOV AH,06H
+		MOV AL,00H
+		MOV BH,67H
+		MOV CX,1606H
+		MOV DX,162BH
+		INT 10H
+		LEA DX,ENTER_CONFIRM
+		MOV AH,09H
+		INT 21H
+		
+		MOV AH,07H
+		INT 21H
+		CMP AL,0DH
+		JNE L_TO_GET_QTY  ;LOOP ONE MORE EXPECT PRESS <ENTER>
+		
+		CALL DISPLAY_RECEIPT	
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	RET
+LWELC_MENU ENDP
+
+LSHOW_LIST_SUBOPT1 PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	;background (MENU FONT)
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,6EH
+	MOV CX,0600H
+	MOV DX,0D38H
+	INT 10H
+	
+	;fontground (LIST_SUBOPT1 PART)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,06H 
+	MOV DL,00H       
+	INT 10H
+	
+	; show LIST_SUBOPT1
+	MOV AH,09H
+	LEA DX,LIST_SUBOPT1
+	INT 21H
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	RET
+LSHOW_LIST_SUBOPT1 ENDP
+LSHOW_LIST_SUBOPT2 PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	;background (MENU FONT)
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,6EH
+	MOV CX,0600H
+	MOV DX,0D38H
+	INT 10H
+	
+	;fontground (LIST_SUBOPT2 PART)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,00H 
+	MOV DL,00H       
+	INT 10H
+	
+	; show LIST_SUBOPT2
+	MOV AH,09H
+	LEA DX,LIST_SUBOPT2AB
+	INT 21H
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	RET
+LSHOW_LIST_SUBOPT2 ENDP
+
+TO_CLEAR_SCREEN PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX		;STORE REGISTER
+	
+    MOV AX,0600H
+    MOV BH,07H
+    MOV CX,0000H
+    MOV DX,184FH
+    INT 10H
+    
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,00H
+	MOV DL,00H
+    INT 10H
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX		; RECOVERY REGISTER
+    RET
+TO_CLEAR_SCREEN ENDP
+
+SHOW_NL PROC
+    LEA DX,NL
+    MOV AH,09H
+    INT 21H
+    RET
+SHOW_NL ENDP
+
+;SHOW COST WITH _.00
+DISPLAY_PROD_CURRENT_PRICE PROC
+	PUSH AX
+	PUSH DX		; STORE REGISTER
+	
+    LEA DX,PROD_CURRENT_PRICE
+    MOV AH, 09H
+    INT 21H
+    
+    MOV AX,[TOTAL_COST]
+    CALL DISPLAY_DIGIT
+
+    LEA DX,PRICE_DECIMAL_POINT	; ADD .00 AFTER COST
+    MOV AH, 09H
+    INT 21H
+    
+	POP DX
+	POP AX		; RECOVERY REGISTER
+    RET
+DISPLAY_PROD_CURRENT_PRICE ENDP
+
+DISPLAY_RECEIPT PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX		; ALWAYS STORE REGISTER
+	
+    CALL TO_CLEAR_SCREEN
 	;background
 	MOV AH,06H
 	MOV AX,0600H
@@ -1847,95 +863,263 @@ MENU_SHOPNAME PROC
 	INT 10H
 	;fontground
 	MOV AH,02H
-	MOV BX,00
-	MOV DX,0000
+	MOV BH,00H
+	MOV DH,00H
+	MOV DL,00H
 	INT 10H
 	
-	;=========== MAIN MENU OPTION ===========
-	;shopname + icon + ENTSR SELECTION
+    LEA DX,TO_SEE_RECEIPT
+    MOV AH,09H
+    INT 21H
+    CALL SHOW_NL	; NL
+	;fontground (WHOLE PART)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,0CH
+	MOV DL,05H
+	INT 10H
+	
+    LEA DX,PROD_LABEL
+    INT 21H
+	
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,66H
+	MOV CX,0C04H
+	MOV DX,0C05H
+	INT 10H
+    
+    CALL SHOW_PROD_INRECEIPT
+	
 	MOV AH,09H
-	LEA DX,SHOPNAME
+	LEA DX,MULTIPLY_SYMBOL		; SYMBOL x
 	INT 21H
-	RET		;RETURN TO PROCEDURE
-MENU_SHOPNAME ENDP
 
+	CALL SHOW_PROD_QTY_INRECEIPT
+	
+    CALL SHOW_NL
+	CALL SHOW_NL
+	CALL SHOW_NL
 
+    LEA DX,TOTAL_COST_LABEL
+    MOV AH,09H
+    INT 21H
+    
+    MOV AX,[TOTAL_COST]
+    CALL DISPLAY_DIGIT
 
+    LEA DX,PRICE_DECIMAL_POINT; ADD .00 AFTER COST
+    MOV AH,09H
+    INT 21H
+    
+    MOV AH,01H
+	INT 21H
+	
+	L_DECISION_RECEIPT:
+		CMP AL,'Y'
+		JE RETURN_TO_MENU_FUNC
+		CMP AL,'y'
+		JE RETURN_TO_MENU_FUNC
+		CMP AL,'N'
+		JE EXIT_FROM_RECEIPT_FUNC
+		CMP AL,'n'
+		JE EXIT_FROM_RECEIPT_FUNC
+		
+		JMP L_DECISION_RECEIPT  	; INVALID OPTION
+		
+	RETURN_TO_MENU_FUNC:
+		CALL LWELC_MENU
+		JMP RECEIPT_END_FUNC
+		
+	EXIT_FROM_RECEIPT_FUNC:
+		CALL RECEIPT_THANKQ
+		
+	RECEIPT_END_FUNC:
+	POP DX
+	POP CX
+	POP BX
+	POP AX		;RECOVERY REGISTER
+    RET
+DISPLAY_RECEIPT ENDP
 
-LmenuICON PROC
+MUL_8_BIT_MAX_255 PROC
+    PUSH BX
+    PUSH DX			; STORE REGISTER
+    
+    XOR AH,AH        ; INITIALIZE AH   SO AX = AL
+    XOR BH,BH        ; AND BH			SO BX = BL
+    MUL BX           ; AX = AL*BL
+    
+    MOV [TOTAL_COST],AX
+    
+    POP DX			; RECOVERY
+    POP BX
+    RET
+MUL_8_BIT_MAX_255 ENDP
+
+GET_TWO_DIGIT_INPUT PROC
+    PUSH BX
+    PUSH CX
+    
+GET_TENS_DIGIT:
+    MOV AH,01H
+    INT 21H
+    
+    CMP AL,'0'
+    JB GET_TENS_DIGIT
+    CMP AL,'9'
+    JA GET_TENS_DIGIT
+    
+    SUB AL,30H        ; DISPLAY DIGIT
+    MOV BL,AL
+    MOV AL,10         ; AL =TENS DIGIT* 10
+    MUL BL
+    MOV BH,AL
+    
+GET_ONES_DIGIT:
+    MOV AH,01H
+    INT 21H
+    
+    CMP AL,'0'
+    JB GET_ONES_DIGIT
+    CMP AL,'9'
+    JA GET_ONES_DIGIT
+    
+    SUB AL,30H
+    ADD BH,AL
+    MOV AL,BH
+    
+    POP CX
+    POP BX
+    RET
+GET_TWO_DIGIT_INPUT ENDP
+
+DISPLAY_DIGIT PROC
     PUSH AX
     PUSH BX
-    PUSH DX    ; store main procedure cursor
-
-	CALL MENU_SHOPNAME 		;CALL FUNCTION SHOW SHOPNAME
+    PUSH CX
+    PUSH DX
+    
+    MOV CX,0
+    MOV BX,10
+    
+    CMP AX,0
+    JNZ CONVERT_LOOP    ; IF(TOTAL != 0) --> CALC & CONVERT 
+    MOV DL,'0'         	; ELSE IF(TOTAL == 0) --> SHOW 0
+    MOV AH,02H			; ELSE
+    INT 21H				; X SUB 30H BECAUSE ALREADY AS DIGIT
+    JMP DISPLAY_END
+    
+	CONVERT_LOOP:
+		XOR DX, DX          ;INITIALIZE DX
+		DIV BX              ;[AX] : QUO ; [DX] : REMAIN
 		
-	MOV AH,02H
-	MOV BX,00
-	MOV DX,0D1DH
-	INT 10H
+		PUSH DX             ;STORE REGISTER
 		
-	MOV AH,01H
-	INT 21H
-	MOV MENU_SELECTION,AL	; cmp SELECTION
+		INC CX              ;[CX]++
+		CMP AX, 0           
+		JNZ CONVERT_LOOP    ;IF(TOTAL != 0) --> LOOP CALC & CONVERT
 		
-	CMP AL,'1'
-	JE L_WELC_MENU_CUST_SELECT	; if (selection == '1')
-	CMP AL,'2'
-	JE Llogin				; else if (selection == '2')
-	CMP AL,'3'
-	JE LMENU_THANKS			; else if (selection == '3')
-	CMP AL,'1'
-	JNE IF_INVALID_CODE				; if (selection != '1')
-	CMP AL,'2'
-	JNE IF_INVALID_CODE				; else if (selection != '2')
-	CMP AL,'3'
-	JNE IF_INVALID_CODE				; else if (selection != '3')
-	JMP LIF_YES_CONTINUE	
-	
-	IF_INVALID_CODE:	
-		;background
-		MOV AH,06H
-		MOV AX,0600H
-		MOV BH,4FH
-		MOV CX,1006H
-		MOV DX,112EH
-		INT 10H
-		;fontground
-		MOV AH,02H
-		MOV BX,00
-		MOV DX,1000H
-		INT 10H
-		
-		MOV AH,09H
-		LEA DX,SHOPNAME_INVALID
+	DISPLAY_LOOP:
+		POP DX              ;ONLY POP UP DX 
+		ADD DL, '0'     	; CX ACT AS LOOP TIME   
+		MOV AH, 02H          
 		INT 21H
-	
-	LIF_YES_CONTINUE:	
-	MOV AH,01H
-	INT 21H
-	MOV SELECTION,AL
-	CMP AL,0DH
-	JE	RETURN_LmenuICON
-	CALL LmenuICON
-	
-	RETURN_LmenuICON:
-		CALL LmenuICON
+		LOOP DISPLAY_LOOP   ;LOOP [CX]
 		
-	L_WELC_MENU_CUST_SELECT:
-		CALL LWELC_MENU		
-		CALL LCUST_SELECT
-		JMP MENU_ENDL
-		
-	LMENU_THANKS:
-		CALL MENU_THANKS_PROCEDURE
-		JMP MENU_ENDL 
+	DISPLAY_END:
+		POP DX				; RECOVERY REGISTETR
+		POP CX
+		POP BX
+		POP AX
+    RET
+DISPLAY_DIGIT ENDP
 
-    POP DX
-    POP BX
-    POP AX     ; to recover register
+SHOW_PROD_INRECEIPT PROC
+
+	;SHOW PROD NAME IN RECEIPT
+    MOV AL,[SELECTED_CATEGORY]
+    CMP AL,'1'
+    JE L_SHOW_PROD_GRP1		; FOR BUN CATEGORY
+    CMP AL,'2'
+    JE L_SHOW_PROD_GRP2		; FOR CAKE CATEGORY
+    
+	;=========================
+	L_SHOW_PROD_GRP1:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'					
+		JE L_SHOW_PROD_1_A		
+		CMP AL,'B'
+		JE L_SHOW_PROD_1_B		
+    
+	L_SHOW_PROD_1_A:
+		LEA DX,PROD_1_A_MSG
+		JMP SHOW_PRODUCT_NAME
+    
+	L_SHOW_PROD_1_B:
+		LEA DX,PROD_1_B_MSG
+		JMP SHOW_PRODUCT_NAME
+	;==========================
+	L_SHOW_PROD_GRP2:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'
+		JE L_SHOW_PROD_2_A
+		CMP AL,'B'
+		JE L_SHOW_PROD_2_B
+		
+	L_SHOW_PROD_2_A:
+		LEA DX,PROD_2_A_MSG
+		JMP SHOW_PRODUCT_NAME
+		
+	L_SHOW_PROD_2_B:
+		LEA DX,PROD_2_B_MSG
+    ;==========================
+	SHOW_PRODUCT_NAME:
+		MOV AH,09H
+		INT 21H
+
 	RET
-LmenuICON ENDP
+SHOW_PROD_INRECEIPT ENDP
 
+SHOW_PROD_QTY_INRECEIPT PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,66H
+	MOV CX,0C28H
+	MOV DX,0C29H
+	INT 10H
+	;fontground (QTY LABEL)
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,0CH
+	MOV DL,29H
+	INT 10H
+	LEA DX,QTY_LABEL
+	INT 21H
+	
+	MOV AL,[QTY_OF_PROD]
+    XOR AH,AH			; INITIALIZE AH ONLY
+    CALL DISPLAY_DIGIT	;  TO MAKE [AX] = [AL]
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	RET
+SHOW_PROD_QTY_INRECEIPT ENDP
+
+;---------------------------------------------------------------------
+;----------------------------------------------------------------------
+;-------------------------------------------------------
+;---------------------------------------------------------------------
+;----------------------------------------------------------------------
 ;=============================(ADMIN LOGIN SYSTEM)========================================	
 Llogin PROC
     PUSH AX
@@ -2222,8 +1406,7 @@ CONTINUE_ADMIN PROC
 	
 ; if(SELECTION == '1')  -->  Sales report
 LSalesReport:
-	CALL DISPLAY_SALES_REPORT		;=-------------------------------------------------------------------------------------=
-	JMP MENU_ENDL				
+	JMP LshowREPORT
 	
 LINVALIDSECa:		; else if (selection == '0' || selection >= '3') 
 	;background
@@ -2282,6 +1465,38 @@ CONTINUE_ADMIN_A PROC		;a label help to loop Admin system
 	RET
 CONTINUE_ADMIN_A ENDP
 
+;====================================================================
+	
+LshowREPORT PROC			; if (selection == '1')
+    PUSH AX
+    PUSH BX
+    PUSH DX    ; store main procedure cursor
+
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,30H
+	MOV CX,0502H
+	MOV DX,0D23H
+	INT 10H
+	
+	;fontground
+	MOV AH,02H
+	MOV BX,00
+	MOV DX,060AH
+	INT 10H
+	
+	MOV AH,09H
+	LEA DX,HERE  		; to put the part of report later
+	INT 21H
+		
+	JMP MENU_ENDL
+
+    POP DX
+    POP BX
+    POP AX     ; to recover register
+	RET
+LshowREPORT ENDP
 
 ; if(SELECTION == '2')  -->  Exit | Log out
 LExit_Logout PROC
@@ -2339,12 +1554,7 @@ LshowExit ENDP
 ;====================================================================
 Llogin_BACK0 PROC      		;a label help to jump back Admin Login
     PUSH AX    ; store main procedure cursor
-	
-	MOV [SALES_COUNT_1_A],0	;INITIALIZE COUNTER 1_A
-    MOV [SALES_COUNT_1_B],0	;INITIALIZE COUNTER 1_B
-    MOV [SALES_COUNT_2_A],0	;INITIALIZE COUNTER 2_a
-    MOV [SALES_COUNT_2_B],0	;INITIALIZE COUNTER 2_B
-	
+
 	CALL LmenuICON
 
     POP AX     ; to recover register
@@ -2373,60 +1583,6 @@ LINVALIDSEC PROC
     POP DX     ; to recover register
 	RET
 LINVALIDSEC ENDP
-
-;============================================ CUSTOMER ORDER PART + VIEW MENU ========================================	
-LWELC_MENU PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX    ; store main procedure cursor
-
-	;background (WHOLE PART)
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,6EH
-	MOV CX,0000H
-	MOV DX,184FH
-	INT 10H
-	
-	;background (MENU FONT)
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,34H
-	MOV CX,0205H
-	MOV DX,022FH
-	INT 10H
-	
-	;background (RETURN {R})
-	MOV AH,06H
-	MOV AL,00H
-	MOV BH,6CH
-	MOV CX,0D21H
-	MOV DX,0D2DH
-	INT 10H
-	
-	;fontground (WHOLE PART)
-	MOV AH,02H
-	MOV BH,00H
-	MOV DH,00H
-	MOV DL,00H
-	INT 10H
-	
-	MOV AH,09H
-	LEA DX,WELC_MENU
-	INT 21H
-	
-	; cin >> selection
-	CALL LCUST_SELECT ; CALL FUNCTION
-	
-	JMP LWELC_MENU
-
-    POP DX
-    POP CX
-    POP BX
-    POP AX     ; to recover register
-	RET
-LWELC_MENU ENDP
 
 
 DISPLAY_SALES_REPORT PROC
