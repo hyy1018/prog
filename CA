@@ -2,21 +2,6 @@
 .STACK 100H
 
 .DATA
-	SALES_COUNT_1_A		DB  0    ; FOR BUN A WHICH IS CHEESE BUN
-	SALES_COUNT_1_B 	DB  0    ; FOR BUN B... 
-	SALES_COUNT_2_A 	DB  0    ; FOR CAKE A...
-	SALES_COUNT_2_B 	DB  0    ; FOR CAKE B...
-
-	PRESS_KEY_ENTER		DB	"PRESS <ENTER> TO EXIT$"
-
-
-	SALES_REPORT_TITLE 	DB  "=== SALES REPORT ===", 0AH, 0DH,"$"
-	SALES_ITEM_1_A 		DB  "Cheese bun Sold    : $"
-	SALES_ITEM_1_B 		DB  "Potato bun Sold    : $"
-	SALES_ITEM_2_A 		DB  "Chocolate cake Sold: $"
-	SALES_ITEM_2_B 		DB  "Banana cake Sold   : $"
-	TOTAL_SALES 		DB  "Total Sales        : $"
-	
         ;==================================;Menu and submenu for customer=========================================================
 	SHOPNAME			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
 						DB	"  |                                               |", 0AH, 0DH  ;01H	
@@ -43,6 +28,7 @@
 						DB	"  |                                               |", 0AH, 0DH	 ;16H
 						DB	"  |                                               |", 0AH, 0DH	 ;17H
 						DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
+								; all underscore symbol (keyboard)
 								
 	SHOPNAME_INVALID	DB	"  |    INVALID SELECTION!!! PLEASE RE-ENTER...    |", 0AH, 0DH	 ;10H	
 						DB	"  |             PRESS <ENTER> TO RETRY            |", 0AH, 0DH	 ;11H	
@@ -64,9 +50,6 @@
 						DB	"                                                   ", 0AH, 0DH	 ;16H
 						DB	"                                                   ", 0AH, 0DH	 ;17H
 						DB	"                                                   ", 0AH, 0DH,"$";18H
-						
-	RETURN_BACK_MAIN 	DB	"RETURN >> {R}$"
-	
 	
 	;====================================;Admin Login and logout module==================================================
 	STRFONT 			DB	"   _______________________________________________ ", 0AH, 0DH  ;00H
@@ -135,11 +118,11 @@
 	
 	
 	
-	;PRODUCT INFO										
+	;PRODUCT INFO										$
     PROD_1_A_MSG 		DB "CHEESE BUN  [RM 2.00]       $"
     PROD_1_B_MSG 		DB "POTATO BUN  [RM 3.00]       $"
     PROD_2_A_MSG 		DB "CHOCOLATE CAKE  [RM 4.00]   $"
-    PROD_2_B_MSG 		DB "BANANA CAKE     [RM 5.00]       $"
+    PROD_2_B_MSG 		DB "BANANA CAKE [RM 5.00]       $"
 	MULTIPLY_SYMBOL		DB "    x $"
 	
 	QTY_PROD_MSG		DB	"  | _____________________________________________ |", 0AH, 0DH
@@ -164,7 +147,7 @@
 	
 	WELC_TO_MSG			DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
 						DB	"  |                                               |", 0AH, 0DH	 ;01H
-						DB  "  |   {[> == == ==  WELCOME TO OBB == == == <]}   |", 0AH, 0DH	 ;02H
+						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
 						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
 						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
 						DB	"  |                                               |", 0AH, 0DH	 ;05H
@@ -175,7 +158,7 @@
 						DB	"  |   |   {2}    CAKE                         |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
-						DB	"  |    SELECTION :         ||    RETURN >> {R}    |", 0AH, 0DH	 ;0DH
+						DB	"  |    SELECTION :               RETURN >> {R}    |", 0AH, 0DH	 ;0DH
 						DB	"  |                                               |", 0AH, 0DH	 ;0EH
 						DB	"  |                                               |", 0AH, 0DH	 ;0FH
 						DB	"  |                                               |", 0AH, 0DH	 ;10H
@@ -190,15 +173,16 @@
 	LIST_SUBOPT1		DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
 						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
 						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
-						DB	"  |   |   {A}    CHEESE BUN    >>   RM 2.00   |   |", 0AH, 0DH	 ;09H
-						DB	"  |   |   {B}    POTATO BUN    >>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
+						DB	"  |   |   {A}    CHEESE BUN   >>>   RM 2.00   |   |", 0AH, 0DH	 ;09H
+						DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
-						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH,"$";0DH
+						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH  ;0DH
+						DB	"  |                              RETURN >> {R}    |", 0AH, 0DH,"$";0DH
 					
 	LIST_SUBOPT2AB		DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
 						DB	"  |                                               |", 0AH, 0DH	 ;01H
-						DB  "  |   {[> == == ==  WELCOME TO OBB == == == <]}   |", 0AH, 0DH	 ;02H
+						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
 						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
 						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
 						DB	"  |                                               |", 0AH, 0DH	 ;05H
@@ -209,7 +193,8 @@
 						DB	"  |   |   {B}    BANANA CAKE     >> RM 5.00   |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
-						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH,"$";0DH																					 
+						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH  ;0DH
+						DB	"  |                              RETURN >> {R}    |", 0AH, 0DH,"$";0DH
 	;ACTION
 	CUST_SELECTION		DB	?				  ;|18D ==> 12H	
  
@@ -227,21 +212,20 @@
 						DB  "  |         47500  SUBANG JAYA. SELANGOR          |", 0AH, 0DH  ;08H
 						DB	"  |              TEL : 03-14159265                |", 0AH, 0DH	 ;09H
 						DB	"  |                                               |", 0AH, 0DH  ;0AH
-						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0BH	
+						DB	"  |   + - - - - - - - - - - - - - - - - - - - +   |", 0AH, 0DH	 ;0BH	
 						DB	"  |                                               |", 0AH, 0DH	 ;0CH
 						DB	"  |   ITEM                                        |", 0AH, 0DH	 ;0DH	
 						DB	"  |                                               |", 0AH, 0DH	 ;0EH	<-
 						DB	"  |                                               |", 0AH, 0DH	 ;0FH	
-						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
+						DB	"  |   + - - - - - - - - - - - - - - - - - - - +   |", 0AH, 0DH	 ;10H	
 						DB	"  |                                               |", 0AH, 0DH	 ;11H	<-
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
-						DB	"  |   *****************************************   |", 0AH, 0DH	 ;13H
-						DB	"  |     Thank you for your purchase!	       	   |", 0AH, 0DH	 ;14H
-						DB	"  |     Follow our instagram @OBBBakery	       |", 0AH, 0DH	 ;15H
-						DB	"  |_______________________________________________|", 0AH, 0DH	 ;16H
-						DB	"                                                   ", 0AH, 0DH	 ;17H
-						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;18H
-						DB	"                                                   ", 0AH, 0DH,"$";19H	
+						DB	"  |   -   Thank  you  for  your  purchase!!!  -   |", 0AH, 0DH	 ;13H
+						DB	"  |        Follow our Instagram  @OBBBakery       |", 0AH, 0DH	 ;14H
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
+						DB	"                                                   ", 0AH, 0DH	 ;16H
+						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
+						DB	"                                                   ", 0AH, 0DH,"$";18H	
 						
 	    ;RECEIPT PART
     
@@ -275,6 +259,27 @@
 						DB	"                                                   ", 0AH, 0DH	 ;17H	
 						DB	"                                                   ", 0AH, 0DH,"$";18H			
 	
+	; 在.DATA段添加以下变量
+	SALES_DATA      DB  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM QTY AMOUNT
+	SALES_AMOUNT    DW  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM SALES AMOUNT
+	TOTAL_SALES     DW  0                 ; TOTAL SALES ACCUMULATOR
+
+	; 销售报告消息
+	SALES_REPORT_MSG 	DB "                                                     ", 0AH, 0DH
+						DB "                                                     ", 0AH, 0DH
+						DB "                  ---  SALES REPORT  ---             ", 0AH, 0DH
+						DB "                                                     ", 0AH, 0DH
+						DB "      | PRODUCT           | QTY | *****AMOUNT*****  |", 0AH, 0DH
+						DB "      |-------------------+-----+-------------------|", 0AH, 0DH
+						DB "      | CHEESE BUN        |     | RM        .00     |", 0AH, 0DH
+						DB "      | POTATO BUN        |     | RM        .00     |", 0AH, 0DH
+						DB "      | CHOCOLATE CAKE    |     | RM        .00     |", 0AH, 0DH
+						DB "      | BANANA CAKE       |     | RM        .00     |", 0AH, 0DH
+						DB "      |-------------------+-----+-------------------|", 0AH, 0DH
+						DB "      |        T O T A L        | RM        .00     |", 0AH, 0DH
+						DB "      |_____________________________________________|", 0AH, 0DH
+						DB "                                                     ", 0AH, 0DH
+						DB "               -  PRESS  <ENTER>  TO  EXIT  -        ", 0AH, 0DH,"$"
 
 .CODE
 MAIN PROC
@@ -283,7 +288,7 @@ MAIN PROC
     
     CALL TO_CLEAR_SCREEN
 	CALL LmenuICON
-
+	
 	MENU_ENDL:
     MOV AX,4C00H
     INT 21H
@@ -465,7 +470,7 @@ BG_WELC_TO_MSG PROC
 	;background (RETURN {R})
 	MOV AH,06H
 	MOV AL,00H
-	MOV BH,6CH
+	MOV BH,67H
 	MOV CX,0D21H
 	MOV DX,0D2DH
 	INT 10H
@@ -487,6 +492,7 @@ BG_WELC_TO_MSG PROC
 	POP AX
 	RET
 BG_WELC_TO_MSG ENDP
+
 
 
 LCUST_SELECT_INVALID PROC
@@ -592,14 +598,22 @@ LWELC_MENU PROC
 			CALL SHOW_NL
 		LSELECT_PROD:
 			CMP AL,'1'            
+			JE LSHOW_LIST_SUBOPT1_JMP
+			CMP AL,'2'   
+			JE LSHOW_LIST_SUBOPT2_JMP
+			JMP LSELECT_PROD_CONTINUE
+		
+		LSHOW_LIST_SUBOPT1_JMP:	
 			CALL LSHOW_LIST_SUBOPT1
 			JMP LSELECT_PROD_CONTINUE
-			CMP AL,'2'   
+			
+		LSHOW_LIST_SUBOPT2_JMP:	
 			CALL LSHOW_LIST_SUBOPT2
-			JMP LSELECT_PROD_CONTINUE
-			
-			
-			
+			JMP LSELECT_PROD_CONTINUE	
+		
+		RETURN_WELC_TO_MSG:			; TO RETURN BACK MAIN PROC
+			JMP MAIN
+				
 		LSELECT_PROD_CONTINUE:
 			;background to hide input
 			MOV AH,06H
@@ -617,6 +631,10 @@ LWELC_MENU PROC
 			
 			MOV AH,01H
 			INT 21H
+			CMP AL,'r'
+			JE RETURN_WELC_TO_MSG
+			CMP AL,'R'
+			JE RETURN_WELC_TO_MSG
 			CMP AL,'a'
 			JE LVALID_PROD
 			CMP AL,'A'
@@ -742,6 +760,13 @@ LSHOW_LIST_SUBOPT1 PROC
 	MOV CX,0600H
 	MOV DX,0D38H
 	INT 10H
+	;background (RETURN)
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,67H
+	MOV CX,0E0AH
+	MOV DX,0E2DH
+	INT 10H
 	
 	;fontground (LIST_SUBOPT1 PART)
 	MOV AH,02H
@@ -773,6 +798,13 @@ LSHOW_LIST_SUBOPT2 PROC
 	MOV BH,6EH
 	MOV CX,0600H
 	MOV DX,0D38H
+	INT 10H
+	;background (RETURN)
+	MOV AH,06H
+	MOV AL,00H
+	MOV BH,67H
+	MOV CX,0E0AH
+	MOV DX,0E2DH
 	INT 10H
 	
 	;fontground (LIST_SUBOPT2 PART)
@@ -853,6 +885,8 @@ DISPLAY_RECEIPT PROC
 	PUSH CX
 	PUSH DX		; ALWAYS STORE REGISTER
 	
+	CALL UPDATE_SALES_DATA
+	
     CALL TO_CLEAR_SCREEN
 	;background
 	MOV AH,06H
@@ -860,6 +894,13 @@ DISPLAY_RECEIPT PROC
 	MOV BH,6EH
 	MOV CX,0000H
 	MOV DX,184FH
+	INT 10H
+	;msg bottom
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6FH
+	MOV CX,1308H
+	MOV DX,142CH
 	INT 10H
 	;fontground
 	MOV AH,02H
@@ -912,6 +953,14 @@ DISPLAY_RECEIPT PROC
     LEA DX,PRICE_DECIMAL_POINT; ADD .00 AFTER COST
     MOV AH,09H
     INT 21H
+	
+	;background hide input
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,66H
+	MOV CX,0F2CH
+	MOV DX,0F2CH
+	INT 10H
     
     MOV AH,01H
 	INT 21H
@@ -925,8 +974,12 @@ DISPLAY_RECEIPT PROC
 		JE EXIT_FROM_RECEIPT_FUNC
 		CMP AL,'n'
 		JE EXIT_FROM_RECEIPT_FUNC
-		
-		JMP L_DECISION_RECEIPT  	; INVALID OPTION
+		CMP AL,0DH
+		JE LOOP_DISPLAY_RECEIPT
+		JMP DISPLAY_RECEIPT  	; INVALID OPTION
+	
+	LOOP_DISPLAY_RECEIPT:
+		JMP DISPLAY_RECEIPT
 		
 	RETURN_TO_MENU_FUNC:
 		CALL LWELC_MENU
@@ -1150,7 +1203,7 @@ Llogin PROC
 	;fontground for "RETURN  {R} "
 	MOV AH,06H
 	MOV AX,0600H
-	MOV BH,6CH
+	MOV BH,67H
 	MOV CX,1404H
 	MOV DX,142CH
 	INT 10H
@@ -1401,8 +1454,11 @@ CONTINUE_ADMIN PROC
 	CMP SELECTION,2		; else
 	JG LINVALIDSECa		; 		cout << "INVALID SELECTION!!! PLEASE RE-ENTER..."
 	CMP SELECTION,2		; else if (selection == '2') 
-	JE LExit_Logout		; 		Exit | Log out;
+	JE LExit_Logout_JMP		; 		Exit | Log out;
 	JMP CONTINUE_ADMIN
+
+LExit_Logout_JMP:
+	JMP LExit_Logout
 	
 ; if(SELECTION == '1')  -->  Sales report
 LSalesReport:
@@ -1466,37 +1522,253 @@ CONTINUE_ADMIN_A PROC		;a label help to loop Admin system
 CONTINUE_ADMIN_A ENDP
 
 ;====================================================================
-	
+
+;========================================================================================
+;=========================sales report ==================================================	
 LshowREPORT PROC			; if (selection == '1')
     PUSH AX
     PUSH BX
+	PUSH CX
     PUSH DX    ; store main procedure cursor
-
-	;background
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,30H
-	MOV CX,0502H
-	MOV DX,0D23H
-	INT 10H
 	
-	;fontground
-	MOV AH,02H
-	MOV BX,00
-	MOV DX,060AH
-	INT 10H
-	
-	MOV AH,09H
-	LEA DX,HERE  		; to put the part of report later
-	INT 21H
+	LshowREPORT_DISPLAY:
+		;background
+		MOV AX,0600H
+		MOV BH,1EH
+		MOV CX,0000H
+		MOV DX,184FH
+		INT 10H
+		MOV AX,0600H
+		MOV BH,79H
+		MOV CX,0306H
+		MOV DX,0534H
+		INT 10H
 		
-	JMP MENU_ENDL
+		;fontground
+		MOV AH,02H
+		MOV BX,00
+		MOV DH,02H  
+		MOV DL,00H
+		INT 10H
+		
+		MOV AH,09H
+		LEA DX,SALES_REPORT_MSG
+		INT 21H
+		
+		CALL DISPLAY_SALES_DATA
+		
+		;PRESS <ENTER> TO EXIT
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE EXIT_TO_ADMIN_MENU
+		JMP LshowREPORT_DISPLAY		;INVALID
+
+	EXIT_TO_ADMIN_MENU:
+		JMP CONTINUE_ADMIN_A
 
     POP DX
+	POP CX
     POP BX
     POP AX     ; to recover register
 	RET
 LshowREPORT ENDP
+; 新过程：显示销售报告
+; 新过程：显示销售报告数据
+DISPLAY_SALES_DATA PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI
+
+    ; 显示奶酪面包的销售数量
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 08H   ; 行
+    MOV DL, 1CH   ; 列（数量）
+    INT 10H
+    
+    MOV AL, SALES_DATA[0]
+    XOR AH, AH
+    CALL DISPLAY_DIGIT
+
+    ; 显示奶酪面包的销售金额
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 08H   ; 行
+    MOV DL, 28H   ; 列（金额）
+    INT 10H
+    
+    MOV AX, SALES_AMOUNT[0]  ; 第一个商品的金额
+    CALL DISPLAY_DIGIT
+
+    ; 显示土豆面包的销售数量
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 09H   ; 行
+    MOV DL, 1CH   ; 列（数量）
+    INT 10H
+    
+    MOV AL, SALES_DATA[1]
+    XOR AH, AH
+    CALL DISPLAY_DIGIT
+
+    ; 显示土豆面包的销售金额
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 09H   ; 行
+    MOV DL, 28H   ; 列（金额）
+    INT 10H
+    
+    MOV AX, SALES_AMOUNT[2]  ; 第二个商品的金额（每个字占2字节）
+    CALL DISPLAY_DIGIT
+
+    ; 显示巧克力蛋糕的销售数量
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 0AH   ; 行
+    MOV DL, 1CH   ; 列（数量）
+    INT 10H
+    
+    MOV AL, SALES_DATA[2]
+    XOR AH, AH
+    CALL DISPLAY_DIGIT
+
+    ; 显示巧克力蛋糕的销售金额
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 0AH   ; 行
+    MOV DL, 28H   ; 列（金额）
+    INT 10H
+    
+    MOV AX, SALES_AMOUNT[4]  ; 第三个商品的金额
+    CALL DISPLAY_DIGIT
+
+    ; 显示香蕉蛋糕的销售数量
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 0BH   ; 行
+    MOV DL, 1CH   ; 列（数量）
+    INT 10H
+    
+    MOV AL, SALES_DATA[3]
+    XOR AH, AH
+    CALL DISPLAY_DIGIT
+
+    ; 显示香蕉蛋糕的销售金额
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 0BH   ; 行
+    MOV DL, 28H   ; 列（金额）
+    INT 10H
+    
+    MOV AX, SALES_AMOUNT[6]  ; 第四个商品的金额
+    CALL DISPLAY_DIGIT
+
+    ; 显示总金额
+    MOV AH, 02H
+    MOV BH, 00
+    MOV DH, 0DH   ; 行
+    MOV DL, 28H   ; 列（总金额）
+    INT 10H
+    
+    MOV AX, TOTAL_SALES
+    CALL DISPLAY_DIGIT
+
+    POP SI
+    POP DX
+    POP CX
+    POP BX
+    POP AX
+    RET
+DISPLAY_SALES_DATA ENDP
+
+; 新过程：更新销售数据
+UPDATE_SALES_DATA PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    PUSH SI
+    
+    ; 确定产品索引 (0-3)
+    MOV SI, 0  ; 默认奶酪面包
+    
+    ; 检查产品类别和类型
+    MOV AL, [SELECTED_CATEGORY]
+    CMP AL, '1'
+    JE CHECK_BUN
+    CMP AL, '2'
+    JE CHECK_CAKE
+    JMP UPDATE_END
+    
+CHECK_BUN:
+    MOV AL, [SELECTED_PROD]
+    CMP AL, 'A'
+    JE CHEESE_BUN
+    CMP AL, 'a'
+    JE CHEESE_BUN
+    CMP AL, 'B'
+    JE POTATO_BUN
+    CMP AL, 'b'
+    JE POTATO_BUN
+    JMP UPDATE_END
+    
+CHECK_CAKE:
+    MOV AL, [SELECTED_PROD]
+    CMP AL, 'A'
+    JE CHOCO_CAKE
+    CMP AL, 'a'
+    JE CHOCO_CAKE
+    CMP AL, 'B'
+    JE BANANA_CAKE
+    CMP AL, 'b'
+    JE BANANA_CAKE
+    JMP UPDATE_END
+    
+CHEESE_BUN:
+    MOV SI, 0  ; 索引 0: 奶酪面包
+    JMP UPDATE_QTY
+    
+POTATO_BUN:
+    MOV SI, 1  ; 索引 1: 土豆面包
+    JMP UPDATE_QTY
+    
+CHOCO_CAKE:
+    MOV SI, 2  ; 索引 2: 巧克力蛋糕
+    JMP UPDATE_QTY
+    
+BANANA_CAKE:
+    MOV SI, 3  ; 索引 3: 香蕉蛋糕
+    
+UPDATE_QTY:
+    ; 更新销售数量
+    MOV AL, [QTY_OF_PROD]
+    ADD [SALES_DATA + SI], AL
+    
+    ; 计算本次销售金额
+    MOV AL, [QTY_OF_PROD]
+    MOV BL, [PRICE_OF_PROD]
+    XOR AH, AH
+    XOR BH, BH
+    MUL BX  ; AX = QTY * PRICE
+    
+    ; 更新销售金额 (每个索引占2字节)
+    SHL SI, 1  ; SI = SI * 2 (因为字数据每个占2字节)
+    ADD [SALES_AMOUNT + SI], AX
+    
+    ; 更新总销售额
+    ADD [TOTAL_SALES], AX
+    
+UPDATE_END:
+    POP SI
+    POP DX
+    POP CX
+    POP BX
+    POP AX
+    RET
+UPDATE_SALES_DATA ENDP
 
 ; if(SELECTION == '2')  -->  Exit | Log out
 LExit_Logout PROC
@@ -1585,162 +1857,5 @@ LINVALIDSEC PROC
 LINVALIDSEC ENDP
 
 
-DISPLAY_SALES_REPORT PROC
-    PUSH AX
-    PUSH BX
-    PUSH CX
-    PUSH DX
-    
-    ;BACKGRUND OF SALES REPORT 
-    MOV AX,0600H
-    MOV BH,6FH
-    MOV CX,0000H
-    MOV DX,184FH
-    INT 10H
-    
-    ;fontground
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,01H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,SALES_REPORT_TITLE
-    INT 21H
-    
-    ;SHOW CHEESE BUN SALES
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,03H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,SALES_ITEM_1_A
-    INT 21H
-    
-	;COUNTER 
-    MOV DL,[SALES_COUNT_1_A]
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-	
-    ;SHOW POTATO BUN SALES 
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,04H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,SALES_ITEM_1_B
-    INT 21H
-
-    ;COUNTER
-    MOV DL,[SALES_COUNT_1_B]
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-    ;SHOW CHOCOLATE CAKE SALES
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,05H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,SALES_ITEM_2_A
-    INT 21H
-
-    ;COUNTER
-    MOV DL,[SALES_COUNT_2_A]
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-     ;SHOW BANANA CAKE SALES
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,06H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,SALES_ITEM_2_B
-    INT 21H
-
-    ;COUNTER
-    MOV DL,[SALES_COUNT_2_B]
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-    ;FONTGROUND TOTAL SALES
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,08H
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,TOTAL_SALES
-    INT 21H
-    
-    ;TOTAL COUNTER FROM 4 ITEM
-    MOV AL,[SALES_COUNT_1_A]
-    ADD AL,[SALES_COUNT_1_B]
-    ADD AL,[SALES_COUNT_2_A]
-    ADD AL,[SALES_COUNT_2_B]
-    
-    ;SHOW ONES DIGIT
-    MOV BL,10
-    DIV BL    
-    MOV CL,AL
-    MOV CH,AH
-    
-    CMP CL,0
-    JE SHOW_ONES_ONLY
-    
-    ;SHOW TENS DIGIT
-    MOV DL,CL
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-SHOW_ONES_ONLY:
-    MOV DL,CH
-    ADD DL,30H
-    MOV AH,02H
-    INT 21H
-    
-    MOV AH,02H
-    MOV BH,00H
-    MOV DH,0CH
-    MOV DL,10H
-    INT 10H
-    
-    MOV AH,09H
-    LEA DX,PRESS_KEY_ENTER
-    INT 21H
-    
-    MOV AH,01H
-    INT 21H
-	CMP AL,0DH
-	JNE RETURN_SALES_REPORT
-	JMP SALES_REPORT_ENDL
-	
-	RETURN_SALES_REPORT:
-		CALL DISPLAY_SALES_REPORT
-		JMP MENU_ENDL
-	
-	SALES_REPORT_ENDL:
-		POP DX
-		POP CX
-		POP BX
-		POP AX
-    RET
-DISPLAY_SALES_REPORT ENDP
-
 END MAIN
+
