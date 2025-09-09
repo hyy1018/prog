@@ -271,13 +271,14 @@
 						DB "                                                     ", 0AH, 0DH
 						DB "      | PRODUCT           | QTY | *****AMOUNT*****  |", 0AH, 0DH
 						DB "      |-------------------+-----+-------------------|", 0AH, 0DH
-						DB "      | CHEESE BUN        |     | RM        .00     |", 0AH, 0DH
-						DB "      | POTATO BUN        |     | RM        .00     |", 0AH, 0DH
-						DB "      | CHOCOLATE CAKE    |     | RM        .00     |", 0AH, 0DH
-						DB "      | BANANA CAKE       |     | RM        .00     |", 0AH, 0DH
-						DB "      |-------------------+-----+-------------------|", 0AH, 0DH
-						DB "      |        T O T A L        | RM        .00     |", 0AH, 0DH
-						DB "      |_____________________________________________|", 0AH, 0DH
+						DB "      | CHEESE BUN        |     | RM       .00      |", 0AH, 0DH
+						DB "      | POTATO BUN        |     | RM       .00      |", 0AH, 0DH
+						DB "      | CHOCOLATE CAKE    |     | RM       .00      |", 0AH, 0DH
+						DB "      | BANANA CAKE       |     | RM       .00      |", 0AH, 0DH
+						DB "                                                     ", 0AH, 0DH
+						DB "                                |                    ", 0AH, 0DH
+						DB "               T O T A L        | RM       .00       ", 0AH, 0DH
+						DB "                                |                    ", 0AH, 0DH
 						DB "                                                     ", 0AH, 0DH
 						DB "               -  PRESS  <ENTER>  TO  EXIT  -        ", 0AH, 0DH,"$"
 
@@ -304,7 +305,7 @@ MENU_SHOPNAME PROC
 	INT 10H
 	;fontground
 	MOV AH,02H
-	MOV BX,00
+	MOV BX,00H
 	MOV DX,0000
 	INT 10H
 	
@@ -323,7 +324,7 @@ LmenuICON PROC
 	CALL MENU_SHOPNAME 		;CALL FUNCTION SHOW SHOPNAME
 		
 	MOV AH,02H
-	MOV BX,00
+	MOV BX,00H
 	MOV DX,0D1DH
 	INT 10H
 		
@@ -439,11 +440,8 @@ MENU_THANKS_PROCEDURE PROC
 	INT 21H
 	RET		;RETURN TO PROCEDURE
 MENU_THANKS_PROCEDURE ENDP
-;---------------------------------------------------------------------
-;----------------------------------------------------------------------;---------------------------------------------------------------------
-;----------------------------------------------------------------------
-;---------------------------------------------------------------------
-;----------------------------------------------------------------------
+
+
 ;BACKGROUND & FONTGROUND OF ORDER MENU PART
 BG_WELC_TO_MSG PROC
 	PUSH AX
@@ -492,8 +490,6 @@ BG_WELC_TO_MSG PROC
 	POP AX
 	RET
 BG_WELC_TO_MSG ENDP
-
-
 
 LCUST_SELECT_INVALID PROC
     PUSH AX
@@ -1168,11 +1164,9 @@ SHOW_PROD_QTY_INRECEIPT PROC
 	RET
 SHOW_PROD_QTY_INRECEIPT ENDP
 
-;---------------------------------------------------------------------
-;----------------------------------------------------------------------
-;-------------------------------------------------------
-;---------------------------------------------------------------------
-;----------------------------------------------------------------------
+
+
+
 ;=============================(ADMIN LOGIN SYSTEM)========================================	
 Llogin PROC
     PUSH AX
@@ -1523,8 +1517,8 @@ CONTINUE_ADMIN_A ENDP
 
 ;====================================================================
 
-;========================================================================================
-;=========================sales report ==================================================	
+;================================================================================================
+;=================================sales report ==================================================	
 LshowREPORT PROC			; if (selection == '1')
     PUSH AX
     PUSH BX
@@ -1573,8 +1567,8 @@ LshowREPORT PROC			; if (selection == '1')
     POP AX     ; to recover register
 	RET
 LshowREPORT ENDP
-; 新过程：显示销售报告
-; 新过程：显示销售报告数据
+
+
 DISPLAY_SALES_DATA PROC
     PUSH AX
     PUSH BX
@@ -1582,109 +1576,99 @@ DISPLAY_SALES_DATA PROC
     PUSH DX
     PUSH SI
 
-    ; 显示奶酪面包的销售数量
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 08H   ; 行
-    MOV DL, 1CH   ; 列（数量）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,08H 
+    MOV DL,1CH 
     INT 10H
     
-    MOV AL, SALES_DATA[0]
-    XOR AH, AH
+    MOV AL,SALES_DATA[0]	;FOR QTY 1A
+    XOR AH,AH				;INITIALIZE REGISTER
     CALL DISPLAY_DIGIT
 
-    ; 显示奶酪面包的销售金额
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 08H   ; 行
-    MOV DL, 28H   ; 列（金额）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,08H 
+    MOV DL,28H
     INT 10H
     
-    MOV AX, SALES_AMOUNT[0]  ; 第一个商品的金额
+    MOV AX,SALES_AMOUNT[0]  ;FOR COST 1A
     CALL DISPLAY_DIGIT
 
-    ; 显示土豆面包的销售数量
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 09H   ; 行
-    MOV DL, 1CH   ; 列（数量）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,09H   
+    MOV DL,1CH   
     INT 10H
     
-    MOV AL, SALES_DATA[1]
-    XOR AH, AH
+    MOV AL,SALES_DATA[1]	;FOR QTY 1B
+    XOR AH,AH				;INITIALIZE REGISTER
     CALL DISPLAY_DIGIT
 
-    ; 显示土豆面包的销售金额
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 09H   ; 行
-    MOV DL, 28H   ; 列（金额）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,09H 
+    MOV DL,28H   
     INT 10H
     
-    MOV AX, SALES_AMOUNT[2]  ; 第二个商品的金额（每个字占2字节）
+    MOV AX,SALES_AMOUNT[2]  ;FOR COST 1B
     CALL DISPLAY_DIGIT
 
-    ; 显示巧克力蛋糕的销售数量
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 0AH   ; 行
-    MOV DL, 1CH   ; 列（数量）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0AH
+    MOV DL,1CH
     INT 10H
     
-    MOV AL, SALES_DATA[2]
-    XOR AH, AH
+    MOV AL,SALES_DATA[2]	;FOR QTY 2A
+    XOR AH,AH				;INITIALIZE REGISTER
     CALL DISPLAY_DIGIT
 
-    ; 显示巧克力蛋糕的销售金额
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 0AH   ; 行
-    MOV DL, 28H   ; 列（金额）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0AH
+    MOV DL,28H 
     INT 10H
     
-    MOV AX, SALES_AMOUNT[4]  ; 第三个商品的金额
+    MOV AX,SALES_AMOUNT[4]  ;FOR COST 2A
     CALL DISPLAY_DIGIT
 
-    ; 显示香蕉蛋糕的销售数量
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 0BH   ; 行
-    MOV DL, 1CH   ; 列（数量）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0BH
+    MOV DL,1CH
     INT 10H
     
-    MOV AL, SALES_DATA[3]
-    XOR AH, AH
+    MOV AL,SALES_DATA[3]	;FOR QTY 2B
+    XOR AH,AH				;INITIALIZE REGISTER
     CALL DISPLAY_DIGIT
 
-    ; 显示香蕉蛋糕的销售金额
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 0BH   ; 行
-    MOV DL, 28H   ; 列（金额）
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0BH      
+    MOV DL,27H 
     INT 10H
     
-    MOV AX, SALES_AMOUNT[6]  ; 第四个商品的金额
+    MOV AX,SALES_AMOUNT[6]  ;FOR COST 2B
     CALL DISPLAY_DIGIT
 
-    ; 显示总金额
-    MOV AH, 02H
-    MOV BH, 00
-    MOV DH, 0DH   ; 行
-    MOV DL, 28H   ; 列（总金额）
+    ;FONTGROUND TOTAL SALES COST
+    MOV AH,02H
+    MOV BH,00H
+    MOV DH,0EH
+    MOV DL,28H
     INT 10H
     
-    MOV AX, TOTAL_SALES
-    CALL DISPLAY_DIGIT
+    MOV AX,TOTAL_SALES		
+    CALL DISPLAY_DIGIT		; DISPLAY TOTAL SALES COST
 
     POP SI
     POP DX
     POP CX
     POP BX
-    POP AX
+    POP AX			; RECOVERY REGISTER
     RET
 DISPLAY_SALES_DATA ENDP
-
-; 新过程：更新销售数据
 UPDATE_SALES_DATA PROC
     PUSH AX
     PUSH BX
@@ -1692,81 +1676,77 @@ UPDATE_SALES_DATA PROC
     PUSH DX
     PUSH SI
     
-    ; 确定产品索引 (0-3)
-    MOV SI, 0  ; 默认奶酪面包
-    
-    ; 检查产品类别和类型
-    MOV AL, [SELECTED_CATEGORY]
-    CMP AL, '1'
-    JE CHECK_BUN
-    CMP AL, '2'
-    JE CHECK_CAKE
+    ;TO ARRAY INDEX
+    MOV SI,0
+
+    MOV AL,[SELECTED_CATEGORY]
+    CMP AL,'1'
+    JE CHECK_BUN	;1A 1B
+    CMP AL,'2'
+    JE CHECK_CAKE	;2A 2B
     JMP UPDATE_END
     
-CHECK_BUN:
-    MOV AL, [SELECTED_PROD]
-    CMP AL, 'A'
-    JE CHEESE_BUN
-    CMP AL, 'a'
-    JE CHEESE_BUN
-    CMP AL, 'B'
-    JE POTATO_BUN
-    CMP AL, 'b'
-    JE POTATO_BUN
-    JMP UPDATE_END
+	CHECK_BUN:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'
+		JE CHEESE_BUN
+		CMP AL,'a'
+		JE CHEESE_BUN
+		CMP AL,'B'
+		JE POTATO_BUN
+		CMP AL,'b'
+		JE POTATO_BUN
+		JMP UPDATE_END
     
-CHECK_CAKE:
-    MOV AL, [SELECTED_PROD]
-    CMP AL, 'A'
-    JE CHOCO_CAKE
-    CMP AL, 'a'
-    JE CHOCO_CAKE
-    CMP AL, 'B'
-    JE BANANA_CAKE
-    CMP AL, 'b'
-    JE BANANA_CAKE
-    JMP UPDATE_END
+	CHECK_CAKE:
+		MOV AL,[SELECTED_PROD]
+		CMP AL,'A'
+		JE CHOCO_CAKE
+		CMP AL,'a'
+		JE CHOCO_CAKE
+		CMP AL,'B'
+		JE BANANA_CAKE
+		CMP AL,'b'
+		JE BANANA_CAKE
+		JMP UPDATE_END
     
-CHEESE_BUN:
-    MOV SI, 0  ; 索引 0: 奶酪面包
-    JMP UPDATE_QTY
-    
-POTATO_BUN:
-    MOV SI, 1  ; 索引 1: 土豆面包
-    JMP UPDATE_QTY
-    
-CHOCO_CAKE:
-    MOV SI, 2  ; 索引 2: 巧克力蛋糕
-    JMP UPDATE_QTY
-    
-BANANA_CAKE:
-    MOV SI, 3  ; 索引 3: 香蕉蛋糕
-    
-UPDATE_QTY:
-    ; 更新销售数量
-    MOV AL, [QTY_OF_PROD]
-    ADD [SALES_DATA + SI], AL
-    
-    ; 计算本次销售金额
-    MOV AL, [QTY_OF_PROD]
-    MOV BL, [PRICE_OF_PROD]
-    XOR AH, AH
-    XOR BH, BH
-    MUL BX  ; AX = QTY * PRICE
-    
-    ; 更新销售金额 (每个索引占2字节)
-    SHL SI, 1  ; SI = SI * 2 (因为字数据每个占2字节)
-    ADD [SALES_AMOUNT + SI], AX
-    
-    ; 更新总销售额
-    ADD [TOTAL_SALES], AX
-    
-UPDATE_END:
-    POP SI
-    POP DX
-    POP CX
-    POP BX
-    POP AX
+	CHEESE_BUN:
+		MOV SI,0  ;1A -> INDEX 0
+		JMP UPDATE_QTY	
+	POTATO_BUN:
+		MOV SI,1  ;1B -> INDEX 1
+		JMP UPDATE_QTY	
+	CHOCO_CAKE:
+		MOV SI,2  ;2A -> INDEX 2
+		JMP UPDATE_QTY
+	BANANA_CAKE:
+		MOV SI,3  ;2B -> INDEX 3
+		JMP UPDATE_QTY
+		
+	UPDATE_QTY:
+		MOV AL,[QTY_OF_PROD]
+		ADD [SALES_DATA + SI],AL
+		
+		;COST CALC
+		MOV AL,[QTY_OF_PROD]
+		MOV BL,[PRICE_OF_PROD]
+		XOR AH,AH		;INITIALIZE AH -> SO AX=AL
+		XOR BH,BH		;INITIALIZE BH -> SO BX=BL
+		MUL BX  		; TOTAL COST[AX] = [AL]QTY X [BL]PRICE
+		
+		;TO UPDATE LATEST AMT
+		SHL SI,1  		; SI *= 2   <--  SHIFTING LEFT SO MOVE 1-BIT TO LEFT
+		ADD [SALES_AMOUNT + SI],AX
+		
+		;TO UPDATE LATEST SALES
+		ADD [TOTAL_SALES],AX
+		
+	UPDATE_END:
+		POP SI
+		POP DX
+		POP CX
+		POP BX
+		POP AX
     RET
 UPDATE_SALES_DATA ENDP
 
@@ -1823,7 +1803,6 @@ LshowExit PROC			; "EXIT  |  LOG-OUT        [2] >"
 	RET
 LshowExit ENDP
 
-;====================================================================
 Llogin_BACK0 PROC      		;a label help to jump back Admin Login
     PUSH AX    ; store main procedure cursor
 
@@ -1842,8 +1821,6 @@ CONTINUE_ADMIN_0 PROC  		;a label help to loop Admin system
 	RET
 CONTINUE_ADMIN_0 ENDP
 
-;====================================================================
-	
 LINVALIDSEC PROC
     PUSH DX    ; store main procedure cursor
 
