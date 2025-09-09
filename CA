@@ -43,7 +43,6 @@
 						DB	"  |                                               |", 0AH, 0DH	 ;16H
 						DB	"  |                                               |", 0AH, 0DH	 ;17H
 						DB	"  |_______________________________________________|", 0AH, 0DH,"$";18H
-								; all underscore symbol (keyboard)
 								
 	SHOPNAME_INVALID	DB	"  |    INVALID SELECTION!!! PLEASE RE-ENTER...    |", 0AH, 0DH	 ;10H	
 						DB	"  |             PRESS <ENTER> TO RETRY            |", 0AH, 0DH	 ;11H	
@@ -136,11 +135,11 @@
 	
 	
 	
-	;PRODUCT INFO										$
+	;PRODUCT INFO										
     PROD_1_A_MSG 		DB "CHEESE BUN  [RM 2.00]       $"
     PROD_1_B_MSG 		DB "POTATO BUN  [RM 3.00]       $"
     PROD_2_A_MSG 		DB "CHOCOLATE CAKE  [RM 4.00]   $"
-    PROD_2_B_MSG 		DB "BANANA CAKE [RM 5.00]       $"
+    PROD_2_B_MSG 		DB "BANANA CAKE     [RM 5.00]       $"
 	MULTIPLY_SYMBOL		DB "    x $"
 	
 	QTY_PROD_MSG		DB	"  | _____________________________________________ |", 0AH, 0DH
@@ -165,7 +164,7 @@
 	
 	WELC_TO_MSG			DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
 						DB	"  |                                               |", 0AH, 0DH	 ;01H
-						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
+						DB  "  |   {[> == == ==  WELCOME TO OBB == == == <]}   |", 0AH, 0DH	 ;02H
 						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
 						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
 						DB	"  |                                               |", 0AH, 0DH	 ;05H
@@ -191,15 +190,15 @@
 	LIST_SUBOPT1		DB	"  |    CATEGORY OF PRODUCTS :  BUN                |", 0AH, 0DH	 ;06H
 						DB	"  |    _______________________________________    |", 0AH, 0DH	 ;07H
 						DB	"  |   | ************************************* |   |", 0AH, 0DH	 ;08H
-						DB	"  |   |   {A}    CHEESE BUN   >>>   RM 2.00   |   |", 0AH, 0DH	 ;09H
-						DB	"  |   |   {B}    POTATO BUN   >>>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
+						DB	"  |   |   {A}    CHEESE BUN    >>   RM 2.00   |   |", 0AH, 0DH	 ;09H
+						DB	"  |   |   {B}    POTATO BUN    >>   RM 3.00   |   |", 0AH, 0DH	 ;0AH
 						DB	"  |   |_______________________________________|   |", 0AH, 0DH	 ;0BH
 						DB	"  |                                               |", 0AH, 0DH  ;0CH
 						DB	"  |    SELECT  {A} OR {B}  TO  CONTINUE  ORDER    |", 0AH, 0DH,"$";0DH
 					
 	LIST_SUBOPT2AB		DB	"   _______________________________________________ ", 0AH, 0DH	 ;00H
 						DB	"  |                                               |", 0AH, 0DH	 ;01H
-						DB  "  |   {[> == == == WELCOME TO MENU == == == <]}   |", 0AH, 0DH	 ;02H
+						DB  "  |   {[> == == ==  WELCOME TO OBB == == == <]}   |", 0AH, 0DH	 ;02H
 						DB	"  |   _________________________________________   |", 0AH, 0DH	 ;03H
 						DB	"  |   *****************************************   |", 0AH, 0DH	 ;04H
 						DB	"  |                                               |", 0AH, 0DH	 ;05H
@@ -236,12 +235,13 @@
 						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;10H	
 						DB	"  |                                               |", 0AH, 0DH	 ;11H	<-
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
-						DB	"  |   | ||| || ||| | |||| | ||| || || |||| ||||   |", 0AH, 0DH	 ;13H
-						DB	"  |     6 6 0 1 0 1 9 0 0 1 0 0 0 0 0 5 7 2 9     |", 0AH, 0DH	 ;14H
-						DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-						DB	"                                                   ", 0AH, 0DH	 ;16H
-						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-						DB	"                                                   ", 0AH, 0DH,"$";18H	
+						DB	"  |   *****************************************   |", 0AH, 0DH	 ;13H
+						DB	"  |     Thank you for your purchase!	       	   |", 0AH, 0DH	 ;14H
+						DB	"  |     Follow our instagram @OBBBakery	       |", 0AH, 0DH	 ;15H
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;16H
+						DB	"                                                   ", 0AH, 0DH	 ;17H
+						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;18H
+						DB	"                                                   ", 0AH, 0DH,"$";19H	
 						
 	    ;RECEIPT PART
     
