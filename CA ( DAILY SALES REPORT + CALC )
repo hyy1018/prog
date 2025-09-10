@@ -1518,7 +1518,7 @@ LshowREPORT PROC			; if (selection == '1')
 	
 	LshowREPORT_DISPLAY:
 		;background
-		MOV AX,0600H
+		MOV AX,0600H		
 		MOV BH,1EH
 		MOV CX,0000H
 		MOV DX,184FH
@@ -1526,7 +1526,12 @@ LshowREPORT PROC			; if (selection == '1')
 		MOV AX,0600H
 		MOV BH,79H
 		MOV CX,0306H
-		MOV DX,0534H
+		MOV DX,0F34H
+		INT 10H
+		MOV AX,0600H
+		MOV BH,1EH
+		MOV CX,0607H
+		MOV DX,0B33H
 		INT 10H
 		
 		;fontground
