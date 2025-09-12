@@ -98,15 +98,31 @@
 	PSW      			DB 12 DUP("$")  
 	
 	;Admin Menu：Sales Report
-	SYSTEM      		DB "===WELCOME TO ADMIN SYSTEM===$"
-	CHECKING    		DB "    SALES REPORT CHECKING   [1] >$"
-	XCHECKING   		DB "    EXIT  |  LOG-OUT        [2] >$"
-	ENSURE      		DB "    ARE YOU SURE TO CONTINUE LOG-OUT (EXIT)? [Y/N]$"
-	SELECTION   		DB ?
-	INVALIDSEC  		DB "INVALID SELECTION!!! PLEASE RE-ENTER...$"
-	LEAVING     		DB "    PRESS <ENTER> TO EXIT"
+	SYSTEM				DB  "                                                   ", 0AH, 0DH
+						DB  "   _______________________________________________ ", 0AH, 0DH           
+						DB  "  | ********************************************* |", 0AH, 0DH
+						DB  "  |       _________________________________       |", 0AH, 0DH
+						DB	"  |      /                                 \      |", 0AH, 0DH
+						DB  "  |     ||  ===WELCOME TO ADMIN SYSTEM===  ||     |", 0AH, 0DH
+						DB  "  |      \_________________________________/      |", 0AH, 0DH
+						DB  "  |                                               |", 0AH, 0DH
+						DB  "  |       PRESS  [1]  OR  [2]  TO  CONTINUE       |", 0AH, 0DH
+						DB  "  |                                               |", 0AH, 0DH
+						DB  "  |                                               |", 0AH, 0DH,"$"
+	CHECKING    		DB  "  |        SALES REPORT CHECKING       [1] >      |$" 
+	XCHECKING   		DB  "  |        EXIT  |  LOG-OUT            [2] >      |", 0AH, 0DH
+						DB  "  |                                               |", 0AH, 0DH
+						DB  "  |_______________________________________________|", 0AH, 0DH,"$"
+	ENSURE				DB  "   _______________________________________________ ", 0AH, 0DH 
+						DB  "  |                                               |", 0AH, 0DH 
+						DB  "  |            ARE YOU SURE TO CONTINUE           |", 0AH, 0DH 
+						DB  "  |             LOG-OUT (EXIT)?  [Y/N]            |", 0AH, 0DH 
+						DB  "  |_______________________________________________|", 0AH, 0DH,"$"
+	SELECTION   		DB  ?
+	INVALIDSEC  		DB  "INVALID SELECTION!!! PLEASE RE-ENTER...$"
+	LEAVING     		DB  "    PRESS <ENTER> TO EXIT"
 	
-	REMOVEINV   		DB "	   PRESS <ENTER> TO RETURN$"
+	REMOVEINV   		DB  "	   PRESS <ENTER> TO RETURN$"
 
 	;PRODUCT INFO										$
     PROD_1_A_MSG 		DB "CHEESE BUN  [RM 2.00]       $"
@@ -249,12 +265,11 @@
 						DB	"                                                   ", 0AH, 0DH	 ;17H	
 						DB	"                                                   ", 0AH, 0DH,"$";18H			
 	
-	; 在.DATA段添加以下变量
+
 	SALES_DATA      	DB  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM QTY AMOUNT
 	SALES_AMOUNT    	DW  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM SALES AMOUNT
 	TOTAL_SALES     	DW  0                 ; TOTAL SALES ACCUMULATOR
 
-	; 销售报告消息
 	SALES_REPORT_MSG 	DB "                                                     ", 0AH, 0DH
 						DB "                                                     ", 0AH, 0DH
 						DB "                  ---  SALES REPORT  ---             ", 0AH, 0DH
@@ -872,9 +887,9 @@ DISPLAY_RECEIPT PROC
 	PUSH CX
 	PUSH DX		; ALWAYS STORE REGISTER
 	
-	CALL UPDATE_SALES_DATA
+	CALL UPDATE_SALES_DATA		
 	
-    CALL TO_CLEAR_SCREEN
+    CALL TO_CLEAR_SCREEN		;TO CLEAN UP SCREEN
 	;background
 	MOV AH,06H
 	MOV AX,0600H
@@ -882,10 +897,31 @@ DISPLAY_RECEIPT PROC
 	MOV CX,0000H
 	MOV DX,184FH
 	INT 10H
-	;msg bottom
+	;MSG ITEM
 	MOV AH,06H
 	MOV AX,0600H
-	MOV BH,6FH
+	MOV BH,67H
+	MOV CX,0E05H
+	MOV DX,0E29H
+	INT 10H
+	;MSG TAKE NEW ORDER
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,61H
+	MOV CX,1700H
+	MOV DX,1719H
+	INT 10H
+	;MSG NO EXIT
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6CH
+	MOV CX,171AH
+	MOV DX,172FH
+	INT 10H
+	;MSG BOTTOM
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,67H
 	MOV CX,1308H
 	MOV DX,142CH
 	INT 10H
@@ -1395,9 +1431,6 @@ CONTINUE_ADMIN PROC
 	LEA DX,SYSTEM		;"===WELCOME TO ADMIN SYSTEM===$"
 	INT 21H
 	MOV AH,09H
-	LEA DX,NL
-	INT 21H
-	MOV AH,09H
 	LEA DX,CHECKING		;"SALES REPORT CHECKING   [1] >"
 	INT 21H
 	MOV AH,09H
@@ -1454,14 +1487,14 @@ LINVALIDSECa:		; else if (selection == '0' || selection >= '3')
 	MOV AH,06H
 	MOV AX,0600H
 	MOV BH,4FH
-	MOV CX,0902H
-	MOV DX,0A2BH
+	MOV CX,1105H
+	MOV DX,122EH
 	INT 10H
 	
 	;fontground
 	MOV AH,02H
 	MOV BX,00
-	MOV DX,0904H
+	MOV DX,1107H
 	INT 10H
 	
 	MOV AH,09H
@@ -1759,7 +1792,13 @@ LExit_Logout ENDP
 LshowExit PROC			; "EXIT  |  LOG-OUT        [2] >"
     PUSH AX
     PUSH DX    ; store main procedure cursor
-
+	
+	MOV AH,02H
+    MOV BH,00H
+    MOV DH,10H 
+    MOV DL,00H 
+    INT 10H
+	
 	MOV AH,09H
 	LEA DX,ENSURE	; "ARE YOU SURE TO CONTINUE LOG-OUT "
 	INT 21H
@@ -1768,8 +1807,8 @@ LshowExit PROC			; "EXIT  |  LOG-OUT        [2] >"
 	MOV AH,06H
 	MOV AX,0600H
 	MOV BH,66H
-	MOV CX,0632H
-	MOV DX,0633H
+	MOV CX,1500H
+	MOV DX,1502H
 	INT 10H
 	
 	MOV AH,01H
@@ -1788,11 +1827,17 @@ LshowExit PROC			; "EXIT  |  LOG-OUT        [2] >"
 	CMP SELECTION,'n'    
 	JE CONTINUE_ADMIN_0
 	
+	CMP AL,0DH
+	JE CONTINUE_ADMIN_JMP
+	JMP LExit_Logout
+	
+	CONTINUE_ADMIN_JMP:
+	JMP CONTINUE_ADMIN
+	
 	MOV AH,09H
 	LEA DX,NL
 	INT 21H
-	; else
-	JMP LINVALIDSEC
+	
 
     POP DX
     POP AX     ; to recover register
