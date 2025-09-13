@@ -227,17 +227,17 @@
 						DB	"  |                                               |", 0AH, 0DH	 ;11H	<-
 						DB	"  |                                               |", 0AH, 0DH	 ;12H
 						DB	"  |   -   Thank  you  for  your  purchase!!!  -   |", 0AH, 0DH	 ;13H
-						DB	"  |        Follow our Instagram  @OBBBakery       |", 0AH, 0DH	 ;14H
-						DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H
-						DB	"                                                   ", 0AH, 0DH	 ;16H
-						DB	"    TAKE NEW ORDER ?  {Y}         NO , EXIT. {N}   ", 0AH, 0DH	 ;17H
-						DB	"                                                   ", 0AH, 0DH,"$";18H	
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;14H
+						DB	"                                                   ", 0AH, 0DH	 ;15H
+						DB	"     ** PLEASE  SELECT  YOUR  PAYMENT  METHOD **   ", 0AH, 0DH	 ;16H
+						DB	"                                                   ", 0AH, 0DH	 ;17H
+						DB	"      {C}  CASH  PAYMENT      {T}  TnG  PAYMENT    ", 0AH, 0DH,"$";18H	
 						
 	    ;RECEIPT PART
     
     PROD_LABEL   		DB "  |   $"
     QTY_LABEL  			DB "  |   $"
-    TOTAL_COST_LABEL    DB "  |   TOTAL COST                   RM  $"
+    TOTAL_COST_LABEL    DB "  |   TOTAL COST                   RM $"
 	
 	NO_EXIT_RECEIPT		DB	"                                                   ", 0AH, 0DH	 ;00H
 						DB	"                                                   ", 0AH, 0DH	 ;01H
@@ -270,23 +270,75 @@
 	SALES_AMOUNT    	DW  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM SALES AMOUNT
 	TOTAL_SALES     	DW  0                 ; TOTAL SALES ACCUMULATOR
 
-	SALES_REPORT_MSG 	DB "                                                     ", 0AH, 0DH
-						DB "                                                     ", 0AH, 0DH
-						DB "                  ---  SALES REPORT  ---             ", 0AH, 0DH
-						DB "                                                     ", 0AH, 0DH
-						DB "      | PRODUCT           | QTY | *****AMOUNT*****  |", 0AH, 0DH
-						DB "      |-------------------+-----+-------------------|", 0AH, 0DH
-						DB "      | CHEESE BUN        |     | RM       .00      |", 0AH, 0DH
-						DB "      | POTATO BUN        |     | RM       .00      |", 0AH, 0DH
-						DB "      | CHOCOLATE CAKE    |     | RM       .00      |", 0AH, 0DH
-						DB "      | BANANA CAKE       |     | RM       .00      |", 0AH, 0DH
-						DB "                                                     ", 0AH, 0DH
-						DB "                                |                    ", 0AH, 0DH
-						DB "               T O T A L        | RM       .00       ", 0AH, 0DH
-						DB "                                |                    ", 0AH, 0DH
-						DB "                                                     ", 0AH, 0DH
-						DB "               -  PRESS  <ENTER>  TO  EXIT  -        ", 0AH, 0DH,"$"
+	SALES_REPORT_MSG 	DB  "                                                     ", 0AH, 0DH
+						DB  "                                                     ", 0AH, 0DH
+						DB  "                  ---  SALES REPORT  ---             ", 0AH, 0DH
+						DB  "                                                     ", 0AH, 0DH
+						DB  "      | PRODUCT           | QTY | *****AMOUNT*****  |", 0AH, 0DH
+						DB  "      |-------------------+-----+-------------------|", 0AH, 0DH
+						DB  "      | CHEESE BUN        |     | RM       .00      |", 0AH, 0DH
+						DB  "      | POTATO BUN        |     | RM       .00      |", 0AH, 0DH
+						DB  "      | CHOCOLATE CAKE    |     | RM       .00      |", 0AH, 0DH
+						DB  "      | BANANA CAKE       |     | RM       .00      |", 0AH, 0DH
+						DB  "                                                     ", 0AH, 0DH
+						DB  "                                |                    ", 0AH, 0DH
+						DB  "               T O T A L        | RM       .00       ", 0AH, 0DH
+						DB  "                                |                    ", 0AH, 0DH
+						DB  "                                                     ", 0AH, 0DH
+						DB  "               -  PRESS  <ENTER>  TO  EXIT  -        ", 0AH, 0DH,"$"
 
+	AMT_PAYMENT_ENTER	DB  "   _______________________________________________ ", 0AH, 0DH  ;03H
+						DB	"  |                                               |", 0AH, 0DH  ;04H
+						DB  "  |                  _    __   __                 |", 0AH, 0DH  ;05H
+						DB  "  |                // \\ | _> | _>                |", 0AH, 0DH  ;06H
+						DB  "  |                \\_// |__> |__>                |", 0AH, 0DH  ;07H
+						DB  "  |                                               |", 0AH, 0DH  ;08H
+						DB	"  |                  WE  PREFER                   |", 0AH, 0DH  ;09H
+						DB	"  |             _____________________             |", 0AH, 0DH  ;0AH
+						DB	"  |            |   ___               |            |", 0AH, 0DH  ;0BH
+						DB	"  |            |    |  _      _ |_   |            |", 0AH, 0DH  ;0CH
+						DB	"  |            |    | |_| |_||_ | |  |            |", 0AH, 0DH  ;0DH
+						DB	"  |            |      _   ___   __   |            |", 0AH, 0DH  ;0EH
+						DB	"  |            |     | | | __  |  |  |            |", 0AH, 0DH  ;0FH
+						DB	"  |            |         |___| |__|  |            |", 0AH, 0DH  ;10H
+						DB	"  |            |    e W a l l e t    |            |", 0AH, 0DH  ;11H
+						DB	"  |            |_____________________|            |", 0AH, 0DH  ;12H
+						DB	"  |              *******************              |", 0AH, 0DH  ;13H
+						DB	"  |                                               |", 0AH, 0DH  ;14H
+						DB	"  |                                               |", 0AH, 0DH  ;15H
+						DB	"  |          <ENTER> TO SCAN THE QR CODE          |", 0AH, 0DH  ;16H
+						DB	"  |                                               |", 0AH, 0DH  ;17H
+						DB	"  |_______________________________________________|", 0AH, 0DH,"$"  ;18H
+	
+						
+						
+		
+	AMT_PAYMENT_QRCODE	DB  "  |                 _    __   __                  |", 0AH, 0DH  ;05H
+						DB  "  |               // \\ | _> | _>                 |", 0AH, 0DH  ;06H
+						DB  "  |               \\_// |__> |__>                 |", 0AH, 0DH  ;07H
+						DB  "  |                 _____________                 |", 0AH, 0DH  ;08H
+						DB	"  |      @@@@@@@@@@@             @@@@@@@@@@@      |", 0AH, 0DH  ;09H
+						DB	"  |      @ +-----+ @............ @         @      |", 0AH, 0DH  ;0AH
+						DB	"  |      @ | @@@ | @   .......   @   @@@   @      |", 0AH, 0DH  ;0BH
+						DB	"  |      @ | @@@ | @   .......   @   @@@   @      |", 0AH, 0DH  ;0CH
+						DB	"  |      @ +-----+ @   .......   @         @      |", 0AH, 0DH  ;0DH
+						DB	"  |      @@@@@@@@@@@-------------@@@@@@@@@@@      |", 0AH, 0DH  ;0EH
+						DB	"  |      |         |-=-=-=-=-=-=-|         |      |", 0AH, 0DH  ;0AH
+						DB	"  |      |  . . .  |=-=-=-=-=-=-=|  . . .  |      |", 0AH, 0DH  ;0FH
+						DB	"  |      |  . . .  |-=-=-=-=-=-=-|  . . .  |      |", 0AH, 0DH  ;10H
+						DB	"  |      |  . . .  |=-=-=-=-=-=-=|  . . .  |      |", 0AH, 0DH  ;11H
+						DB	"  |      |         |-=-=-=-=-=-=-|         |      |", 0AH, 0DH  ;12H
+						DB	"  |      @@@@@@@@@@@-------------@@@@@@@@@@@      |", 0AH, 0DH  ;13H
+						DB	"  |      @         @   .......   @ +-----+ @      |", 0AH, 0DH  ;14H
+						DB	"  |      @   @@@   @   .......   @ | @@@ | @      |", 0AH, 0DH  ;15H
+						DB	"  |      @   @@@   @   .......   @ | @@@ | @      |", 0AH, 0DH  ;16H
+						DB	"  |      @         @.............@ +-----+ @      |", 0AH, 0DH  ;17H
+						DB	"  |      @@@@@@@@@@@_____________@@@@@@@@@@@      |", 0AH, 0DH  ;18H
+						DB	"  |                                               |", 0AH, 0DH  ;19H
+		        		DB	"  |          <ENTER>  TO  CONTINUE  EXIT          |", 0AH, 0DH  ;1AH
+						DB	"  |_______________________________________________|", 0AH, 0DH,"$"  ;11H
+						
+						
 .CODE
 MAIN PROC
     MOV AX,@DATA
@@ -406,7 +458,6 @@ RECEIPT_THANKQ PROC
 		MOV CX,0000H
 		MOV DX,184FH
 		INT 10H
-		
 		;fontground
 		MOV AH,02H
 		MOV BX,00H
@@ -417,9 +468,45 @@ RECEIPT_THANKQ PROC
 		LEA DX,NO_EXIT_RECEIPT
 		INT 21H
 		
-		MOV AH,01H
+		;MSG ITEM
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,67H
+		MOV CX,0E05H
+		MOV DX,0E2BH
+		INT 10H
+		;fontground TOTAL
+		MOV AH,02H
+		MOV BX,00H
+		MOV DH,0EH
+		MOV DL,00H
+		INT 10H
+		
+		LEA DX,TOTAL_COST_LABEL
+		MOV AH,09H
 		INT 21H
 		
+		MOV AX,[TOTAL_COST]
+		CALL DISPLAY_DIGIT
+
+		LEA DX,PRICE_DECIMAL_POINT; ADD .00 AFTER COST
+		MOV AH,09H
+		INT 21H
+		
+		;HIDE INPUT
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,66H
+		MOV CX,1300H
+		MOV DX,1301H
+		INT 10H
+		MOV AH,02H
+		MOV BX,00H
+		MOV DH,13H
+		MOV DL,00H
+		INT 10H
+		MOV AH,01H
+		INT 21H
 		CMP AL,0DH
 		JE LRECEIPT_THANKQ
 		JMP LRECEIPT_THANKQ_RETURN		; ALWAYS LOOP EXPECT PRESS <Enter>  
@@ -904,26 +991,12 @@ DISPLAY_RECEIPT PROC
 	MOV CX,0E05H
 	MOV DX,0E29H
 	INT 10H
-	;MSG TAKE NEW ORDER
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,61H
-	MOV CX,1700H
-	MOV DX,1719H
-	INT 10H
-	;MSG NO EXIT
-	MOV AH,06H
-	MOV AX,0600H
-	MOV BH,6CH
-	MOV CX,171AH
-	MOV DX,172FH
-	INT 10H
 	;MSG BOTTOM
 	MOV AH,06H
 	MOV AX,0600H
 	MOV BH,67H
 	MOV CX,1308H
-	MOV DX,142CH
+	MOV DX,132CH
 	INT 10H
 	;fontground
 	MOV AH,02H
@@ -989,28 +1062,47 @@ DISPLAY_RECEIPT PROC
 	INT 21H
 	
 	L_DECISION_RECEIPT:
-		CMP AL,'Y'
-		JE RETURN_TO_MENU_FUNC
-		CMP AL,'y'
-		JE RETURN_TO_MENU_FUNC
-		CMP AL,'N'
-		JE EXIT_FROM_RECEIPT_FUNC
-		CMP AL,'n'
-		JE EXIT_FROM_RECEIPT_FUNC
-		CMP AL,0DH
-		JE LOOP_DISPLAY_RECEIPT
+		CMP AL,'C'
+		JE PAYMENT_RECEIPT
+		CMP AL,'c'
+		JE PAYMENT_RECEIPT
+		CMP AL,'T'
+		JE TNG_PAYMENT_SHOW
+		CMP AL,'t'
+		JE TNG_PAYMENT_SHOW
 		JMP DISPLAY_RECEIPT  	; INVALID OPTION
-	
-	LOOP_DISPLAY_RECEIPT:
+
+	TNG_PAYMENT_SHOW:
+		CALL TO_CLEAR_SCREEN_TNG_FORM
+		MOV AH,09H
+		LEA DX,AMT_PAYMENT_ENTER
+		INT 21H
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE L_TNG_PAYMENT_QRCODE
+		JMP TNG_PAYMENT_SHOW
+		
+	L_TNG_PAYMENT_QRCODE:
+		CALL TO_CLEAR_SCREEN
+		MOV AH,09H
+		LEA DX,AMT_PAYMENT_QRCODE
+		INT 21H
+		MOV AH,01H
+		INT 21H
+		CMP AL,0DH
+		JE PAYMENT_RECEIPT
+		JMP L_TNG_PAYMENT_QRCODE
+
+
+	PAYMENT_RECEIPT:
+		CALL RECEIPT_THANKQ
 		JMP DISPLAY_RECEIPT
 		
 	RETURN_TO_MENU_FUNC:
 		CALL LWELC_MENU
 		JMP RECEIPT_END_FUNC
-		
-	EXIT_FROM_RECEIPT_FUNC:
-		CALL RECEIPT_THANKQ
-		
+
 	RECEIPT_END_FUNC:
 	POP DX
 	POP CX
@@ -1018,6 +1110,52 @@ DISPLAY_RECEIPT PROC
 	POP AX		;RECOVERY REGISTER
     RET
 DISPLAY_RECEIPT ENDP
+
+TO_CLEAR_SCREEN_TNG_FORM PROC
+	PUSH AX
+	PUSH BX
+	PUSH CX
+	PUSH DX
+	
+	;background
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,6EH
+	MOV CX,0000H
+	MOV DX,1A4FH
+	INT 10H
+	
+	;background TNG ICON
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,1FH
+	MOV CX,0B10H
+	MOV DX,1024H
+	INT 10H
+	;background TNG ICON
+	MOV AH,06H
+	MOV AX,0600H
+	MOV BH,1EH
+	MOV CX,1110H
+	MOV DX,1224H
+	INT 10H
+	
+	;fontground
+	MOV AH,02H
+	MOV BH,00H
+	MOV DH,03H
+	MOV DL,00H
+	INT 10H
+	
+
+	
+	POP DX
+	POP CX
+	POP BX
+	POP AX
+	
+	RET
+TO_CLEAR_SCREEN_TNG_FORM ENDP
 
 MUL_8_BIT_MAX_255 PROC
     PUSH BX
@@ -1873,7 +2011,5 @@ LINVALIDSEC PROC
     POP DX     ; to recover register
 	RET
 LINVALIDSEC ENDP
-
-
 END MAIN
 
