@@ -1,0 +1,2724 @@
+.model small
+.stack 100h
+
+.data
+
+; Logo and login messages
+logo1 db '  -----::-------+%@@@%*+=-::#@@@@@@%#==+-------------------$'
+logo2 db ' -----..----=#@@@@@@@%=:::%@@%-+%@@@:=--------------------$'
+logo3 db ' :-----:..-#@@@@#-:+@@%:::#@+:=+=+#*::+-------------------$'
+logo4 db ' -.-...:-=@@@@%-:::::=-:::::+:::::=-::--------------------$'
+logo5 db ' ..::.--*@=::::-*:::*-:::::+::::::::=:--.:-----------..--:$'
+logo6 db ' :-::--#@%:::--:::::::*:::-=%@@@@#:::::===-----------::...$'
+logo7 db ' :..::-@@#::+:::-%@@@@%-::+@%: .+@%::::::::::+---------::.$'
+logo8 db ' :..:-@@@#::-::#@@*::+@@-:%@-.  +@%:::::::::::-=------.::.$'
+logo9 db ' -...+@@@#::::-@@=   .%@-:=@@%%%@@=:::::::::::::=--------:$'
+logo10 db ' ---+:::%#:::::%@#:.=@@%::::-**=-+*-::::::::::::*---------$'
+logo11 db ' --*:::::+::::::#%@@%*::::::::*#**:::-+-::::::::=---------$'
+logo12 db ' -=:::::::::::::::::::::::::-##+++::::+==++:::::+---------$'
+logo13 db ' -=:::::::::::::::::::::::::**+++=::::*=====++-:----------$'
+logo14 db ' -+::::::::::::::::::::::::+#++++=::::*====++*+=#-.-....--$'
+logo15 db ' -==::::::-=::-::::::::::::**++++=::::*+=+**----+=....:---$'
+logo16 db ' ---+--=+=--*#******#***++*-:+=*++::::-++++----===-:.:----$'
+logo17 db ' ---------+***************#::::+*#=::::*++-----=*.--:-----$'
+logo18 db ' ----------#*********#*****#-:::*#*:::::*-----==:...-:----$'
+logo19 db ' =--------:.#*********###**#-::#****#-::*----=*=...-...---$'
+logo20 db ' ===--------*****************#*********##*-=#+-..:--:...--$'
+logo21 db ' ===--------+**#***********#**************+-==-..----..---$'
+logo22 db ' ==--------:.#**##*******#*****************--:.-.----..---$'
+logo23 db ' ---------:..=****%*****#*****************#*---.:----..---$'
+logo24 db ' --------:.:.+#*****#*#********************#=###-----.:---$'
+logo25 db ' ------------=#**************************##*+++*---====---$'
+logo26 db 'Welcome to Flask & Furious! What can we help you? ^_^ '
+newline db 0dh, 0ah, '$'
+; Option for user's login option
+    opt01 db '1. Customer', 0dh, 0ah, '$'
+    opt02 db '2. Employee', 0dh, 0ah, '$'
+    opt03 db '3. Exit', 0dh, 0ah, '$'
+
+christmasTree db 0DH, 0AH, "           .++-.          "
+              db 0DH, 0AH, "            :-.           "
+              db 0DH, 0AH, "            -*-.          "
+              db 0DH, 0AH, "         ..#+=+-.         "
+              db 0DH, 0AH, "        .-*+*+**+..       "
+              db 0DH, 0AH, "      :++-=+*=-=-++-.     "
+              db 0DH, 0AH, "       .=**--+*+=-.       "
+              db 0DH, 0AH, "     .*#----=----++#+.    "
+              db 0DH, 0AH, "   ..:#**#*=--#*=*##+..   "
+              db 0DH, 0AH, "    ..*=---#*=**==++-..   "
+              db 0DH, 0AH, "  .:-=+===++*+#=+*++#--.. "
+              db 0DH, 0AH, " ..-+=+++*+*##+*=*++===:. "
+              db 0DH, 0AH, "     .:-::..#**..:--..    "
+              db 0DH, 0AH, "            .:.           ", 0DH, 0AH,'$'
+merryMsg db "Merry Christmas ! Thanks for using our system !", 0Dh, 0Ah, '$'
+user_optionn db ?, 0
+
+; Messages for user selection and login
+msg1 db 'Enter your Employee ID: $'
+msg2 db 'Enter your Password: $'
+msg3 db 'Login successfully ^-^ ! Welcome to Flask & Furious.', 0dh, 0ah, '$'
+msg4 db 'Invalid Employee ID -_- !', 0dh, 0ah, '$'
+msg5 db 'Invalid Password -_- !', 0dh, 0ah, '$'
+msg6 db 'Error Please choose again -_- !', 0dh, 0ah, '$'
+customer_msg db 'Welcome, dear Customer! Please enjoy your shopping. ^_^ ', 0dh, 0ah, '$'
+orderagain1 db 'Do you want to Order Again (Y/N): $'
+
+
+; Data for menu prompt and options
+menu_prompt_part1  db '+-----------------------------------------------------+', '$'
+menu_prompt_part2  db '| Please choose one of the following options:         |', '$'
+menu_prompt_part3  db '+-----------------------------------------------------+', '$'
+menu_prompt_part4  db '| Type of Product      |           Price (RM)         |', '$'
+menu_prompt_part5  db '+----------------------+------------------------------+', '$'
+menu_prompt_part6  db '| 1. Coffee Cup        |           55.00              |', '$'
+menu_prompt_part7  db '| 2. Ace Bottle Medium |           66.00              |', '$'
+menu_prompt_part8  db '| 3. Ace Bottle Mega   |           88.00              |', '$'
+menu_prompt_part9  db '| 4. Flask & Furious   |           99.00              |', '$'
+menu_prompt_part10 db '|   xCrayon Shin-chan  |                              |', '$'
+menu_prompt_part11 db '+-----------------------------------------------------+', '$'
+invalid_menu db 'Invalid options selection. Please try again.', 0dh, 0ah, '$'
+coffeecup dw 0 
+acemedium dw 0, '$'
+acemega dw 0, '$'
+crayon dw 0, '$'
+coffeecup1 dw 0, '$'
+acemedium1 dw 0, '$'
+acemega1 dw 0, '$'
+crayon1 dw 0, '$'
+subtotal dw ?
+deliveryn db '0.00$'
+deliverys db '3.00$'
+deliverye db '5.00$'
+total_payable dw ?
+membershipb db '15.00$'
+TOTALSUB DW ?
+
+option1 db '1. Coffee Cup', 0dh, 0ah, '$'
+option2 db '2. Ace Bottle Medium', 0dh, 0ah, '$'
+option3 db '3. Ace Bottle Mega', 0dh, 0ah, '$'
+option4 db '4. Flask & Furious x Crayon Shin-chan', 0dh, 0ah, '$'
+selected_option db ' You Selected: $'
+useroption db ? 
+orderagainoption db ?
+
+ccup db ' You selected Coffee Cup  $'
+ccupadd db ' You selected Coffee Cup with personalization  X$'
+ccupmsg db ' Total Price is RM $'
+acemed db ' You selected Ace Bottle Medium X$'
+acemeg db ' You selected Ace Bottle Mega X$'
+crayonmsg db ' You selected Flask&FuriosXCrayon Shin-Chan X$'
+
+; Data for color selection prompt and options
+color_prompt_part1  db '+----------------------------------------+', '$'
+color_prompt_part2  db '| Please select a color for your order:  |', '$'
+color_prompt_part3  db '+----------------------------------------+', '$'
+color_prompt_part4  db '|   Color Options                        |', '$'
+color_prompt_part5  db '+----------------------+-----------------+', '$'
+color_prompt_part6  db '| 1. Baby Pink                           |', '$'
+color_prompt_part7  db '| 2. Navy Blue                           |', '$'
+color_prompt_part8  db '| 3. Raven Black                         |', '$'
+color_prompt_part9  db '| 4. Off White                           |', '$'
+color_prompt_part10 db '| 5. Mint Green                          |', '$'
+color_prompt_part11 db '+----------------------------------------+', '$'
+
+color_prompt db 'Please select a color for your order:', 0dh, 0ah, '$'
+color1 db '1. Baby Pink', 0dh, 0ah, '$'
+color2 db '2. Navy Blue', 0dh, 0ah, '$'
+color3 db '3. Raven Black', 0dh, 0ah, '$'
+color4 db '4. Off White', 0dh, 0ah, '$'
+color5 db '5. Mint Green', 0dh, 0ah, '$'
+invalid_color db 'Invalid color selection. Please try again.', 0dh, 0ah, '$'
+selected_color db 'You selected: $'
+colouroption db ?  
+SPACE DB '               $'
+ ITEM    db    '                           Invoice                               ', 13,10
+         db    '+---------------------------------------------------------------+', 13,10
+         db    '|                      Flask and Furious                        |', 13,10
+         db    '|       77, JLN ILY 7/7, TAMAN HAHA, 52100 KUALA LUMPUR         |', 13,10
+         db    '|                      Tel: 03-52013140                         |', 13,10
+         DB    '+---------------------------------------------------------------+', 13,10
+         DB    '|     ITEM                      QUANTITY        Price(RM)$      |', 13,10  
+		 
+receipt0 db    '+---------------------------------------------------------------+', 13,10
+         db    '| Sub Total       : RM $'
+receipt2 db    '| Delivery Charge : RM $'
+receipt3 db    '| Discount        :-RM $' 
+receipt4 db    '| Total Price     : RM $' 
+receipt5 db    '+---------------------------------------------------------------+$', 13,10
+    
+coffeecup9 db  '| Coffee Cup                      $'  
+acemedium9 db  '| Ace Bottle Medium               $'
+acemega9   db  '| Ace Bottle Mega                 $'  
+crayon9    db  '| FF x Crayon Shin-chan           $' 
+coffeecup10 db '| (P) Coffee Cup                  $'
+acemedium10 db '| (P) Ace Bottle Medium           $'
+acemega10   db '| (P) Ace Bottle Mega             $'  
+crayon10    db '| (P) FF x Crayon Shin-chan       $' 
+
+ ITEM1   db '                           Receipt                               ', 13,10
+         db '+---------------------------------------------------------------+', 13,10
+         db '|                      Flask and Furious                        |', 13,10
+         db '|       77, JLN ILY 7/7, TAMAN HAHA, 52100 KUALA LUMPUR         |', 13,10
+         db '|                      Tel: 03-52013140                         |', 13,10
+         DB '+---------------------------------------------------------------+', 13,10
+         DB '|     ITEM                      QUANTITY        Price(RM)$      |', 13,10  
+		 
+
+
+
+; Personalization selection prompt
+personalization_prompt_part db '+-----------------------------------------------------+', 13,10
+							db '| Do you want to personalize your item?               |', 13,10
+							db '| (This will cost an additional RM10.00)              |', 13,10
+							db '+-----------------------------------------------------+', 13,10
+							db '| 1. Yes, add personalization                         |', 13,10
+							db '| 2. No, proceed without personalization              |', 13,10
+							db '+-----------------------------------------------------+', '$'
+invalid_message db 'invalid selection . please try again.', 0dh, 0ah, '$'
+ 
+personalizationoption1  db '+------------------------------------------+', '$'
+personalizationoption2  db '| Please select a font to personalization  |', '$'
+personalizationoption3  db '+------------------------------------------+', '$'
+personalizationoption4  db '|   Font Options                           |', '$'
+personalizationoption5  db '+----------------------+-------------------+', '$'
+personalizationoption6  db '| 1. Caveat                                |', '$'
+personalizationoption7  db '| 2. Merriwheather                         |', '$'
+personalizationoption8  db '| 3. Great Vibes                           |', '$'
+personalizationoption9  db '| 4. Pacifico                              |', '$'
+personalizationoption10 db '+----------------------------------------+-|', '$'
+invalid_front db 'invalid selection . please try again.', 0dh, 0ah, '$'
+personaloption db ?
+personalmessege db 'Enter What you want to Write: $'
+
+membership_prompt db 'Do you have a membership? (Y/N): $'
+membership_discount dw 15  
+membership db 'Do you have a membership? [Y/N]: ', '$'
+	membershipmes1 db 'Please enter your membership phone number to apply rm15 voucher: ', '$'
+	invalid_choice db 'This option in unvailable, please choose again.', '$'
+	deliveryadd db 'Please enter your address: ', '$'
+	deliveryopt db 'Do you want delivery service [Y/N]: ', '$'
+	delivery db 'Please choose your delivery option [S/E]: ', '$'
+    delivery_mes2 db 'Standard Delivery (5 - 7 days) RM3 ', '$'
+    delivery_mes3 db 'Express Delivery (3 - 4 days) RM5 ', '$'
+	ask_reg_msg db 'Do you want to register a membership? [Y/N]: ', '$'
+	reg_msg1 db 'Please enter your phone number to apply rm15 voucher: ', '$'
+	invalid_num db 'Invalid number', '$'
+	invalidmsg db 'Invalid Selection Please Select Again: ', '$'
+	gobackmsg db 'Press any key to exit:', '$'
+membershipoption db ?
+deliveryoption db ?
+deliveryoption2 db ?
+regoption db ?
+
+;Report
+        dailycoffeecup  Dw  0
+        dailymedium     DW  0
+        dailymega       DW  0
+        dailyflask      DW  0
+		dailycoffeecup1  dw 0
+		dailymedium1    dw 0
+		dailymega1      dw 0
+		dailyflask1     dw 0
+        dailyquantity   dw ?
+      
+       
+       
+		reportTitle         DB                    "Daily Summary Report $"
+		dailyitem DB'+----------------------------------------------------------------------+', 13,10
+                  DB' TOTAL ITEM SOLD                          QUANTITY          Price(RM)   ' , 13,10
+				  DB'+----------------------------------------------------------------------+$', 13,10
+        dailycoffeecupmsg   DB    " CoffeeCup                                   $"
+        dailymediummsg      DB    " Ace Bottle Medium                           $"
+        dailymegamsg        DB    " Ace Bottle Mega                             $"
+        dailyflaskmsg       DB    " FF X CrayonShinchan                         $"
+		dailycoffeecupmsg1  DB    " CoffeeCup Personalization                   $"
+		dailymediummsg1     DB    " Ace Bottle Medium Personalization           $"
+		dailymegamsg1       DB    " Ace Bottle Mega Personalization             $"
+		dailyflaskmsg1      DB    " FF XCrayonShinchan Personalization          $"
+		
+        dailySalesMsg       DB      "Total Sales Today     :                                      $"
+        dailyquantitymsg    DB      "Total Quantity        :                      $"
+        printTable  DB  '+----------------------------------------------------------------------+$', 13,10  
+		
+
+
+  ; Correct credentials
+    correct_username db 'kahchong$'
+    correct_username2 db 'huixuan$'
+    correct_username3 db 'xiaoyu$'
+    correct_username4 db 'huiwen$'
+    correct_password db 'haha$'
+
+coffee_cup_price db 55  ; Price for Coffee Cup
+ace_bottle_medium_price db 66  ; Price for Ace Bottle Medium
+ace_bottle_mega_price db 88  ; Price for Ace Bottle Mega
+flask_furious_price db 99  ; Price for Flask & Furious x Crayon Shin-chan
+personalization_fee db 10  ; Personalization fee  
+total_price dw ?
+pricecoffeecup dw ?
+pricemedium dw ?
+pricemega dw ?
+pricecrayon dw ?
+pricecoffeecup1 dw ?
+pricemedium1 dw ?
+pricemega1 dw ?
+pricecrayon1 dw ?
+
+; Buffers for user input
+login1 LABEL BYTE
+MAXCHAR DB 10
+ACTCHAR DB ?
+
+username db 20 dup('$')
+password db 20 dup('$')
+pmessege db 20 dup('$')
+deliverymessege db 40 dup('$')
+membermessege db 20 dup('$')
+regmessege db 20 dup('$')
+price_buffer db 6, ? ('$')
+
+; Payment options
+payment1 db '1. Touch N Go (T)', 0dh, 0ah, '$'
+payment2 db '2. Credit Card (C)', 0dh, 0ah, '$'
+payment3 db '3. Debit Card (D)', 0dh, 0ah, '$'
+
+; Messages
+paymsg0 db 'What payment method do you prefer? (T/C/D): $', 0
+paymsg1 db 0AH, 0DH, 'Enter your card number (16 digits): $', 0
+paymsg2 db 0AH, 0DH, 'Enter your PIN (6 digits): $', 0
+paymsg3 db 0AH, 0DH, 'Payment Successful!', 0dh, 0ah, '$'
+paymsg4 db 'Invalid Payment Method! Try again.', 0dh, 0ah, '$'	
+
+invalidcardmsg db 0ah, 0dh, "Invalid card number!$"
+invalidpinmsg db 0ah, 0dh, "Invalid pin number!$"
+
+; QR code for Touch N Go
+                   qr db 0dh, 0ah, '+@%%%%%%%%%%@% -@%%@@+:#@%%.  .@% -@%%%%%%%%%%@@'
+						db 0dh, 0ah, '+@= ...... .@% -@.+@%@%@:   .:@% -@ ....... @@ %'
+						db 0dh, 0ah, '+@= #@@@@@ .@% ..=@+......   @@@% -@* +@@@@@: @@' 
+						db 0dh, 0ah, '+@= #@@@@@ .@%   =@+         .:@% -@* +@@@@@: @@' 
+						db 0dh, 0ah, '+@= #@@@@@ .@% -@.+@=     %@ ... -@ +@@@@@: @@ @'
+						db 0dh, 0ah, '+@=........:@% -@* +@@@-.. %@ .@% -@*.........@@' 
+						db 0dh, 0ah, '+@%@@@@@%@@%@# -@* +@=.#@-.%@ .@% -@%@@@%@@@@@%@' 
+						db 0dh, 0ah, '......... ....     ..*@@@@@:..:@#.. .....   ....'
+						db 0dh, 0ah, '+@@@@@@@:.@@@%     +@=.. %@@@@@ :@#.=@@@= ..%@@@' 
+						db 0dh, 0ah, '....#@@@@@@@.. + @@@ - ..@@@@ :@@@@@@@ = #@ - ...'
+						db 0dh, 0ah, '.:%@@@@@%%%%%+ +@+:. #%::@@ :@#:+@*:. .:.    %%@:'
+						db 0dh, 0ah, '+%- :::::::-@#:. .:. %-:%%@@ .:=%:+%= *%%%%% :.='
+						db 0dh, 0ah, '*@%%%%%% .%#:=%+   +%@@%%-:@@   .:. .:. #@-:@@ %:'
+						db 0dh, 0ah, '.:::%@@@ .:: .:=%%%=:::::%%:: :%%%+     #@: %@ ='
+						db 0dh, 0ah, '+@= @-... .@@@ ..+@@@- #@@@ .@#.=@*   *@@@: .. @'
+						db 0dh, 0ah, '+@= #@: @@     -@@@@@=   %@@@ .@%   =@+   #@: @@'
+						db 0dh, 0ah, '.:@=:#@@@@%@# .:+@:*@- %@@@ .@@@%@%@@@%@@@: .: %'
+						db 0dh, 0ah, '::. ::::::::   .:. ::. :::: .@%:::::*@@@=:#%#% #'
+						db 0dh, 0ah, '=#########         +#: *# .@% :#= +@@@##=-@@ %%=:'
+						db 0dh, 0ah, '+@=-=-=-===@% := -%@: %@@% .=: +@@@+=*== @@@@@@@'
+						db 0dh, 0ah, '+@= +***** .@% .=++=#@+=@@@@@@%@*=. %@.  .%%@ .@:'
+						db 0dh, 0ah, '+@= #@@@@@ :@# :#@%+===%@==@%===@@@= +%@:  @@@%@'
+						db 0dh, 0ah, '+@= #@@@@@ .@% -@#-*@##%@: %@##@%   =@@@##=-%@##'
+						db 0dh, 0ah, '+@= -===== .@% -@%+=#@@@#==@@=-   =@=#@#@@@@ %=='
+						db 0dh, 0ah, '+@#*@% -@#=: -=%@+=. ==     =@+ *@+===@@   @#@@=',0dh, 0ah, '$'
+
+user_input db ?, 0
+
+; Input buffers
+credit_card_input db 17, 0, 17 dup(0) 
+credit_pin_input db 7, 0, 7 dup(0)    
+debit_card_input db 17, 0, 17 dup(0) 
+debit_pin_input db 7, 0, 7 dup(0)  
+
+insertq db 'Please enter the quantity: $'
+recordq dw ?
+errormsg db 'Invalid quantity, please enter again$'
+sstmsg db '| SST(5%)         : RM $'
+totalpay dw ?
+totaldecimal dw ?
+finaltotal dw ?
+finaltotal1 db '| Total Payable   : RM $'
+fordecimal dw 0
+
+.code
+main proc
+    ; Initialize data segment
+    mov ax, @data
+    mov ds, ax
+	
+	
+
+    ; Display logo and user type selection
+   
+   
+	MOV dailycoffeecup,0
+	mov dailymedium,0
+	mov dailymega,0
+	mov dailyflask,0
+	mov dailycoffeecup1,0
+	mov dailymedium1,0
+	mov dailymega1,0
+	mov dailyflask1,0
+	
+	jmp display_logo
+    ; End program
+    mov ax, 4c00h
+    int 21h
+
+
+; Procedure for displaying the logo
+display_logo proc
+
+
+	MOV CoffeeCup,0
+    MOV acemedium,0
+	mov acemega,0
+	mov crayon,0
+	mov coffeecup1,0
+	mov acemedium1,0
+	mov acemega1,0
+	mov crayon1,0
+    mov subtotal,0
+    mov total_payable,0
+
+    ; Display all logo lines
+    lea dx, logo1
+    call display_line
+    lea dx, logo2
+    call display_line
+    lea dx, logo3
+    call display_line
+    lea dx, logo4
+    call display_line
+    lea dx, logo5
+    call display_line
+    lea dx, logo6
+    call display_line
+    lea dx, logo7
+    call display_line
+    lea dx, logo8
+    call display_line
+    lea dx, logo9
+    call display_line
+    lea dx, logo10
+    call display_line
+	lea dx, logo11
+    call display_line
+	lea dx, logo12
+    call display_line
+	lea dx, logo13
+    call display_line
+	lea dx, logo14
+    call display_line
+	lea dx, logo15
+    call display_line
+	lea dx, logo16
+    call display_line
+	lea dx, logo17
+    call display_line
+	lea dx, logo18
+    call display_line
+	lea dx, logo19
+    call display_line
+	lea dx, logo20
+    call display_line
+	lea dx, logo21
+    call display_line
+	lea dx, logo22
+    call display_line
+	lea dx, logo23
+    call display_line
+	lea dx, logo24
+    call display_line
+	lea dx, logo25
+    call display_line
+	lea dx, logo26
+    call display_line
+	
+    jmp select_user_type
+display_logo endp
+
+; Procedure for displaying a line
+display_line proc
+    mov ah, 09h
+    int 21h
+    lea dx, newline
+    int 21h
+    ret
+display_line endp
+
+select_user_type proc
+    lea dx, opt01
+    call print_string
+    lea dx, opt02
+    call print_string
+    lea dx, opt03
+    call print_string
+	
+ mov ah, 01h       
+    int 21h
+    mov user_optionn, al
+
+    cmp al, '1'
+    je customer_flow
+    cmp al, '2'
+    je employee_flow1
+    cmp al, '3'
+    je exit_flow
+
+    ; Invalid choice, repeat
+    call invalid_choice1  
+	jmp select_user_type
+    ret
+select_user_type endp
+
+employee_flow1:
+	jmp employee_flow
+
+; Procedure for Customer flow
+customer_flow proc
+    
+    lea dx, newline
+    int 21h
+    mov ah, 09h
+
+    mov ah, 09h
+    lea dx, customer_msg
+    int 21h
+
+    ; Display the menu options
+    jmp display_menu
+
+    ret
+customer_flow endp
+
+exit_flow proc
+
+mov ah, 09h
+lea dx, christmasTree
+int 21h
+
+mov ah, 09h
+lea dx, merryMsg
+int 21h
+
+JMP EXIT0
+exit_flow endp
+
+
+display_menu proc
+
+	
+	
+    ; Display menu prompt
+    lea dx, menu_prompt_part1
+    call display_line
+    lea dx, menu_prompt_part2
+    call display_line
+    lea dx, menu_prompt_part3
+    call display_line
+    lea dx, menu_prompt_part4
+    call display_line
+    lea dx, menu_prompt_part5
+    call display_line
+    lea dx, menu_prompt_part6
+    call display_line
+    lea dx, menu_prompt_part7
+    call display_line
+    lea dx, menu_prompt_part8
+    call display_line
+    lea dx, menu_prompt_part9
+    call display_line
+    lea dx, menu_prompt_part10
+    call display_line
+    lea dx, menu_prompt_part11
+    call display_line
+    
+    ; Read user input for menu selection
+    mov ah, 01h
+    int 21h
+    mov useroption, al
+	
+    ; Check if the input is valid
+    cmp al, '1'
+    je colour
+    cmp al, '2'
+    je colour
+    cmp al, '3'
+    je colour
+    cmp al, '4'
+    je colour
+	
+    ; If invalid, display error and retry
+    lea dx, newline
+    int 21h
+    mov ah, 09h
+	
+	mov ah, 09h
+    lea dx, invalid_menu
+    int 21h
+    jmp display_menu
+	
+
+display_menu endp
+
+colour proc
+    ; Display color selection menu
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    lea dx, color_prompt_part1
+    call display_line
+    lea dx, color_prompt_part2
+    call display_line
+    lea dx, color_prompt_part3
+    call display_line
+    lea dx, color_prompt_part4
+    call display_line
+    lea dx, color_prompt_part5
+    call display_line
+    lea dx, color_prompt_part6
+    call display_line
+    lea dx, color_prompt_part7
+    call display_line
+    lea dx, color_prompt_part8
+    call display_line
+    lea dx, color_prompt_part9
+    call display_line
+    lea dx, color_prompt_part10
+    call display_line
+    lea dx, color_prompt_part11
+    call display_line
+
+    ; Read user input for color selection
+    mov ah, 01h
+    int 21h
+    mov colouroption, al
+
+    ; Check if the input is valid
+    cmp al, '1'
+    je personalization
+    cmp al, '2'
+    je personalization
+    cmp al, '3'
+    je personalization
+    cmp al, '4'
+    je personalization
+    cmp al, '5'
+    je personalization
+
+    ; If invalid, display error and retry
+    lea dx, newline
+    int 21h
+    mov ah, 09h
+   
+    mov ah, 09h
+    lea dx, invalid_color
+    int 21h
+    jmp colour
+
+colour endp
+
+personalization proc
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    lea dx, personalization_prompt_part
+    call display_line
+   
+
+    ; Read user input for personalization selection
+    mov ah, 01h
+    int 21h
+    sub al, '0'
+    cmp al, 1
+    je add_personalization
+	
+
+    cmp al, 2
+    je skip_personalization
+
+    ; Invalid input handling
+    lea dx, invalid_message
+    call display_line
+    jmp personalization
+
+add_personalization:
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    lea dx, personalizationoption1
+    call display_line
+    lea dx, personalizationoption2
+    call display_line
+    lea dx, personalizationoption3
+    call display_line
+    lea dx, personalizationoption4
+    call display_line
+    lea dx, personalizationoption5
+    call display_line
+    lea dx, personalizationoption6
+    call display_line
+    lea dx, personalizationoption7
+    call display_line
+    lea dx, personalizationoption8
+    call display_line
+    lea dx, personalizationoption9
+    call display_line
+    lea dx, personalizationoption10
+    call display_line
+    
+   
+	mov ah, 01h
+    int 21h
+    mov personaloption, al
+    
+	; Check if the input is valid
+    cmp al, '1'
+    je perosonalwrite1
+    cmp al, '2'
+    je perosonalwrite1
+    cmp al, '3'
+    je perosonalwrite1
+    cmp al, '4'
+    je perosonalwrite1
+	
+	mov ah, 09h
+    lea dx, invalid_front
+    int 21h
+    jmp personalization
+perosonalwrite1:
+jmp perosonalwrite 
+
+skip_personalization:
+mov ah, 09h
+lea dx, newline
+int 21h
+
+mov recordq, 0
+call readq
+
+cmp useroption, '1'
+je coffeecup2
+cmp useroption, '2'
+je acemedium2
+cmp useroption, '3'
+je acemega2
+cmp useroption, '4'
+je crayon2
+
+
+coffeecup2:
+mov bx, recordq
+add coffeecup, bx
+mov ah, 09h
+lea dx, newline
+    int 21h
+   
+    mov ah, 09h
+    lea dx, ccup
+    int 21h
+jmp orderagain
+
+acemedium2:
+mov bx, recordq
+add acemedium, bx
+mov ah, 09h
+lea dx, newline
+  int 21h
+ 
+    mov ah, 09h
+    lea dx, acemed
+    int 21h
+jmp orderagain
+
+acemega2:
+mov bx, recordq
+add acemega, bx
+mov ah, 09h
+lea dx, newline
+    int 21h
+   
+
+    mov ah, 09h
+    lea dx, acemeg
+    int 21h
+jmp orderagain
+
+crayon2:
+mov bx, recordq
+add crayon, bx
+mov ah, 09h
+lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, crayonmsg
+    int 21h
+jmp orderagain
+personalization endp
+
+perosonalwrite proc
+mov ah, 09h
+lea dx, newline
+ int 21h
+  
+
+    mov ah, 09h
+    lea dx, personalmessege
+    int 21h
+    
+	lea di, pmessege
+	mov cx, 20
+
+read_personal:
+	mov ah, 01h
+	int 21h
+
+	cmp al, 0dh
+	je end_personal
+	mov[di], al
+	inc di
+	loop read_personal
+
+
+end_personal :
+	mov ah, 09h
+	lea dx,newline
+	int 21h
+
+mov recordq,0
+call readq
+
+cmp useroption, '1'
+je coffeecup3
+cmp useroption, '2'
+je acemedium3
+cmp useroption, '3'
+je acemega3
+cmp useroption, '4'
+je crayon3
+	
+coffeecup3:
+mov bx, recordq
+add coffeecup1, bx
+jmp orderagain
+
+acemedium3:
+mov bx, recordq
+add acemedium1, bx
+jmp orderagain
+
+acemega3:
+mov bx, recordq
+add acemega1, bx
+jmp orderagain
+
+crayon3:
+mov bx, recordq
+add crayon1, bx
+jmp orderagain
+	
+perosonalwrite endp
+
+orderagain:
+mov ah, 09h
+lea dx, newline
+int 21h
+
+
+mov ah,09h
+lea dx ,orderagain1
+INT 21H
+
+mov ah, 01h
+    int 21h
+    mov orderagainoption, al
+    
+	; Check if the input is valid
+    cmp al, 'Y'
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    je displaymenu1
+    cmp al, 'N'
+    je MEMBERSHIP_FUNC
+    
+    lea dx, invalid_message
+    call display_line
+    jmp orderagain
+	
+displaymenu1:
+jmp display_menu	
+MEMBERSHIP_FUNC proc
+lea dx, newline
+int 21h
+mov ah,09h
+
+	mov ah, 09h
+    lea dx, membership	
+	INT 21H
+	
+	mov ah, 01h
+    int 21h
+    mov membershipoption, al
+	
+	cmp al, 'Y'
+    je membershipmes0
+    cmp al, 'N'
+    je reg_FUNC
+	
+	mov ah, 09h
+	lea dx, newline
+    int 21h
+    
+	
+	mov ah, 09h
+    lea dx, invalidmsg
+    int 21h
+    jmp membership_func
+	
+membershipmes0:
+mov ah, 09h
+lea dx, newline
+int 21h
+
+
+	MOV AH, 09H
+    lea dx, membershipmes1
+    int 21h
+	
+	lea di, membermessege
+	mov cx, 20
+
+read_member:
+	mov ah, 01h
+	int 21h
+
+	cmp al, 0dh
+	je end_member
+	mov[di], al
+	inc di
+	loop read_member
+
+
+end_member :
+	mov ah, 09h
+	lea dx,newline
+	int 21h
+	
+
+jmp delivery_func
+    
+membership_func endp
+
+paymentmethod1:
+jmp paymentmethod
+
+REG_FUNC proc
+mov ah, 09h
+lea dx, newline
+int 21h
+
+
+	mov ah, 09h
+    lea dx, ask_reg_msg	
+	INT 21H
+	
+	mov ah, 01h
+    int 21h
+    mov regoption, al
+	
+	cmp al, 'Y'
+    je reg
+    cmp al, 'N'
+    jmp delivery_func
+	
+	mov ah, 09h
+	lea dx, newline
+    int 21h
+   
+	
+	mov ah, 09h
+    lea dx, invalidmsg
+    int 21h
+    jmp REG_FUNC
+	
+reg:
+mov ah, 09h
+	lea dx, newline
+	int 21h
+	
+
+	MOV AH, 09H
+    lea dx, reg_msg1
+    int 21h
+	
+	lea di, regmessege
+	mov cx, 20
+
+read_reg:
+	mov ah, 01h
+	int 21h
+
+	cmp al, 0dh
+	je end_reg
+	mov[di], al
+	inc di
+	loop read_reg
+
+end_reg :
+	mov ah, 09h
+	lea dx,newline
+	int 21h
+	
+
+    mov membershipoption, 'Y'
+
+jmp delivery_func
+    
+reg_func endp
+
+DELIVERY_FUNC proc
+mov ah, 09h
+	lea dx, newline
+	int 21h
+	
+
+	mov ah,09h
+    lea dx, deliveryopt
+	int 21h
+
+	mov ah, 01h
+    int 21h
+    mov deliveryoption, al
+	
+    cmp al, 'Y'
+    je delivery1
+    cmp al, 'N'
+    je end_delivery1
+	
+	lea dx, newline
+    int 21h
+    mov ah, 09h
+	
+	mov ah, 09h
+    lea dx, invalidmsg
+    int 21h
+    jmp DELIVERY_FUNC
+end_delivery1:
+jmp end_delivery
+
+	delivery1:
+	mov ah, 09h
+	lea dx, newline
+	int 21h
+	
+
+	MOV AH, 09H
+    lea dx, delivery_mes2
+    int 21h
+	MOV AH, 09H
+	lea dx, newline
+    int 21h
+	MOV AH, 09H
+    lea dx, delivery_mes3
+    int 21h
+	MOV AH, 09H
+	lea dx, newline
+    int 21h
+	MOV AH, 09H
+    lea dx, delivery
+    int 21h
+	
+	mov ah, 01h
+    int 21h
+    mov deliveryoption2, al
+	
+	cmp al, 'S'
+    je delivery0
+    cmp al, 'E'
+    je delivery0
+	
+	mov ah, 09h
+	lea dx, newline
+    int 21h
+    
+	
+	mov ah, 09h
+    lea dx, invalidmsg
+    int 21h
+    jmp delivery_func
+
+	delivery0:
+	mov ah, 09h
+	lea dx, newline
+	int 21h
+	
+
+	MOV AH, 09H
+    lea dx, deliveryadd
+    int 21h
+	
+	lea di, deliverymessege
+	mov cx, 40
+
+	read_delivery:
+	mov ah, 01h
+	int 21h
+
+	cmp al, 0dh
+	je end_delivery
+	mov[di], al
+	inc di
+	loop read_delivery
+
+
+	end_delivery :	
+	mov ah, 09h
+	lea dx,newline
+	int 21h
+	
+
+	jmp paymentmethod
+delivery_func endp
+
+
+
+
+paymentmethod proc
+mov ah, 09h
+lea dx, newline
+int 21h
+
+MOV ah,09h
+lea dx,item
+int 21h
+
+add coffeecup,30h
+cmp coffeecup,'0'
+jg cf0
+JMP acemedium0
+
+cf0:
+mov ah, 09h
+lea dx, newline
+int 21h
+mov ah,09h
+lea dx ,coffeecup9
+INT 21H
+
+	mov ax, coffeecup
+	sub ax, 30h
+    
+	LEA SI,price_buffer
+	call PRINT_DECIMAL
+	
+	mov dx, coffeecup
+	add dailycoffeecup, dx
+	SUB dailycoffeecup,30H
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 55      
+    mov bl, al
+    mov ax, coffeecup
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricecoffeecup, ax
+   
+    LEA SI,price_buffer
+    call printd
+    mov bx, pricecoffeecup
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+acemedium0:
+add acemedium,30h
+cmp acemedium,'0'
+jg acemediumf
+JMP acemega0
+
+acemediumf:
+
+mov ah,09h
+lea dx ,acemedium9
+INT 21H
+    
+    mov ax, acemedium
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+	mov dx, acemedium
+	add dailymedium, dx
+	SUB dailymedium,30H
+	
+	mov ah,09h
+	lea dx,SPACE
+	int 21h
+	
+    mov al, 66    
+    mov bl, al
+    mov ax, acemedium
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricemedium, ax
+
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricemedium
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+
+acemega0:
+    add acemega,30h
+    cmp acemega,'0'
+    jg acemegaf
+    JMP crayon0
+
+acemegaf:
+ 
+
+mov ah,09h
+lea dx ,acemega9
+INT 21H
+
+	mov ax, acemega
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov dx, acemega
+	add dailymega, dx
+	SUB dailymega,30H
+	
+	  mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 88 
+    mov bl, al
+    mov ax, acemega
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricemega, ax
+    
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricemega
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+
+crayon0:
+    add crayon,30h
+    cmp crayon,'0'
+    jg crayonf
+    JMP cfadd1
+
+crayonf:
+
+mov ah,09h
+lea dx ,crayon9
+INT 21H
+
+	mov ax, crayon
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+
+    mov dx, crayon
+	add dailyflask, dx
+	SUB dailyflask,30H
+	
+	   mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 99      
+    mov bl, al
+    mov ax, crayon
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricecrayon, ax
+    
+
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricecrayon
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+cfadd1:
+    add coffeecup1,30h
+    cmp coffeecup1,'0'
+    jg cfadd
+    JMP acemediumadd1
+
+cfadd:
+  
+mov ah,09h
+lea dx ,coffeecup10
+INT 21H
+
+    mov ax, coffeecup1
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+	mov dx, coffeecup1
+	add dailycoffeecup1, dx
+	SUB dailycoffeecup1,30H
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 65      
+    mov bl, al
+    mov ax, coffeecup1
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricecoffeecup1, ax
+   
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricecoffeecup1
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+ 
+acemediumadd1:
+
+add acemedium1,30h
+cmp acemedium1,'0'
+jg acemediumadd
+JMP acemegaadd1
+
+acemediumadd:
+ 
+
+mov ah,09h
+lea dx ,acemedium10
+INT 21H
+    
+    mov ax, acemedium1
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+	mov dx, acemedium1
+	add dailymedium1, dx
+	SUB dailymedium1,30H
+	
+	mov ah,09h
+	lea dx,SPACE
+	int 21h
+	
+    mov al, 76    
+    mov bl, al
+    mov ax, acemedium1
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricemedium1, ax
+
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricemedium1
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+
+acemegaadd1:
+    add acemega1,30h
+    cmp acemega1,'0'
+    jg acemegaadd
+    JMP crayonadd1
+
+acemegaadd:
+ 
+
+mov ah,09h
+lea dx ,acemega10
+INT 21H
+
+	mov ax, acemega1
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov dx, acemega1
+	add dailymega1, dx
+	SUB dailymega1,30H
+	
+	  mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 98 
+    mov bl, al
+    mov ax, acemega1
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricemega1, ax
+    
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricemega1
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+  
+
+
+crayonadd1:
+    add crayon1,30h
+    cmp crayon1,'0'
+    jg crayonadd
+    JMP TEST2
+
+crayonadd:
+
+mov ah,09h
+lea dx ,crayon10
+INT 21H
+
+	mov ax, crayon1
+	sub ax, 30h
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+    mov dx, crayon1
+	add dailyflask1, dx
+	SUB dailyflask1,30H
+	
+	   mov ah,09h
+	lea dx,SPACE
+	int 21h
+    mov al, 109      
+    mov bl, al
+    mov ax, crayon1
+    sub ax, 30h
+    xor bh, bh
+    xor dx, dx
+    mul bx
+    mov pricecrayon1, ax
+    
+
+    LEA SI, price_buffer
+    call printd
+    mov bx, pricecrayon1
+    add subtotal, bx
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+
+TEST2:
+mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+    mov ah,09h
+	lea dx,RECEIPT0
+	int 21h
+
+    mov ax, subtotal
+
+    lea dx, price_buffer
+    call printd
+    mov bx, subtotal
+    add total_payable, bx
+	mov ah,09h
+
+mov ah, 09h
+    lea dx, newline
+    int 21h
+ 
+
+	lea dx,RECEIPT2
+	int 21h
+	mov ah,09h
+
+    cmp deliveryoption, 'Y'
+    je deliverym
+    mov ah, 09h
+
+    lea dx, deliveryn
+    int 21h
+    jmp receipth
+    
+    deliverym:
+    cmp deliveryoption2, 'S'
+    je delivery03
+    mov ah, 09h
+    lea dx, deliverye
+    int 21h
+    mov bx, 5
+    add total_payable, bx
+    jmp receipth
+
+    delivery03:
+    mov ah, 09h
+    lea dx, deliverys
+    int 21h
+    mov bx, 3
+    add total_payable, bx
+
+    receipth:
+
+mov ah, 09h
+    lea dx, newline
+    int 21h
+ 
+
+    mov ah, 09h
+	lea dx,RECEIPT3
+	int 21h
+    cmp membershipoption, 'Y'
+    je membershipa
+    mov ah, 09h
+	lea dx, deliveryn
+    int 21h
+    jmp receipt44
+    membershipa:
+    mov ah, 09h
+    lea dx, membershipb
+    int 21h
+    mov bx, 15
+    sub total_payable, bx
+
+    receipt44:
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+    mov ah,09h
+	lea dx,RECEIPT4
+	int 21h
+    mov ax, total_payable
+    lea si, price_buffer
+    call printd
+
+    sst1:
+	
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    lea dx, sstmsg
+    int 21h
+    xor dx, dx
+    mov ax, total_payable
+    mov bx, 5
+    mul bx
+    mov cx, 100
+    div cx
+    mov totalpay, ax
+    mov totaldecimal, dx
+    mov fordecimal, dx
+    call printd
+    mov fordecimal, 0
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+    finalt:
+    mov ah, 09h
+    lea dx, finaltotal1
+    int 21h
+
+    mov bx, total_payable
+    mov finaltotal, bx
+    mov bx, totalpay
+    add finaltotal, bx
+    mov ax, finaltotal
+    mov dx, totaldecimal
+    mov fordecimal, dx
+    call printd
+    mov fordecimal,0
+
+mov ah, 09h
+    lea dx, newline
+    int 21h
+  
+mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+	mov ah,09h
+	lea dx,RECEIPT5
+	int 21h
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+   
+
+    lea dx, payment1
+    call print_string
+    lea dx, payment2
+    call print_string
+    lea dx, payment3
+    call print_string
+
+get_payment_method:
+    ; Ask for payment method
+    lea dx, paymsg0
+    call print_string
+    ; Get user input
+    mov ah, 01h       
+    int 21h
+    mov user_input, al
+    ; Convert lowercase to uppercase if needed
+    cmp al, 'a'
+    jl check_input
+    cmp al, 'z'
+    jg check_input
+    sub al, 20h         ; Convert to uppercase
+
+check_input:
+    ; Compare payment method
+    cmp al, 'T'
+    je touch_n_go1
+    cmp al, 'C'
+    je credit_card
+    cmp al, 'D'
+    je debit_card
+
+    ; Invalid input
+    lea dx, newline
+    int 21h
+    mov ah, 09h
+    lea dx, paymsg4
+    call print_string
+    jmp get_payment_method
+
+credit_card:
+    ; Get card number
+    lea dx, paymsg1
+    call print_string
+    lea dx, credit_card_input
+    call read_string
+    ; Check if 16 digits
+    mov al, credit_card_input[1] ; Get actual length
+    cmp al, 16
+    jne invalid_card
+    ; Get PIN
+    lea dx, paymsg2
+    call print_string
+    lea dx, credit_pin_input
+    call read_string
+    ; Check if 6 digits
+    mov al, credit_pin_input[1]
+    cmp al, 6
+    jne invalid_pin
+    jmp payment_success
+	
+touch_n_go1:
+jmp touch_n_go
+
+debit_card:
+    ; Get card number
+    lea dx, paymsg1
+    call print_string
+    lea dx, debit_card_input
+    call read_string
+    ; Check if 16 digits
+    mov al, debit_card_input[1] ; Get actual length
+    cmp al, 16
+    jne invalid_card
+    ; Get PIN
+    lea dx, paymsg2
+    call print_string
+    lea dx, debit_pin_input
+    call read_string
+    ; Check if 6 digits
+    mov al, debit_pin_input[1]
+    cmp al, 6
+    jne invalid_pin
+    jmp payment_success
+
+invalid_card:    
+    lea dx, invalidcardmsg
+    call print_string
+    jmp get_payment_method
+
+invalid_pin:
+    lea dx, invalidpinmsg
+    call print_string
+    jmp get_payment_method
+
+touch_n_go:
+    ; Display QR code
+    lea dx, qr
+    call print_string
+	MOV AH,09H
+	LEA DX,gobackmsg
+	INT 21H
+	MOV AH,01H
+	INT 21H
+	
+    jmp payment_success
+
+;Receipt
+payment_success:
+
+    
+    lea dx, paymsg3
+    call print_string
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, item1
+    int 21h
+
+    cmp coffeecup, '0'
+    jg coffeecupp
+    jmp acemediumm
+
+    coffeecupp:
+    mov ah, 09h
+lea dx, newline
+int 21h
+    mov ah, 09h
+    lea dx, coffeecup9
+    int 21h
+
+    mov ax, coffeecup
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricecoffeecup
+
+	lea si, price_buffer
+    call printd
+
+mov ah, 09h
+lea dx, newline
+int 21h
+    acemediumm:
+    cmp acemedium, '0'
+    jg acemediummm
+    jmp acemegaa
+
+    acemediummm:
+    mov ah, 09h
+    lea dx, acemedium9
+    int 21h
+
+    mov ax, acemedium
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricemedium
+
+	lea si, price_buffer
+    call printd
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    acemegaa:
+    cmp acemega, '0'
+    jg acemegaaa
+    jmp crayonn
+
+    acemegaaa:
+
+    mov ah, 09h
+    lea dx, acemega9
+    int 21h
+
+    mov ax, acemega
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricemega
+
+	lea si, price_buffer
+    call printd
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    crayonn:
+    cmp crayon, '0'
+    jg crayonnn
+    jmp coffeecupp1
+
+    crayonnn:
+    
+    
+    mov ah, 09h
+    lea dx, crayon9
+    int 21h
+
+    mov ax, crayon
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricecrayon
+
+	lea si, price_buffer
+    call printd
+	
+mov ah, 09h
+lea dx, newline
+int 21h
+
+    coffeecupp1:
+    cmp coffeecup1, '0'
+    jg coffeecuppp1
+    jmp acemediumm1
+
+    coffeecuppp1:
+    
+    mov ah, 09h
+    lea dx, coffeecup10
+    int 21h
+
+    mov ax, coffeecup1
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricecoffeecup1
+
+	lea si, price_buffer
+    call printd
+	
+	mov ah, 09h
+lea dx, newline
+int 21h
+
+    acemediumm1:
+    cmp acemedium1, '0'
+    jg acemediummm1
+    jmp acemegaa1
+
+    acemediummm1:
+    
+    mov ah, 09h
+    lea dx, acemedium10
+    int 21h
+
+    mov ax, acemedium1
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricemedium1
+
+	lea si, price_buffer
+    call printd
+	
+	mov ah, 09h
+lea dx, newline
+int 21h
+
+    acemegaa1:
+    cmp acemega1, '0'
+    jg acemegaaa1
+    jmp crayonn1
+
+    acemegaaa1:
+   
+    mov ah, 09h
+    lea dx, acemega10
+    int 21h
+
+    mov ax, acemega1
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricemega1
+
+	lea si, price_buffer
+    call printd
+	
+	mov ah, 09h
+lea dx, newline
+int 21h
+
+    crayonn1:
+    cmp crayon1, '0'
+    jg crayonnn1
+    jmp subtotall
+
+    crayonnn1:
+   
+    mov ah, 09h
+    lea dx, crayon10
+    int 21h
+
+    mov ax, crayon1
+    sub ax, 30h
+
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, space
+    int 21h
+
+    mov ax, pricecrayon1
+
+	lea si, price_buffer
+    call printd
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    subtotall:
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, receipt0
+    int 21h
+
+    mov ax, subtotal
+    lea dx, price_buffer
+    call printd
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, receipt2
+    int 21h
+
+    cmp deliveryoption, 'Y'
+    je deliveryo
+    mov ah, 09h
+    lea dx, deliveryn
+    int 21h
+    jmp receipt333
+    deliveryo:
+    cmp deliveryoption2, 'S'
+    je deliveryoo
+    mov ah, 09h
+    lea dx, deliverye
+    int 21h
+    jmp receipt333
+    deliveryoo:
+    mov ah, 09h
+    lea dx, deliverys
+    int 21h
+    receipt333:
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, receipt3
+    int 21h
+    cmp membershipoption, 'Y'
+    je membershipp
+    mov ah, 09h
+    lea dx, deliveryn
+    int 21h
+    jmp receipt444
+    membershipp:
+    mov ah, 09h
+    lea dx, membershipb
+    int 21h
+    receipt444:
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, receipt4
+    int 21h
+    mov ax, total_payable
+    lea si, price_buffer
+    call print_decimal
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    sst2:
+    mov ah, 09h
+    lea dx, sstmsg
+    int 21h
+    mov ax, totalpay
+    mov dx, totaldecimal
+    mov fordecimal, dx
+    call printd
+    mov fordecimal, 0
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    
+    finalt1:
+    mov ah, 09h
+    lea dx, finaltotal1
+    int 21h
+
+    mov ax, finaltotal
+    mov dx, totaldecimal
+    mov fordecimal, dx
+    call printd
+    mov fordecimal,0
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, receipt5
+    int 21h
+    
+	MOV AH,09H
+	LEA DX,newline
+	INT 21H
+	mov ah,09h
+	lea dx,gobackmsg
+	int 21h
+    mov ah, 01h
+    int 21h
+    jmp display_logo
+
+
+exit_program:
+    mov ah, 4Ch
+    int 21h
+paymentmethod endp
+
+; Subroutine to read a string
+read_string proc
+    mov ah, 0Ah        
+    int 21h
+    ret
+read_string endp
+
+; Subroutine to print a string
+print_string proc
+    mov ah, 09h        
+    int 21h
+    ret
+print_string endp
+
+
+; Procedure for Employee flow
+employee_flow proc
+    ; Call login process
+    call login
+    ret
+employee_flow endp
+
+; Procedure for invalid choice
+invalid_choice1 proc
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+	
+    mov ah, 09h
+    lea dx, msg6
+    int 21h
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    call play_error_sound
+    ret
+invalid_choice1 endp
+
+; Procedure for login with sound
+login proc
+    ; Show Employee ID prompt
+Username1:
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    mov ah, 09h
+    lea dx, msg1
+    int 21h
+
+    ; Read the Employee ID
+    mov ah, 0Ah
+    lea dx, login1
+    int 21h
+    sub AL,30h
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    ; Compare the Employee ID manually
+    MOV SI , 0
+    MOV DI , 0
+    MOV CX , 8
+compare_username:
+    mov Bl,username[si]
+    cmp Bl,correct_username[di]
+    jne correct2
+    inc si
+    inc di
+    loop compare_username
+    cmp ACTCHAR, 8
+    jne invalid_username
+    jmp Password1
+
+correct2:
+    mov si, 0
+    mov di, 0
+    mov cx, 7
+compare_username2:
+    mov BL, username[si]
+    cmp BL, correct_username2[di]
+    jne correct3
+    inc si
+    inc di
+    loop compare_username2
+    cmp ACTCHAR, 7
+    jne invalid_username
+    jmp Password1
+
+correct3:
+    mov si , 0
+    mov di , 0
+    mov cx , 6
+compare_username3:
+    mov bl, username[si]
+    cmp Bl, correct_username3[di]
+    jne correct4
+    inc SI
+    INC DI
+    LOOP compare_username3
+    cmp ACTCHAR , 6
+    jne invalid_username
+    jmp Password1
+
+correct4:
+    mov si , 0
+    mov di , 0
+    mov cx , 6
+compare_username4:
+    mov bl, username[si]
+    cmp bl, correct_username4[di]
+    jne invalid_username
+    inc si
+    inc di
+    loop compare_username4
+    cmp ACTCHAR, 6
+    jne invalid_username
+    jmp Password1
+
+invalid_username:
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    lea dx, msg4
+    int 21h
+    lea dx, newline
+    int 21h
+    ; Play error sound
+    mov ax, 0
+    mov bx, 500; Frequency
+    mov cx, 2; Duration
+    call play_sound
+    jmp Username1
+
+Password1:
+    mov ah, 09h
+    lea dx, msg2
+    int 21h
+    ; Read the Access Code
+    mov ah, 0Ah
+    lea dx, password
+    int 21h
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    ; Compare the Access Code manually
+    lea si, password + 2
+    lea di, correct_password
+    mov cx, 4
+compare_password:
+    mov al, [si]
+    cmp al, [di]
+    jne invalid_password
+    inc si
+    inc di
+    loop compare_password
+    ; If both match, show login successful message 
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+    lea dx, msg3
+    int 21h
+	jmp calReportFunc
+    ; Play success sound
+    mov ax, 0
+    mov bx, 1000; Frequency
+    mov cx, 3; Duration
+    call play_sound
+    ret
+
+invalid_password:
+mov ah, 09h
+    lea dx, newline
+    int 21h
+	
+    mov ah, 09h
+    lea dx, msg5
+    int 21h
+	
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+    ; Play error sound
+    mov ax, 0
+    mov bx, 500; Frequency
+    mov cx, 2; Duration
+    call play_sound
+    jmp Password1
+login endp
+
+calReportFunc proc
+calReportFunc endp
+		
+dailyReportFunc proc
+        MOV TOTALSUB,0
+        mov ah,09h           
+        lea dx,newline
+        int 21h
+        mov ah,09h
+        lea dx,reportTitle
+        int 21h
+        mov ah,09h
+        lea dx,newline
+        int 21h
+        mov ah,09h
+        lea dx,dailyitem
+        int 21h
+        mov ah,09h
+        lea dx,newline
+        int 21h
+	
+        mov ah,09h
+        lea dx,dailycoffeecupmsg 
+
+        int 21h
+		
+	
+		
+    mov ax,dailycoffeecup
+    mov dailyquantity ,0
+
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailycoffeecup
+        mov bx,55
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+    lea dx,newline
+    int 21h
+
+
+    mov ah,09h
+    lea dx,dailymediummsg 
+    int 21h
+		
+    mov ax,dailymedium
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailymedium
+        mov bx,66
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+	
+	mov ah,09h
+    lea dx,dailymegamsg
+    int 21h
+		
+    mov ax,dailymega
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailymega
+        mov bx,88
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+	
+	mov ah,09h
+    lea dx,dailyflaskmsg
+    int 21h
+		
+    mov ax,dailyflask
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailyflask
+        mov bx,99
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+	
+    mov ah,09h
+    lea dx,dailycoffeecupmsg1
+    int 21h
+		
+    mov ax,dailycoffeecup1
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailycoffeecup1
+        mov bx,65
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+
+    mov ah,09h
+    lea dx,dailymediummsg1
+    int 21h
+		
+    mov ax,dailymedium1
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailymedium1
+        mov bx,76
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+
+	mov ah,09h
+    lea dx,dailymegamsg1
+    int 21h
+		
+    mov ax,dailymega1
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailymega1
+        mov bx,98
+		MUL BX
+ADD totalsub,ax
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	mov ah,09h
+        lea dx,newline
+        int 21h
+
+	mov ah,09h
+    lea dx,dailyflaskmsg1
+    int 21h
+		
+    mov ax,dailyflask1
+    add dailyquantity, ax
+    LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+    mov ah,09h
+	lea dx,SPACE
+	int 21h  	
+        mov ax,0
+        mov bx,0
+        mov cx,0
+        mov dx,0 
+        mov ax,dailyflask1
+        mov bx,109
+		MUL BX
+      ADD totalsub,ax
+	
+	LEA SI, price_buffer
+	call PRINT_DECIMAL
+	
+	mov ah,09h
+    lea dx,newline
+    int 21h
+	mov ah,09h
+	lea dx,dailySalesMsg
+	int 21h
+	mov ax,TOTALSUB
+	call print_decimal
+
+	mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, dailyquantitymsg
+    int 21h
+
+    mov ax, dailyquantity
+    call print_decimal
+	
+	mov ah,09h
+    lea dx,newline
+    int 21h
+    MOV AH,09H
+	LEA DX,gobackmsg
+	INT 21H
+	mov ah,09h
+        lea dx,newline
+        int 21h
+		
+	
+	
+
+       
+;Print End of Table
+        mov ah,09h
+        lea dx,printTable 
+        int 21h
+		
+		mov ah,01h
+		int 21h
+        jmp display_logo
+        dailyReportFunc endp
+		
+; Procedure to play error sound
+play_error_sound proc
+    mov ax, 0
+    mov bx, 500 ; Frequency
+    mov cx, 2   ; Duration
+    call play_sound
+    ret
+play_error_sound endp
+
+; Procedure to play success sound
+play_success_sound proc
+    mov ax, 0
+    mov bx, 1000 ; Frequency
+    mov cx, 3    ; Duration
+    call play_sound
+    ret
+play_success_sound endp
+
+; Procedure to play sound
+play_sound proc
+    push ax
+    push bx
+    push cx
+    push dx
+
+    mov al, 182
+    out 43h, al
+    mov ax, bx
+    out 42h, al
+    mov al, ah
+    out 42h, al
+    in al, 61h
+    or al, 00000011b
+    out 61h, al
+    mov bx, cx
+
+pause1:
+    mov cx, 65535
+pause2:
+    loop pause2
+    dec bx
+    jne pause1
+
+    in al, 61h
+    and al, 11111100b
+    out 61h, al
+
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    ret
+play_sound endp
+
+PRINT_DECIMAL:
+    ; Assuming AX has the number to print
+    XOR SI, SI
+    XOR CX, CX        ; Clear CX
+    MOV BX, 10        ; Base 10
+
+NEXT_DIGIT:
+    XOR DX, DX        ; Clear DX
+    DIV BX            ; Divide AX by 10, remainder in DX
+    PUSH DX           ; Push remainder (digit)
+    INC CX            ; Increment count of digits
+    TEST AX, AX       ; Test if AX is 0
+    JNZ NEXT_DIGIT    ; Repeat until AX becomes 0
+
+PRINT_LOOP:
+    CMP CX,0
+    JZ ENDPRINT
+    POP DX
+    ADD DL, 30H
+    MOV AH, 02H
+    INT 21H
+    DEC CX
+    JMP PRINT_LOOP
+    
+    ENDPRINT:
+    RET
+
+    readq:
+    mov ah, 09h
+    lea dx, insertq
+    int 21h
+    mov si,0
+    xor ax, ax
+    xor cx, cx
+
+    readq1:
+    cmp si, 5
+    je error1
+    mov ah, 01h
+    int 21h
+    cmp al,13
+    je endq
+    sub al, '0'
+    cmp al, 9
+    jg error1
+    push ax
+    mov ax, cx
+    mov bx, 10
+    mul bx
+    pop bx
+    xor bh, bh
+    add ax, bx
+    mov cx, ax
+    inc si
+    cmp cx, 9999
+    jle readq1
+    jmp error1
+
+    endq:
+    mov recordq, cx
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    ret
+
+    error1:
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    mov ah, 09h
+    lea dx, errormsg
+    int 21h
+
+    mov ah, 09h
+    lea dx, newline
+    int 21h
+
+    jmp readq
+
+    printd:
+    call print_decimal
+    mov dl, '.'
+    mov ah, 02h
+    int 21h
+    mov ax, fordecimal
+    cmp ax,0
+    je decimall
+    cmp ax, 9
+    jle decimall1
+    call print_decimal
+    ret
+
+    decimall:
+    mov dl,'0'
+    mov ah, 02h
+    int 21h
+
+    mov dl,'0'
+    mov ah, 02h
+    int 21h
+
+    ret
+
+    decimall1:
+    mov dl,'0'
+    mov ah, 02h
+    int 21h
+
+    call print_decimal
+    ret
+
+
+
+EXIT0:
+; End program
+    mov ax, 4c00h
+    int 21h
+main endp	
+end main
