@@ -144,6 +144,10 @@
     
     SELECTED_CATEGORY  	DB ?
     SELECTED_PROD 		DB ?
+	SELECTED_METHOD_PAY DB ?
+	SEL_METHOD_PAY_C	DB	"  |   PAYMENT METHOD   :                CASH      |$"
+	SEL_METHOD_PAY_T	DB	"  |   PAYMENT METHOD   :                 TnG      |$"
+
     QTY_OF_PROD     	DB ?    ;  55
     PRICE_OF_PROD      	DB ?    ;   4
     TOTAL_COST      	DW ?    ; 220
@@ -256,14 +260,15 @@
 						DB	"  |   - - - - - - - - - - - - - - - - - - - - -   |", 0AH, 0DH	 ;0EH	
 						DB	"  |                                               |", 0AH, 0DH	 ;0FH
 						DB	"  |                                               |", 0AH, 0DH  ;10H
-						DB	"  |        THANKS FOR USING OUR SYSTEM !!!        |", 0AH, 0DH	 ;11H
-						DB	"  |             SEE YOUR NEXT TIME !!!            |", 0AH, 0DH  ;12H
-						DB	"  |                                               |", 0AH, 0DH  ;13H	
-						DB	"  |_______________________________________________|", 0AH, 0DH	 ;14H	
-						DB	"                                                   ", 0AH, 0DH	 ;15H	
-						DB	"           <ENTER>  TO  RETURN  HOMEPAGE           ", 0AH, 0DH	 ;16H
-						DB	"                                                   ", 0AH, 0DH	 ;17H	
-						DB	"                                                   ", 0AH, 0DH,"$";18H			
+						DB	"  |                                               |", 0AH, 0DH  ;11H
+						DB	"  |        THANKS FOR USING OUR SYSTEM !!!        |", 0AH, 0DH	 ;12H
+						DB	"  |             SEE YOUR NEXT TIME !!!            |", 0AH, 0DH  ;13H
+						DB	"  |                                               |", 0AH, 0DH  ;14H	
+						DB	"  |_______________________________________________|", 0AH, 0DH	 ;15H	
+						DB	"                                                   ", 0AH, 0DH	 ;16H	
+						DB	"           <ENTER>  TO  RETURN  HOMEPAGE           ", 0AH, 0DH	 ;17H
+						DB	"                                                   ", 0AH, 0DH	 ;18H	
+						DB	"                                                   ", 0AH, 0DH,"$";19H			
 	
 
 	SALES_DATA      	DB  0, 0, 0, 0        ; ARRAY FOR STORE 4 ITEM QTY AMOUNT
@@ -468,7 +473,7 @@ RECEIPT_THANKQ PROC
 		LEA DX,NO_EXIT_RECEIPT
 		INT 21H
 		
-		;MSG ITEM
+		;MSG TOTAL COST
 		MOV AH,06H
 		MOV AX,0600H
 		MOV BH,67H
@@ -493,16 +498,31 @@ RECEIPT_THANKQ PROC
 		MOV AH,09H
 		INT 21H
 		
+		;MSG PAYMENT METHOD
+		MOV AH,06H
+		MOV AX,0600H
+		MOV BH,67H
+		MOV CX,0F05H
+		MOV DX,0F2BH
+		INT 10H
+		;fontground TOTAL
+		MOV AH,02H
+		MOV BX,00H
+		MOV DH,0FH
+		MOV DL,00H
+		INT 10H
+		CALL SHOW_METHOD_PAYMENT
+		
 		;HIDE INPUT
 		MOV AH,06H
 		MOV AX,0600H
 		MOV BH,66H
-		MOV CX,1300H
-		MOV DX,1301H
+		MOV CX,1400H
+		MOV DX,1401H
 		INT 10H
 		MOV AH,02H
 		MOV BX,00H
-		MOV DH,13H
+		MOV DH,14H
 		MOV DL,00H
 		INT 10H
 		MOV AH,01H
@@ -1060,6 +1080,7 @@ DISPLAY_RECEIPT PROC
     
     MOV AH,01H
 	INT 21H
+	MOV SELECTED_METHOD_PAY,AL
 	
 	L_DECISION_RECEIPT:
 		CMP AL,'C'
@@ -1110,6 +1131,32 @@ DISPLAY_RECEIPT PROC
 	POP AX		;RECOVERY REGISTER
     RET
 DISPLAY_RECEIPT ENDP
+
+SHOW_METHOD_PAYMENT PROC
+	;SHOW PAYMENT METHOD IN RECEIPT
+    MOV AL,[SELECTED_METHOD_PAY]
+    CMP AL,'c'
+	JE L_SHOW_METHOD_PAY_CASH
+	CMP AL,'C'
+    JE L_SHOW_METHOD_PAY_CASH		; FOR CASH PAYMENT METHOD
+	CMP AL,'t'
+	JE L_SHOW_METHOD_PAY_TNG
+    CMP AL,'T'
+    JE L_SHOW_METHOD_PAY_TNG		; FOR TnG PAYMENT METHOD
+    
+	L_SHOW_METHOD_PAY_CASH:
+		LEA DX,SEL_METHOD_PAY_C
+		JMP SHOW_METHOD_PAY
+    
+	L_SHOW_METHOD_PAY_TNG:
+		LEA DX,SEL_METHOD_PAY_T
+		JMP SHOW_METHOD_PAY
+	
+	SHOW_METHOD_PAY:
+		MOV AH,09H
+		INT 21H
+	RET
+SHOW_METHOD_PAYMENT ENDP
 
 TO_CLEAR_SCREEN_TNG_FORM PROC
 	PUSH AX
@@ -1251,7 +1298,6 @@ DISPLAY_DIGIT PROC
 DISPLAY_DIGIT ENDP
 
 SHOW_PROD_INRECEIPT PROC
-
 	;SHOW PROD NAME IN RECEIPT
     MOV AL,[SELECTED_CATEGORY]
     CMP AL,'1'
